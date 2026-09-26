@@ -55,7 +55,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior managed via JS to prevent unexpected auto-scroll on load */
   font-size: 16px;
 }
 

@@ -5,6 +5,7 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initSmoothScroll();   // Must be first — prevents auto-scroll on load
   initPreloader();
   initLiveCafeStatus();
   initNavbarScroll();
@@ -18,6 +19,38 @@ document.addEventListener('DOMContentLoaded', () => {
   initReservationForm();
   initBottomDock();
 });
+
+/* ============================================================
+   SMOOTH SCROLL — JS Controlled
+   Intercepts all internal #anchor clicks and scrolls smoothly.
+   The CSS scroll-behavior:smooth is intentionally removed so the
+   browser does NOT auto-scroll on page load or hash changes.
+   ============================================================ */
+function initSmoothScroll() {
+  // Remove the hash from URL on load so browser doesn't jump
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+
+  // Intercept all same-page anchor clicks
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    const hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Update URL hash silently without triggering browser scroll
+    history.pushState(null, '', hash);
+  });
+}
+
 
 /* ============================================================
    DRIBBLE-INSPIRED HERO CAROUSEL CONTROLLER (reference.mp4)
