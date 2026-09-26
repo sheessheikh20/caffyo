@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    CAFFYO by Zauq - Main Application Controller
    Glues 3D Physics, Living Cup Assembly, Testimonial Slider,
    Mobile Drawer, Bottom Dock, and Table Booking

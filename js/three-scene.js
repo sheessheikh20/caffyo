@@ -70,8 +70,8 @@ class Caffyo3DExperience {
       this.cameraDefaultPos.set(0, 1.9, 5.3);
       this.cameraTarget.set(0, 0.25, 0);
     } else {
-      this.cameraDefaultPos.set(1.45, 2.2, 5.5);
-      this.cameraTarget.set(1.45, 0.38, 0);
+      this.cameraDefaultPos.set(0.9, 2.6, 4.4);
+      this.cameraTarget.set(0.9, 0.55, 0);
     }
     this.camera.position.copy(this.cameraDefaultPos);
     this.camera.lookAt(this.cameraTarget);
@@ -263,10 +263,10 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position: Shifted further right on desktop to avoid text overlap
+    // Position: Centered-right for cinematic hero view matching user preference
     const isMobile = window.innerWidth <= 768;
-    this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
-    this.cupGroup.rotation.set(0.30, 0.35, 0);
+    this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.22 : -0.30, 0);
+    this.cupGroup.rotation.set(0.28, 0.30, 0);
     if (isMobile) {
       this.cupGroup.scale.setScalar(0.92);
     }
@@ -685,15 +685,15 @@ class Caffyo3DExperience {
       // Aesthetic resting position & orientation auto-return
       // When user releases finger or cursor, smoothly spring back to the perfect showcase angle
       if (this.cupGroup) {
-        const restX = isMobile ? 0 : 2.9;
-        const restY = (isMobile ? -0.22 : -0.45) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const restX = isMobile ? 0 : 1.5;
+        const restY = (isMobile ? -0.22 : -0.30) + Math.sin(elapsedTime * 0.8) * 0.02;
         const restZ = 0;
 
         // Ideal aesthetic presentation angle:
-        // ~17° tilt forward (0.30 rad) displays the rosette/heart latte art clearly
-        // ~20° rotation (0.35 rad) showcases the ceramic handle and cup silhouette
-        const restRotX = 0.30;
-        const restRotY = 0.35 + Math.sin(elapsedTime * 0.3) * 0.05;
+        // ~16° tilt forward (0.28 rad) displays the rosette/heart latte art clearly
+        // ~17° rotation (0.30 rad) showcases the ceramic handle and cup silhouette
+        const restRotX = 0.28;
+        const restRotY = 0.30 + Math.sin(elapsedTime * 0.3) * 0.05;
         const restRotZ = 0;
 
         const returnSpeed = 0.055; // Silky smooth damped spring back

@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    CAFFYO by Zauq - Auto-Playing Product Assembly Animation
    - Triggers automatically when section enters viewport
    - Cinematic 3.5s single-play physical drop-in sequence

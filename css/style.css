@@ -2926,24 +2926,90 @@ img {
   color: var(--text-muted-dark);
 }
 
-/* Standalone Craft Stage Container: Pure transparent, physical isolated glass */
-.craft-stage-container {
+/* ============================================================
+   CRAFT SEQUENCE SECTION & EMPTY PLACEHOLDER CARD
+   ============================================================ */
+.craft-sequence-section {
   position: relative;
+  background: #0d0906;
+  border-top: 1px solid rgba(229, 152, 102, 0.15);
+  border-bottom: 1px solid rgba(229, 152, 102, 0.15);
+  padding: 100px 32px;
+  overflow: hidden;
+}
+
+.craft-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.craft-empty-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.craft-empty-card {
   width: 100%;
+  max-width: 580px;
+  min-height: 380px;
+  background: rgba(22, 15, 10, 0.7);
+  border: 1.5px dashed rgba(229, 152, 102, 0.35);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 32px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.craft-empty-card:hover {
+  border-color: rgba(229, 152, 102, 0.65);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 25px rgba(229, 152, 102, 0.12);
+  transform: translateY(-3px);
+}
+
+.craft-empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(229, 152, 102, 0.1);
+  border: 1px solid rgba(229, 152, 102, 0.25);
+  color: var(--gold-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  min-height: 480px;
+  margin-bottom: 24px;
 }
 
-#craft-frames-canvas {
-  width: 100%;
-  max-width: 440px;
-  height: 520px;
-  display: block;
-  background: transparent;
-  filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.45));
+.craft-empty-badge {
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-accent);
+  font-weight: 700;
+  margin-bottom: 12px;
 }
+
+.craft-empty-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.craft-empty-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted-dark);
+  letter-spacing: 1px;
+}
+
 
 

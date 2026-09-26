@@ -1,31 +1,31 @@
-/* ============================================================
+﻿/* ============================================================
    CAFFYO by Zauq - Dedicated Menu Website Stylesheet
    Forest Green & Dark Roast Luxury Palette matching official menu
    ============================================================ */
 
 :root {
-  --bg-menu-dark: #0e0a07;
-  --bg-menu-section: #140e0a;
-  --bg-menu-card: #1c140e;
-  --bg-menu-card-hover: #261b13;
+  --bg-menu-dark: #6d7f19;
+  --bg-menu-section: #6d7f19;
+  --bg-menu-card: #5f6f15;
+  --bg-menu-card-hover: #657717;
 
   /* Authentic menu forest green accent */
-  --menu-green: #1d3324;
-  --menu-green-light: #2c4d36;
-  --menu-green-glow: #2ed573;
+  --menu-green: #6d7f19;
+  --menu-green-light: #6d7f19;
+  --menu-green-glow: #a3b44e;
 
-  --gold-accent: #e59866;
-  --gold-bright: #f39c12;
-  --gold-crema: #edd5be;
+  --gold-accent: #a3b44e;
+  --gold-bright: #a3b44e;
+  --gold-crema: #dce3b9;
 
-  --text-main: #f7f1ea;
-  --text-muted: #a89a8c;
-  --text-dim: #706356;
+  --text-main: #dce3b9;
+  --text-muted: #c1cf92;
+  --text-dim: #6d7f19;
 
-  --veg-green: #2ed573;
-  --nonveg-red: #eb4d4b;
+  --veg-green: #a3b44e;
+  --nonveg-red: #6d7f19;
 
-  --border-gold: rgba(229, 152, 102, 0.2);
+  --border-gold: rgba(163, 180, 78, 0.2);
   --border-dim: rgba(255, 255, 255, 0.08);
 
   --font-serif: 'Playfair Display', 'Cinzel', Georgia, serif;
@@ -65,7 +65,7 @@ body {
   background: var(--bg-menu-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3a271c;
+  background: #6d7f19;
   border-radius: 999px;
 }
 
@@ -78,7 +78,7 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(14, 10, 7, 0.95);
+  background: rgba(109, 127, 25, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-gold);
@@ -102,7 +102,7 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 8px 14px;
-  background: rgba(229, 152, 102, 0.1);
+  background: rgba(163, 180, 78, 0.1);
   border: 1px solid var(--border-gold);
   border-radius: 4px;
   transition: var(--transition);
@@ -159,7 +159,7 @@ body {
 }
 
 .menu-cart-count {
-  background: #ff4757;
+  background: #6d7f19;
   color: #fff;
   font-size: 0.72rem;
   padding: 2px 7px;
@@ -173,7 +173,7 @@ body {
   position: sticky;
   top: 61px;
   z-index: 990;
-  background: #120c08;
+  background: #6d7f19;
   border-bottom: 1px solid var(--border-dim);
   padding: 10px 24px;
 }
@@ -306,7 +306,7 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(229, 152, 102, 0.15);
+  background: rgba(163, 180, 78, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -445,7 +445,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(14, 10, 7, 0.96);
+  background: rgba(109, 127, 25, 0.96);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid var(--border-gold);
@@ -477,7 +477,7 @@ body {
 }
 
 .btn-open-mobile-tray {
-  background: linear-gradient(135deg, var(--gold-accent), #c0392b);
+  background: linear-gradient(135deg, var(--gold-accent), #6d7f19);
   color: #fff;
   border: none;
   font-family: var(--font-sans);
@@ -517,7 +517,7 @@ body {
   width: 420px;
   max-width: 90vw;
   height: 100vh;
-  background: #140d09;
+  background: #6d7f19;
   border-left: 1px solid var(--border-gold);
   z-index: 2001;
   display: flex;
@@ -569,7 +569,7 @@ body {
 .cart-drawer-footer {
   padding: 20px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: #0d0805;
+  background: #6d7f19;
 }
 
 .order-type-toggle {
@@ -691,7 +691,7 @@ body {
   gap: 7px;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #2ed573;
+  color: #a3b44e;
   background: rgba(46, 213, 115, 0.1);
   border: 1px solid rgba(46, 213, 115, 0.25);
   padding: 5px 12px;
@@ -702,8 +702,8 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #2ed573;
-  box-shadow: 0 0 8px #2ed573;
+  background: #a3b44e;
+  box-shadow: 0 0 8px #a3b44e;
   animation: pulse-dot 1.6s infinite;
 }
 
@@ -747,22 +747,22 @@ body {
 }
 
 .spotlight-card.coffee-card {
-  background: linear-gradient(135deg, #163622 0%, #0d2114 100%);
+  background: linear-gradient(135deg, #6d7f19 0%, #6d7f19 100%);
   border-color: rgba(46, 213, 115, 0.3);
 }
 
 .spotlight-card.cold-card {
-  background: linear-gradient(135deg, #142f3d 0%, #0a1b24 100%);
+  background: linear-gradient(135deg, #6d7f19 0%, #6d7f19 100%);
   border-color: rgba(52, 152, 219, 0.3);
 }
 
 .spotlight-card.frappe-card {
-  background: linear-gradient(135deg, #3d211a 0%, #26130e 100%);
+  background: linear-gradient(135deg, #6d7f19 0%, #6d7f19 100%);
   border-color: rgba(230, 126, 34, 0.3);
 }
 
 .spotlight-card.bistro-card {
-  background: linear-gradient(135deg, #382c16 0%, #21190a 100%);
+  background: linear-gradient(135deg, #6d7f19 0%, #6d7f19 100%);
   border-color: rgba(241, 196, 15, 0.3);
 }
 
@@ -860,7 +860,7 @@ body {
 .pos-input-group input,
 .pos-input-group select {
   width: 100%;
-  background: #1c130d;
+  background: #6d7f19;
   border: 1px solid var(--border-gold);
   color: #fff;
   font-family: var(--font-sans);
@@ -914,7 +914,7 @@ body {
 }
 
 .order-tracker-card {
-  background: #140d08;
+  background: #6d7f19;
   border: 1px solid var(--gold-accent);
   border-radius: 20px;
   width: 100%;
@@ -942,7 +942,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(229, 152, 102, 0.15);
+  background: rgba(163, 180, 78, 0.15);
   border: 1px solid var(--gold-accent);
   display: flex;
   align-items: center;
@@ -988,7 +988,7 @@ body {
   left: 0;
   height: 100%;
   width: 45%;
-  background: linear-gradient(90deg, #2ed573, var(--gold-bright));
+  background: linear-gradient(90deg, #a3b44e, var(--gold-bright));
   border-radius: 3px;
   animation: progress-pulse 2s ease-in-out infinite alternate;
 }
@@ -1024,11 +1024,11 @@ body {
 }
 
 .tracker-step.done {
-  color: #2ed573;
+  color: #a3b44e;
 }
 
 .tracker-step.done .step-dot {
-  background: #2ed573;
+  background: #a3b44e;
   color: #000;
   font-weight: 800;
 }
@@ -1064,13 +1064,13 @@ body {
 .eta-left h4 {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  color: #2ed573;
+  color: #a3b44e;
   margin-top: 2px;
 }
 
 .eta-pulse {
   font-size: 0.75rem;
-  color: #2ed573;
+  color: #a3b44e;
   font-weight: 700;
   animation: pulse-dot 1.5s infinite;
 }
