@@ -70,8 +70,8 @@ class Caffyo3DExperience {
       this.cameraDefaultPos.set(0, 1.9, 5.3);
       this.cameraTarget.set(0, 0.25, 0);
     } else {
-      this.cameraDefaultPos.set(1.15, 2.2, 5.2);
-      this.cameraTarget.set(1.15, 0.38, 0);
+      this.cameraDefaultPos.set(1.45, 2.2, 5.5);
+      this.cameraTarget.set(1.45, 0.38, 0);
     }
     this.camera.position.copy(this.cameraDefaultPos);
     this.camera.lookAt(this.cameraTarget);
@@ -230,8 +230,11 @@ class Caffyo3DExperience {
     rosettaTexture.minFilter = THREE.LinearMipmapLinearFilter;
     rosettaTexture.magFilter = THREE.LinearFilter;
     rosettaTexture.encoding = THREE.sRGBEncoding;
-    rosettaTexture.center.set(0.5, 0.5);
-    rosettaTexture.rotation = Math.PI; // Heart crown faces towards the drinker/camera
+    // Center the art exactly on the circular disk surface
+    rosettaTexture.center.set(0.5, 0.5);   // rotation pivot = UV center
+    rosettaTexture.offset.set(0.0, 0.0);   // no offset — dead center
+    rosettaTexture.repeat.set(1.0, 1.0);   // fill the full disk, no tiling
+    rosettaTexture.rotation = 0;           // heart crown facing up (natural barista pour)
     if (this.renderer && this.renderer.capabilities && this.renderer.capabilities.getMaxAnisotropy) {
       rosettaTexture.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
     }
@@ -260,9 +263,9 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position: Shifted right on desktop to leave ample negative space for headline
+    // Position: Shifted further right on desktop to avoid text overlap
     const isMobile = window.innerWidth <= 768;
-    this.cupGroup.position.set(isMobile ? 0 : 2.15, isMobile ? -0.22 : -0.45, 0);
+    this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
     if (isMobile) {
       this.cupGroup.scale.setScalar(0.92);
     }
@@ -315,7 +318,7 @@ class Caffyo3DExperience {
       const angle = (i / beanCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
       const radius = 2.4 + Math.random() * 2.6;
       const isMobile = window.innerWidth <= 768;
-      const cupX = isMobile ? 0 : 2.15;
+      const cupX = isMobile ? 0 : 2.9;
       const y = -0.5 + Math.random() * 2.4;
       const x = cupX + Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
@@ -357,7 +360,7 @@ class Caffyo3DExperience {
     const positions = new Float32Array(count * 3);
 
     const isMobile = window.innerWidth <= 768;
-    const cupX = isMobile ? 0 : 2.15;
+    const cupX = isMobile ? 0 : 2.9;
     for (let i = 0; i < count; i++) {
       positions[i * 3 + 0] = cupX + (Math.random() - 0.5) * 0.6;
       positions[i * 3 + 1] = 1.35 + Math.random() * 2.0;
@@ -512,21 +515,21 @@ class Caffyo3DExperience {
 
     switch (mode) {
       case 'orbit':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.15, isMobile ? 2.5 : 2.2, isMobile ? 6.2 : 5.2);
-        this.cameraTarget.set(isMobile ? 0 : 1.15, 0.38, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.45, isMobile ? 2.5 : 2.2, isMobile ? 6.2 : 5.5);
+        this.cameraTarget.set(isMobile ? 0 : 1.45, 0.38, 0);
         break;
       case 'explode':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.7, 3.5, 6.8);
-        this.cameraTarget.set(isMobile ? 0 : 1.7, 0.8, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.95, 3.5, 6.8);
+        this.cameraTarget.set(isMobile ? 0 : 1.95, 0.8, 0);
         this.explode(1.3);
         break;
       case 'crema':
-        this.cameraDefaultPos.set(isMobile ? 0 : 2.15, 2.4, 1.8);
-        this.cameraTarget.set(isMobile ? 0 : 2.15, 1.2, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 2.9, 2.4, 1.8);
+        this.cameraTarget.set(isMobile ? 0 : 2.9, 1.2, 0);
         break;
       case 'roast':
-        this.cameraDefaultPos.set(isMobile ? 0 : 0.2, 1.8, 4.2);
-        this.cameraTarget.set(isMobile ? 0 : 2.15, 0.5, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 0.5, 1.8, 4.2);
+        this.cameraTarget.set(isMobile ? 0 : 2.9, 0.5, 0);
         break;
     }
   }
@@ -551,15 +554,15 @@ class Caffyo3DExperience {
 
       const isMobile = window.innerWidth <= 768;
       if (this.cupGroup) {
-        this.cupGroup.position.set(isMobile ? 0 : 2.15, isMobile ? -0.22 : -0.45, 0);
+        this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
         this.cupGroup.scale.setScalar(isMobile ? 0.92 : 1.0);
       }
       if (isMobile) {
         this.cameraDefaultPos.set(0, 1.9, 5.3);
         this.cameraTarget.set(0, 0.25, 0);
       } else {
-        this.cameraDefaultPos.set(1.15, 2.2, 5.2);
-        this.cameraTarget.set(1.15, 0.38, 0);
+        this.cameraDefaultPos.set(1.45, 2.2, 5.5);
+        this.cameraTarget.set(1.45, 0.38, 0);
       }
     });
 
@@ -735,12 +738,14 @@ class Caffyo3DExperience {
       pos.needsUpdate = true;
       this.liquidMesh.geometry.computeVertexNormals();
 
-      // Responsive physical micro-inertia for latte art (anchored & upright)
+      // Responsive physical micro-inertia for latte art (anchored & centered)
       if (this.liquidMesh.material && this.liquidMesh.material.map) {
+        // Always keep center + offset pinned so art stays dead-center on the disk
         this.liquidMesh.material.map.center.set(0.5, 0.5);
+        this.liquidMesh.material.map.offset.set(0.0, 0.0);
         this.liquidMesh.material.map.rotation = THREE.MathUtils.lerp(
-          this.liquidMesh.material.map.rotation || Math.PI,
-          Math.PI + this.fluid.angularVel * 0.06,
+          this.liquidMesh.material.map.rotation || 0,
+          this.fluid.angularVel * 0.06,
           0.12
         );
       }

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDrawer();
   initTestimonialSlider();
   initReservationForm();
+  initBottomDock();
 });
 
 /* ============================================================
@@ -539,5 +540,51 @@ function initLiveCafeStatus() {
 
   update();
   setInterval(update, 30000); // Live sync every 30 seconds
+
 }
 
+/* ============================================================
+   BOTTOM DOCK: Scroll-Driven Active State
+   Highlights the correct tab as the user scrolls
+   ============================================================ */
+function initBottomDock() {
+  const dockItems = document.querySelectorAll('.dock-item[data-dock]');
+  if (!dockItems.length) return;
+
+  // Map section IDs to dock data-dock keys
+  const sectionToDock = {
+    'hero': 'hero',
+    'interactive-assembly': 'craft',
+    'editorial-story': 'story',
+    'roasting-spectrum': 'story',
+    'best-sellers': 'story',
+    'visit': 'visit'
+  };
+
+  function setActiveTab(dockKey) {
+    dockItems.forEach(item => {
+      const key = item.getAttribute('data-dock');
+      if (key === dockKey) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  // IntersectionObserver for section tracking
+  const observed = Object.keys(sectionToDock);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const dockKey = sectionToDock[entry.target.id];
+        if (dockKey) setActiveTab(dockKey);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  observed.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+}
