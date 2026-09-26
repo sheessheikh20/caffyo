@@ -2926,14 +2926,63 @@ img {
   color: var(--text-muted-dark);
 }
 
-/* Standalone Craft Stage Container: Pure transparent, physical isolated glass */
+/* ============================================================
+   SCROLL-PINNED MATCHA DRINK ASSEMBLY SECTION
+   ============================================================ */
+.craft-sequence-section {
+  position: relative;
+  background: #0d0906;
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  overflow: visible;
+}
+
+@media (min-width: 992px) {
+  .craft-sequence-section {
+    height: 250vh;
+    padding: 0;
+  }
+
+  .craft-sticky-wrapper {
+    position: sticky;
+    top: 75px;
+    height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .craft-sticky-wrapper .section-head {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .craft-sequence-section {
+    padding: 60px 16px;
+    height: auto;
+  }
+
+  .craft-sticky-wrapper {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+}
+
+/* Standalone Craft Stage Container: Pure seamless, floating product */
 .craft-stage-container {
   position: relative;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: #0d0906 !important;
+  border: none !important;
+  box-shadow: none !important;
   min-height: 480px;
 }
 
@@ -2942,8 +2991,10 @@ img {
   max-width: 440px;
   height: 520px;
   display: block;
-  background: transparent;
-  filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.45));
+  background: #0d0906;
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
 }
 
 

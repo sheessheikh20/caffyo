@@ -274,73 +274,60 @@
        Reference: Afterglow Pistachio Tiramisu Iced Latte Build
        ============================================================ -->
   <section id="interactive-assembly" class="craft-sequence-section">
-    <div class="section-head text-center">
-      <span class="section-subtitle">Artisanal Extraction Build</span>
-      <h2 class="section-title">Pistachio Tiramisu Iced Latte</h2>
-      <p class="section-desc">
-        Interact with the extraction timeline below. Watch the double-shot Arabica espresso, chilled milk, and pistachio velvet cream marble in real-time.
-      </p>
-    </div>
-
-    <div class="craft-interactive-grid">
-      <!-- 3D Frame Sequence Canvas Stage -->
-      <div class="craft-stage-container">
-        <div id="craft-loading-indicator" class="craft-loading-indicator">Loading Craft Sequence...</div>
-        <canvas id="craft-frames-canvas"></canvas>
-
-        <!-- Scrubbing & Timeline Controls -->
-        <div class="craft-timeline-bar">
-          <button id="btn-play-sequence" class="btn-timeline-toggle">Play Extraction</button>
-          <input type="range" id="frame-scrubber" min="1" max="50" value="35" class="craft-scrubber-slider" aria-label="Scrub extraction sequence" />
-          <span id="frame-counter-label" class="frame-counter">Phase 35 / 50</span>
-        </div>
-
-        <!-- 4 Step Quick Jumps (Matching Reference Video Extraction Phases) -->
-        <div class="craft-phase-steps">
-          <button class="btn-phase-step" data-frame-phase="1">01 Base Glass &amp; Ice</button>
-          <button class="btn-phase-step" data-frame-phase="20">02 Espresso Pull</button>
-          <button class="btn-phase-step active" data-frame-phase="35">03 Pistachio Velvet Swirl</button>
-          <button class="btn-phase-step" data-frame-phase="48">04 Pistachio Crumble Dust</button>
-        </div>
+    <div class="craft-sticky-wrapper">
+      <div class="section-head text-center">
+        <span class="section-subtitle">Artisanal Extraction Build</span>
+        <h2 class="section-title">Pistachio Tiramisu Iced Latte</h2>
+        <p class="section-desc">
+          Interact with the extraction timeline below. Watch the double-shot Arabica espresso, chilled milk, and pistachio velvet cream marble in real-time.
+        </p>
       </div>
 
-      <!-- Customization Panel (Matching Frame 48 Reference) -->
-      <div class="craft-customize-panel">
-        <div class="customize-head">
-          <span class="customize-tag">Signature Drink</span>
-          <h3>Customize Your Order</h3>
-          <p>Handcrafted by our baristas at Prestige Hospital Chowk</p>
+      <div class="craft-interactive-grid">
+        <!-- 3D Frame Sequence Canvas Stage -->
+        <div class="craft-stage-container">
+          <div id="craft-loading-indicator" class="craft-loading-indicator" style="display:none;">Loading Craft Sequence...</div>
+          <canvas id="craft-frames-canvas"></canvas>
         </div>
 
-        <!-- Roast Selector -->
-        <div class="custom-field-group">
-          <label>Coffee Extraction</label>
-          <div class="custom-btn-row">
-            <button class="custom-opt-btn selected" data-custom-roast="signature">Caffyo Signature</button>
-            <button class="custom-opt-btn" data-custom-roast="chikmagalur">Chikmagalur Single-Origin</button>
-            <button class="custom-opt-btn" data-custom-roast="dark">Italian Dark</button>
+        <!-- Customization Panel (Matching Frame 48 Reference) -->
+        <div class="craft-customize-panel">
+          <div class="customize-head">
+            <span class="customize-tag">Signature Drink</span>
+            <h3>Customize Your Order</h3>
+            <p>Handcrafted by our baristas at Prestige Hospital Chowk</p>
           </div>
-        </div>
 
-        <!-- Milk Selector -->
-        <div class="custom-field-group">
-          <label>Milk Selection</label>
-          <div class="custom-btn-row">
-            <button class="custom-opt-btn" data-custom-milk="whole">Whole Milk (Included)</button>
-            <button class="custom-opt-btn selected" data-custom-milk="oat">Oat Milk (+₹30)</button>
+          <!-- Roast Selector -->
+          <div class="custom-field-group">
+            <label>Coffee Extraction</label>
+            <div class="custom-btn-row">
+              <button class="custom-opt-btn selected" data-custom-roast="signature">Caffyo Signature</button>
+              <button class="custom-opt-btn" data-custom-roast="chikmagalur">Chikmagalur Single-Origin</button>
+              <button class="custom-opt-btn" data-custom-roast="dark">Italian Dark</button>
+            </div>
           </div>
-        </div>
 
-        <!-- Order Summary & Action -->
-        <div class="craft-order-footer">
-          <div class="craft-price-display">
-            <span class="price-label">Drink Total</span>
-            <div id="craft-calculated-price" class="craft-price-val">₹209</div>
-            <div id="craft-summary-text" class="craft-summary-line">SIGNATURE Roast | OAT Milk | Double Shot Extraction</div>
+          <!-- Milk Selector -->
+          <div class="custom-field-group">
+            <label>Milk Selection</label>
+            <div class="custom-btn-row">
+              <button class="custom-opt-btn" data-custom-milk="whole">Whole Milk (Included)</button>
+              <button class="custom-opt-btn selected" data-custom-milk="oat">Oat Milk (+₹30)</button>
+            </div>
           </div>
-          <button id="btn-add-crafted-drink" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
-            Add to Order Tray
-          </button>
+
+          <!-- Order Summary & Action -->
+          <div class="craft-order-footer">
+            <div class="craft-price-display">
+              <span class="price-label">Drink Total</span>
+              <div id="craft-calculated-price" class="craft-price-val">₹209</div>
+              <div id="craft-summary-text" class="craft-summary-line">SIGNATURE Roast | OAT Milk | Double Shot Extraction</div>
+            </div>
+            <button id="btn-add-crafted-drink" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
+              Add to Order Tray
+            </button>
+          </div>
         </div>
       </div>
     </div>
