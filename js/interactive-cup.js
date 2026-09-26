@@ -1,13 +1,15 @@
 /* ============================================================
-   CAFFYO by Zauq - Scroll-Driven Matcha Product Assembly Animation
-   - Real 23 Isolated PNG Frames (Transparent Background)
-   - Scroll-controlled assembly: Exploded (Frame 1) -> Assembled (Frame 23)
-   - Cinematic RequestAnimationFrame Lerp Easing (Buttery Smooth)
-   - Zero DOM overhead: High-DPI Canvas Rendering
-   - Pure seamless integration with #0d0906 background
+   CAFFYO by Zauq - Auto-Playing Product Assembly Animation
+   - Triggers automatically when section enters viewport
+   - Cinematic 3.5s single-play physical drop-in sequence
+   - Staggered downward motion: Glass -> Raspberry -> Milk -> Matcha -> Ice -> Straw
+   - Uses untouched original frames (ezgif-frame-001.png -> ezgif-frame-023.png)
+   - Dynamic viewport crop: pushes surrounding props outside visible area
+   - Subtle 4-edge feathering dissolving seamlessly into #0D0805
+   - Completely independent of user scroll position
    ============================================================ */
 
-class ScrollMatchaAssembly {
+class AutoMatchaAssembly {
   constructor() {
     this.canvas = document.getElementById('craft-frames-canvas');
     this.section = document.getElementById('interactive-assembly');
@@ -18,14 +20,26 @@ class ScrollMatchaAssembly {
     this.images = [];
     this.loadedImages = 0;
 
-    // Frame interpolation state
+    // Animation state
     this.currentFrame = 0.0;
-    this.targetFrame = 0.0;
-    this.lerpSpeed = 0.12; // Silky smooth easing
+    this.isPlaying = false;
+    this.hasCompleted = false;
+    this.startTime = null;
+    this.duration = 3400; // 3.4 seconds total sequence duration
 
     this.displayWidth = 440;
-    this.displayHeight = 540;
+    this.displayHeight = 520;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Exact zoom framing inside original 1280x720 photography:
+    // Captures complete drink from straw top (y=12) to glass base (y=685)
+    // Pushes milk bottle (x<=522), strawberry bowl (x>=775), whisk, and table surface outside
+    this.crop = {
+      sx: 535,
+      sy: 10,
+      sw: 220,
+      sh: 675
+    };
 
     this.init();
   }
@@ -33,14 +47,18 @@ class ScrollMatchaAssembly {
   init() {
     this.setupCanvas();
     this.preloadFrames();
-    this.bindEvents();
-    this.startLoop();
+    this.setupIntersectionObserver();
+
+    window.addEventListener('resize', () => {
+      this.setupCanvas();
+      this.render();
+    });
   }
 
   setupCanvas() {
     const rect = this.canvas.getBoundingClientRect();
     this.displayWidth = rect.width || 440;
-    this.displayHeight = rect.height || 540;
+    this.displayHeight = rect.height || 520;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     this.canvas.width = Math.round(this.displayWidth * this.dpr);
@@ -56,7 +74,7 @@ class ScrollMatchaAssembly {
     for (let i = 1; i <= this.totalFrames; i++) {
       const img = new Image();
       const numStr = String(i).padStart(3, '0');
-      img.src = `assets/matcha-frames/frame_${numStr}.png`;
+      img.src = `assets/matcha-frames/ezgif-frame-${numStr}.png`;
 
       img.onload = () => {
         this.loadedImages++;
@@ -71,105 +89,162 @@ class ScrollMatchaAssembly {
     }
   }
 
-  calculateScrollProgress() {
-    if (!this.section) return 0;
-    const rect = this.section.getBoundingClientRect();
-    const sectionHeight = this.section.offsetHeight;
-    const viewportHeight = window.innerHeight;
-    const totalScrollRange = sectionHeight - viewportHeight;
-
-    if (totalScrollRange <= 20) {
-      // Mobile or fallback: map scroll as section passes through viewport
-      const start = viewportHeight;
-      const end = -rect.height * 0.5;
-      const current = rect.top;
-      const progress = (start - current) / (start - end);
-      return Math.max(0, Math.min(1, progress));
-    }
-
-    // Desktop pinned scroll track:
-    // progress is 0 when section top hits viewport top (or just below navbar)
-    const navOffset = 75;
-    const progress = (navOffset - rect.top) / totalScrollRange;
-    return Math.max(0, Math.min(1, progress));
-  }
-
-  bindEvents() {
-    const onScroll = () => {
-      const progress = this.calculateScrollProgress();
-      this.targetFrame = progress * (this.totalFrames - 1);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      this.setupCanvas();
-      this.render();
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // When section enters view, trigger single-play drop sequence
+          if (!this.isPlaying && !this.hasCompleted) {
+            this.startSequence();
+          }
+        } else {
+          // When user scrolls far away from section, reset for replay upon next return
+          if (this.hasCompleted) {
+            this.hasCompleted = false;
+            this.currentFrame = 0.0;
+            this.render();
+          }
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.25 // Trigger when 25% of the section is visible
     });
 
-    // Run once on load to sync initial scroll position
-    onScroll();
+    observer.observe(this.section);
   }
 
-  startLoop() {
-    const tick = () => {
-      // Buttery smooth lerp toward target frame
-      const diff = this.targetFrame - this.currentFrame;
-      if (Math.abs(diff) > 0.001) {
-        this.currentFrame += diff * this.lerpSpeed;
-        this.render();
-      } else if (this.currentFrame !== this.targetFrame) {
-        this.currentFrame = this.targetFrame;
+  startSequence() {
+    this.isPlaying = true;
+    this.startTime = performance.now();
+
+    const loop = (now) => {
+      if (!this.isPlaying) return;
+
+      const elapsed = now - this.startTime;
+      const rawProgress = Math.min(1.0, elapsed / this.duration);
+
+      // Natural gravity ease: smooth acceleration, steady descent, gentle deceleration at end
+      // Cubic ease-out curve (1 - (1 - t)^2.4)
+      const easedProgress = 1 - Math.pow(1 - rawProgress, 2.4);
+
+      // Target frame 0 (exploded) -> 22 (assembled)
+      const targetFrame = easedProgress * (this.totalFrames - 1);
+
+      // Smooth frame interpolation
+      this.currentFrame += (targetFrame - this.currentFrame) * 0.25;
+
+      this.render();
+
+      if (rawProgress < 1.0) {
+        requestAnimationFrame(loop);
+      } else {
+        // Complete sequence: lock exactly on the final assembled drink
+        this.currentFrame = this.totalFrames - 1;
+        this.isPlaying = false;
+        this.hasCompleted = true;
         this.render();
       }
-
-      requestAnimationFrame(tick);
     };
 
-    requestAnimationFrame(tick);
+    requestAnimationFrame(loop);
+  }
+
+  applyEdgeFeather(drawX, drawY, drawW, drawH) {
+    const ctx = this.ctx;
+    const fadeX = 26;     // Subtle feather on left & right
+    const fadeTop = 22;   // Subtle feather on top
+    const fadeBottom = 18;// Subtle feather on bottom
+
+    // Left edge -> softly fade into #0D0805
+    const gradL = ctx.createLinearGradient(drawX - 1, 0, drawX + fadeX, 0);
+    gradL.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
+    gradL.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
+    gradL.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
+    gradL.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    ctx.fillStyle = gradL;
+    ctx.fillRect(drawX - 2, drawY - 2, fadeX + 2, drawH + 4);
+
+    // Right edge -> softly fade into #0D0805
+    const gradR = ctx.createLinearGradient(drawX + drawW + 1, 0, drawX + drawW - fadeX, 0);
+    gradR.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
+    gradR.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
+    gradR.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
+    gradR.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    ctx.fillStyle = gradR;
+    ctx.fillRect(drawX + drawW - fadeX, drawY - 2, fadeX + 2, drawH + 4);
+
+    // Top edge -> softly fade into #0D0805
+    const gradT = ctx.createLinearGradient(0, drawY - 1, 0, drawY + fadeTop);
+    gradT.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
+    gradT.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
+    gradT.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
+    gradT.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    ctx.fillStyle = gradT;
+    ctx.fillRect(drawX - 2, drawY - 2, drawW + 4, fadeTop + 2);
+
+    // Bottom edge -> softly fade into #0D0805
+    const gradB = ctx.createLinearGradient(0, drawY + drawH + 1, 0, drawY + drawH - fadeBottom);
+    gradB.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
+    gradB.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
+    gradB.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
+    gradB.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    ctx.fillStyle = gradB;
+    ctx.fillRect(drawX - 2, drawY + drawH - fadeBottom, drawW + 4, fadeBottom + 2);
   }
 
   render() {
     if (!this.ctx) return;
 
-    // Pick closest frame
     const frameIndex = Math.max(0, Math.min(this.totalFrames - 1, Math.round(this.currentFrame)));
     const img = this.images[frameIndex];
 
-    // Clear canvas with the exact section background color #0d0906
-    this.ctx.fillStyle = '#0d0906';
-    this.ctx.fillRect(0, 0, this.displayWidth, this.displayHeight);
+    const w = this.displayWidth;
+    const h = this.displayHeight;
 
-    // If frame is loaded, draw it centered with preserved aspect ratio
+    // Fill background with exact section background #0D0805
+    this.ctx.fillStyle = '#0D0805';
+    this.ctx.fillRect(0, 0, w, h);
+
+    const aspect = this.crop.sw / this.crop.sh;
+    const paddingY = 16;
+    const drawH = h - (paddingY * 2);
+    const drawW = drawH * aspect;
+    const drawX = (w - drawW) / 2;
+    const drawY = paddingY;
+
     if (img && img.complete && img.naturalWidth > 0) {
-      const imgW = img.naturalWidth;
-      const imgH = img.naturalHeight;
-      const imgAspect = imgW / imgH;
-
-      // Fit height with comfortable top/bottom padding
-      const paddingY = 24;
-      const drawH = this.displayHeight - (paddingY * 2);
-      const drawW = drawH * imgAspect;
-
-      // Center horizontally inside canvas
-      const drawX = (this.displayWidth - drawW) / 2;
-      const drawY = paddingY;
-
-      this.ctx.drawImage(img, drawX, drawY, drawW, drawH);
+      this.ctx.drawImage(
+        img,
+        this.crop.sx,
+        this.crop.sy,
+        this.crop.sw,
+        this.crop.sh,
+        drawX,
+        drawY,
+        drawW,
+        drawH
+      );
+      this.applyEdgeFeather(drawX, drawY, drawW, drawH);
     } else if (this.images[0] && this.images[0].complete) {
-      // Fallback to initial loaded frame if current frame is still caching
       const fallback = this.images[0];
-      const imgAspect = fallback.naturalWidth / fallback.naturalHeight;
-      const paddingY = 24;
-      const drawH = this.displayHeight - (paddingY * 2);
-      const drawW = drawH * imgAspect;
-      const drawX = (this.displayWidth - drawW) / 2;
-      const drawY = paddingY;
-      this.ctx.drawImage(fallback, drawX, drawY, drawW, drawH);
+      this.ctx.drawImage(
+        fallback,
+        this.crop.sx,
+        this.crop.sy,
+        this.crop.sw,
+        this.crop.sh,
+        drawX,
+        drawY,
+        drawW,
+        drawH
+      );
+      this.applyEdgeFeather(drawX, drawY, drawW, drawH);
     }
   }
 }
 
 // Global initialization
 document.addEventListener('DOMContentLoaded', () => {
-  window.caffyoMatcha = new ScrollMatchaAssembly();
+  window.caffyoMatcha = new AutoMatchaAssembly();
 });

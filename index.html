@@ -274,60 +274,58 @@
        Reference: Afterglow Pistachio Tiramisu Iced Latte Build
        ============================================================ -->
   <section id="interactive-assembly" class="craft-sequence-section">
-    <div class="craft-sticky-wrapper">
-      <div class="section-head text-center">
-        <span class="section-subtitle">Artisanal Extraction Build</span>
-        <h2 class="section-title">Pistachio Tiramisu Iced Latte</h2>
-        <p class="section-desc">
-          Interact with the extraction timeline below. Watch the double-shot Arabica espresso, chilled milk, and pistachio velvet cream marble in real-time.
-        </p>
+    <div class="section-head text-center">
+      <span class="section-subtitle">Artisanal Extraction Build</span>
+      <h2 class="section-title">Pistachio Tiramisu Iced Latte</h2>
+      <p class="section-desc">
+        Interact with the extraction timeline below. Watch the double-shot Arabica espresso, chilled milk, and pistachio velvet cream marble in real-time.
+      </p>
+    </div>
+
+    <div class="craft-interactive-grid">
+      <!-- 3D Frame Sequence Canvas Stage -->
+      <div class="craft-stage-container">
+        <div id="craft-loading-indicator" class="craft-loading-indicator" style="display:none;">Loading Craft Sequence...</div>
+        <canvas id="craft-frames-canvas"></canvas>
       </div>
 
-      <div class="craft-interactive-grid">
-        <!-- 3D Frame Sequence Canvas Stage -->
-        <div class="craft-stage-container">
-          <div id="craft-loading-indicator" class="craft-loading-indicator" style="display:none;">Loading Craft Sequence...</div>
-          <canvas id="craft-frames-canvas"></canvas>
+      <!-- Customization Panel (Matching Frame 48 Reference) -->
+      <div class="craft-customize-panel">
+        <div class="customize-head">
+          <span class="customize-tag">Signature Drink</span>
+          <h3>Customize Your Order</h3>
+          <p>Handcrafted by our baristas at Prestige Hospital Chowk</p>
         </div>
 
-        <!-- Customization Panel (Matching Frame 48 Reference) -->
-        <div class="craft-customize-panel">
-          <div class="customize-head">
-            <span class="customize-tag">Signature Drink</span>
-            <h3>Customize Your Order</h3>
-            <p>Handcrafted by our baristas at Prestige Hospital Chowk</p>
+        <!-- Roast Selector -->
+        <div class="custom-field-group">
+          <label>Coffee Extraction</label>
+          <div class="custom-btn-row">
+            <button class="custom-opt-btn selected" data-custom-roast="signature">Caffyo Signature</button>
+            <button class="custom-opt-btn" data-custom-roast="chikmagalur">Chikmagalur Single-Origin</button>
+            <button class="custom-opt-btn" data-custom-roast="dark">Italian Dark</button>
           </div>
+        </div>
 
-          <!-- Roast Selector -->
-          <div class="custom-field-group">
-            <label>Coffee Extraction</label>
-            <div class="custom-btn-row">
-              <button class="custom-opt-btn selected" data-custom-roast="signature">Caffyo Signature</button>
-              <button class="custom-opt-btn" data-custom-roast="chikmagalur">Chikmagalur Single-Origin</button>
-              <button class="custom-opt-btn" data-custom-roast="dark">Italian Dark</button>
-            </div>
+        <!-- Milk Selector -->
+        <div class="custom-field-group">
+          <label>Milk Selection</label>
+          <div class="custom-btn-row">
+            <button class="custom-opt-btn" data-custom-milk="whole">Whole Milk (Included)</button>
+            <button class="custom-opt-btn selected" data-custom-milk="oat">Oat Milk (+₹30)</button>
           </div>
+        </div>
 
-          <!-- Milk Selector -->
-          <div class="custom-field-group">
-            <label>Milk Selection</label>
-            <div class="custom-btn-row">
-              <button class="custom-opt-btn" data-custom-milk="whole">Whole Milk (Included)</button>
-              <button class="custom-opt-btn selected" data-custom-milk="oat">Oat Milk (+₹30)</button>
-            </div>
+        <!-- Order Summary & Action -->
+        <div class="craft-order-footer">
+          <div class="craft-price-display">
+            <span class="price-label">Drink Total</span>
+            <div id="craft-calculated-price" class="craft-price-val">₹209</div>
+            <div id="craft-summary-text" class="craft-summary-line">SIGNATURE Roast | OAT Milk | Double Shot Extraction</div>
           </div>
-
-          <!-- Order Summary & Action -->
-          <div class="craft-order-footer">
-            <div class="craft-price-display">
-              <span class="price-label">Drink Total</span>
-              <div id="craft-calculated-price" class="craft-price-val">₹209</div>
-              <div id="craft-summary-text" class="craft-summary-line">SIGNATURE Roast | OAT Milk | Double Shot Extraction</div>
-            </div>
-            <button id="btn-add-crafted-drink" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
-              Add to Order Tray
-            </button>
-          </div>
+          <button id="btn-add-crafted-drink" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
+            Add to Order Tray
+          </button>
         </div>
       </div>
     </div>

@@ -266,6 +266,7 @@ class Caffyo3DExperience {
     // Position: Shifted further right on desktop to avoid text overlap
     const isMobile = window.innerWidth <= 768;
     this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
+    this.cupGroup.rotation.set(0.30, 0.35, 0);
     if (isMobile) {
       this.cupGroup.scale.setScalar(0.92);
     }
@@ -607,6 +608,9 @@ class Caffyo3DExperience {
       window.addEventListener('mouseup', () => {
         this.isInteracting = false;
       });
+      canvas.addEventListener('mouseleave', () => {
+        this.isInteracting = false;
+      });
       canvas.addEventListener('click', () => {
         this.triggerLiquidRipple();
       });
@@ -625,7 +629,7 @@ class Caffyo3DExperience {
           const deltaX = touch.clientX - this.previousPos.x;
           const deltaY = touch.clientY - this.previousPos.y;
           this.cupGroup.rotation.y += deltaX * 0.012;
-          this.cupGroup.rotation.x = Math.max(-0.55, Math.min(0.55, this.cupGroup.rotation.x + deltaY * 0.012));
+          this.cupGroup.rotation.x = Math.max(-0.45, Math.min(0.65, this.cupGroup.rotation.x + deltaY * 0.012));
 
           // Physical fluid slosh force on touch drag
           const forceMult = 0.046;
@@ -650,6 +654,12 @@ class Caffyo3DExperience {
       canvas.addEventListener('touchend', () => {
         this.isInteracting = false;
       }, { passive: true });
+      canvas.addEventListener('touchcancel', () => {
+        this.isInteracting = false;
+      }, { passive: true });
+      window.addEventListener('touchend', () => {
+        this.isInteracting = false;
+      }, { passive: true });
     }
   }
 
@@ -672,10 +682,28 @@ class Caffyo3DExperience {
       this.camera.position.z = this.cameraDefaultPos.z;
       this.camera.lookAt(this.cameraTarget);
 
-      // Natural subtle breathing on the ceramic saucer
+      // Aesthetic resting position & orientation auto-return
+      // When user releases finger or cursor, smoothly spring back to the perfect showcase angle
       if (this.cupGroup) {
-        this.cupGroup.rotation.y = Math.sin(elapsedTime * 0.25) * 0.08;
-        this.cupGroup.position.y = (isMobile ? -0.22 : -0.45) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const restX = isMobile ? 0 : 2.9;
+        const restY = (isMobile ? -0.22 : -0.45) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const restZ = 0;
+
+        // Ideal aesthetic presentation angle:
+        // ~17° tilt forward (0.30 rad) displays the rosette/heart latte art clearly
+        // ~20° rotation (0.35 rad) showcases the ceramic handle and cup silhouette
+        const restRotX = 0.30;
+        const restRotY = 0.35 + Math.sin(elapsedTime * 0.3) * 0.05;
+        const restRotZ = 0;
+
+        const returnSpeed = 0.055; // Silky smooth damped spring back
+        this.cupGroup.position.x += (restX - this.cupGroup.position.x) * returnSpeed;
+        this.cupGroup.position.y += (restY - this.cupGroup.position.y) * returnSpeed;
+        this.cupGroup.position.z += (restZ - this.cupGroup.position.z) * returnSpeed;
+
+        this.cupGroup.rotation.x += (restRotX - this.cupGroup.rotation.x) * returnSpeed;
+        this.cupGroup.rotation.y += (restRotY - this.cupGroup.rotation.y) * returnSpeed;
+        this.cupGroup.rotation.z += (restRotZ - this.cupGroup.rotation.z) * returnSpeed;
       }
     }
 
