@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Official Menu | CAFFYO by Zauq - Prestige Hospital Chowk, Nagpur</title>
+  <meta name="description" content="Official dining and takeaway menu for CAFFYO by Zauq in Nagpur. Authentic specialty coffee, cold brews, thik frappes, sandwiches, burgers, pizza, and pastas." />
+
+  <!-- Mobile theme color -->
+  <meta name="theme-color" content="#0e0a07" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Dedicated Menu Stylesheet -->
+  <link rel="stylesheet" href="css/menu.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       TOP HEADER BAR (Green Grounds Coffee & DineCraft Inspired)
+       ============================================================ -->
+  <header class="menu-top-header">
+    <div class="menu-header-inner">
+      <a href="index.html" class="btn-back-home" title="Return to 3D Experience">
+        <span>←</span> 3D Experience
+      </a>
+
+      <a href="index.html" class="brand-center-block" style="text-decoration: none;">
+        <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" style="height: 38px; width: auto;" />
+      </a>
+
+      <div class="header-right-actions">
+        <!-- Live Table / Order Status Badge -->
+        <div class="store-status-badge">
+          <span class="live-dot"></span> Open Today • Till 11:30 PM
+        </div>
+
+        <button id="btn-menu-nav-cart" class="btn-menu-cart" aria-label="Open order tray">
+          <span>🛒</span> Tray <span class="menu-cart-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SPOTLIGHT CATEGORY CARDS (Green Grounds Coffee Reference)
+       Quick 1-tap jump to the most celebrated sections
+       ============================================================ -->
+  <section class="spotlight-categories-strip">
+    <div class="spotlight-grid">
+      <!-- 1. Coffee -->
+      <a href="#hot-coffee" class="spotlight-card coffee-card">
+        <div class="spotlight-info">
+          <span class="spotlight-tag">Available</span>
+          <h3>Hot &amp; Craft Coffee</h3>
+          <p>12 Brews &bull; from ₹79</p>
+        </div>
+        <div class="spotlight-icon-art">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+      </a>
+
+      <!-- 2. Cold Brews & Iced -->
+      <a href="#cold-brew" class="spotlight-card cold-card">
+        <div class="spotlight-info">
+          <span class="spotlight-tag">18-Hr Steep</span>
+          <h3>Cold Brews &amp; Iced</h3>
+          <p>18 Brews &bull; from ₹99</p>
+        </div>
+        <div class="spotlight-icon-art">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+      </a>
+
+      <!-- 3. Thik Frappes & Shakes -->
+      <a href="#thik-frappe" class="spotlight-card frappe-card">
+        <div class="spotlight-info">
+          <span class="spotlight-tag">Bestseller</span>
+          <h3>Thik Frappes &amp; Shakes</h3>
+          <p>28 Blends &bull; from ₹139</p>
+        </div>
+        <div class="spotlight-icon-art">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"/><path d="M12 21a7 7 0 0 1-7-7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v9a7 7 0 0 1-7 7Z"/></svg>
+        </div>
+      </a>
+
+      <!-- 4. Bistro, Toasty & Pizza -->
+      <a href="#toasty" class="spotlight-card bistro-card">
+        <div class="spotlight-info">
+          <span class="spotlight-tag">Fresh Baked</span>
+          <h3>Bistro, Toasty &amp; Pizza</h3>
+          <p>25 Items &bull; from ₹89</p>
+        </div>
+        <div class="spotlight-icon-art">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 9 6 6"/><path d="m15 9-6 6"/></svg>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STICKY CATEGORY SUB-NAV BAR (Scrollspy enabled)
+       ============================================================ -->
+  <nav class="category-sticky-bar" aria-label="Menu categories">
+    <div class="category-scroll-wrapper">
+      <a href="#hot-coffee" class="cat-pill active">Hot Coffee</a>
+      <a href="#black-coffee" class="cat-pill">Black Coffee</a>
+      <a href="#hot-chocolate" class="cat-pill">Hot Chocolate</a>
+      <a href="#iced-coffee" class="cat-pill">Iced Coffee</a>
+      <a href="#cold-brew" class="cat-pill">Cold Brew</a>
+      <a href="#thik-frappe" class="cat-pill">Thik Frappes</a>
+      <a href="#thik-shakes" class="cat-pill">Thik Shakes</a>
+      <a href="#toasty" class="cat-pill">Toasty</a>
+      <a href="#appetisers" class="cat-pill">Appetisers</a>
+      <a href="#burgers" class="cat-pill">Burgers</a>
+      <a href="#sandwiches" class="cat-pill">Panini &amp; Sandwiches</a>
+      <a href="#pasta" class="cat-pill">Pasta</a>
+      <a href="#pizza" class="cat-pill">Pizza</a>
+      <a href="#mocktails" class="cat-pill">Mocktails &amp; Teas</a>
+      <a href="#addons" class="cat-pill">Add Ons</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       CONTROLS: DIETARY FILTER & LIVE SEARCH
+       ============================================================ -->
+  <div class="menu-controls-strip">
+    <div class="diet-filter-group" aria-label="Dietary filters">
+      <button class="btn-diet-filter active" data-diet="all">All Items</button>
+      <button class="btn-diet-filter" data-diet="veg">Pure Veg</button>
+      <button class="btn-diet-filter" data-diet="nonveg">Non-Veg</button>
+    </div>
+
+    <div class="menu-search-input-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="menu-search-input" placeholder="Search coffee, burgers, pasta, frappes, cold brews..." />
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTIONS CONTAINER (Rendered dynamically with official prices)
+       ============================================================ -->
+  <main id="menu-sections-container" class="menu-content-container">
+    <!-- Populated automatically by js/menu-page.js from CAFFYO_SECTIONS_DATA -->
+  </main>
+
+  <!-- ============================================================
+       MOBILE FLOATING BOTTOM TRAY BAR (Phone friendly)
+       ============================================================ -->
+  <div class="mobile-floating-tray-bar">
+    <div class="mobile-tray-left">
+      <span id="mobile-tray-count-text" class="mobile-tray-count">0 Items</span>
+      <span id="mobile-tray-amount-text" class="mobile-tray-amount">₹0</span>
+    </div>
+    <button id="btn-open-mobile-tray" class="btn-open-mobile-tray" aria-label="View Order Tray">
+      View Tray &rarr;
+    </button>
+  </div>
+
+  <!-- ============================================================
+       ORDER TRAY DRAWER (Green Grounds Coffee POS Purchase Receipt Style)
+       ============================================================ -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Your Order Tray">
+    <div class="cart-drawer-head">
+      <div>
+        <h3 style="font-family: var(--font-serif); color: #fff; font-size: 1.25rem;">
+          Purchase Receipt
+        </h3>
+        <span class="receipt-id-tag">#CZ-27362 &bull; Prestige Hospital Chowk</span>
+      </div>
+      <button id="btn-close-cart-drawer" class="btn-close-drawer" aria-label="Close tray">&times;</button>
+    </div>
+
+    <!-- Segmented Order Mode Selector (Green Grounds Coffee Reference) -->
+    <div class="pos-order-mode-tabs">
+      <button class="btn-order-type active" data-type="dinein">Dine In</button>
+      <button class="btn-order-type" data-type="takeaway">Take Away</button>
+      <button class="btn-order-type" data-type="delivery">Doorstep</button>
+    </div>
+
+    <!-- Customer & Table Selection -->
+    <div class="pos-customer-details-box">
+      <div class="pos-input-group">
+        <label for="pos-guest-name">Guest Name</label>
+        <input type="text" id="pos-guest-name" placeholder="Your name (e.g. Vikram S)" />
+      </div>
+      <div class="pos-input-group" id="pos-table-group">
+        <label for="pos-table-select">Table Number</label>
+        <select id="pos-table-select">
+          <option value="Table 01 - Main Lounge">Table 01 - Main Lounge</option>
+          <option value="Table 02 - Barista View">Table 02 - Barista View</option>
+          <option value="Table 04 - Indoor Garden" selected>Table 04 - Indoor Garden</option>
+          <option value="Table 07 - Terrace Alfresco">Table 07 - Terrace Alfresco</option>
+          <option value="Table 09 - Reading Corner">Table 09 - Reading Corner</option>
+          <option value="Table 12 - Private Booth">Table 12 - Private Booth</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="cart-items-list" class="cart-items-list">
+      <!-- Items injected dynamically -->
+    </div>
+
+    <!-- Special Barista Note -->
+    <div class="pos-special-note-box">
+      <input type="text" id="pos-order-note" placeholder="Special requests (e.g. Extra hot, oat milk, less sweet)..." />
+    </div>
+
+    <div class="cart-drawer-footer">
+      <div class="price-breakdown">
+        <div class="price-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="price-row">
+          <span>GST (5%)</span>
+          <span id="cart-tax">₹0</span>
+        </div>
+        <div class="price-row total">
+          <span>Grand Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+      </div>
+
+      <button id="btn-checkout-submit" class="btn-checkout-submit">
+        Send Order to Barista Counter &rarr;
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       LIVE ORDER STATUS TRACKER MODAL (Green Grounds Mobile App Reference)
+       ============================================================ -->
+  <div id="order-tracker-overlay" class="order-tracker-overlay">
+    <div class="order-tracker-card">
+      <div class="tracker-header">
+        <div>
+          <h3>Order #CZ-27362 Confirmed</h3>
+          <p id="tracker-table-text">Table 04 &bull; Indoor Garden</p>
+        </div>
+        <button id="btn-close-tracker" class="btn-close-drawer" aria-label="Close tracking">&times;</button>
+      </div>
+
+      <!-- Live Animated Progress Bar -->
+      <div class="tracker-progress-wrap">
+        <div class="tracker-progress-bar">
+          <div class="tracker-progress-fill"></div>
+        </div>
+        <div class="tracker-steps-row">
+          <div class="tracker-step done">
+            <span class="step-dot">&bull;</span>
+            <span class="step-label">Received</span>
+          </div>
+          <div class="tracker-step active">
+            <span class="step-dot">&bull;</span>
+            <span class="step-label">Brewing</span>
+          </div>
+          <div class="tracker-step">
+            <span class="step-dot">&bull;</span>
+            <span class="step-label">Plating</span>
+          </div>
+          <div class="tracker-step">
+            <span class="step-dot">&bull;</span>
+            <span class="step-label">Served</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tracker-eta-box">
+        <div class="eta-left">
+          <span>Estimated Preparation Time</span>
+          <h4>7 - 9 Minutes</h4>
+        </div>
+        <div class="eta-pulse">&bull; Live in Kitchen</div>
+      </div>
+
+      <div class="tracker-items-summary" id="tracker-items-summary">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="tracker-actions">
+        <button id="btn-tracker-keep-browsing" class="btn-secondary" style="width: 100%; justify-content: center;">
+          Add More Bites or Drinks
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/menu-page.js"></script>
+</body>
+</html>

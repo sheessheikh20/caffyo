@@ -1,0 +1,543 @@
+/* ============================================================
+   CAFFYO by Zauq - Main Application Controller
+   Glues 3D Physics, Living Cup Assembly, Testimonial Slider,
+   Mobile Drawer, Bottom Dock, and Table Booking
+   ============================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initPreloader();
+  initLiveCafeStatus();
+  initNavbarScroll();
+  initHeroSlider();
+  initExplosionTriggers();
+  initHUDControls();
+  initAudioToggle();
+  initBrewLabControls();
+  initMobileDrawer();
+  initTestimonialSlider();
+  initReservationForm();
+});
+
+/* ============================================================
+   DRIBBLE-INSPIRED HERO CAROUSEL CONTROLLER (reference.mp4)
+   Cycles through signature roasts & updates background kinetic text,
+   brew details, and triggers subtle 3D aroma bursts
+   ============================================================ */
+function initHeroSlider() {
+  const slides = [
+    {
+      word: 'ESPRESSO',
+      name: 'Caffyo Signature Swan Latte',
+      price: '₹119',
+      desc: 'Experience the rich and bold flavors of our exquisite specialty coffee blends, crafted at Prestige Hospital Chowk to awaken your senses and start your day right.'
+    },
+    {
+      word: 'SPANISH',
+      name: 'Spanish Ice Latte with Velvet Cream',
+      price: '₹139',
+      desc: 'Chilled condensed milk base poured with double-shot Arabica espresso, cold whole milk, and crowned with silky chilled microfoam.'
+    },
+    {
+      word: 'NIRVANA',
+      name: 'Kaapi Nirvana Blast Frappe',
+      price: '₹179',
+      desc: 'Our celebrated South Indian kaapi decoction blast whipped with crushed butter cookies, Belgian cocoa pearls, and rich vanilla cream.'
+    },
+    {
+      word: 'COLD BREW',
+      name: 'Caffyo On The Rocks (18-Hr Steep)',
+      price: '₹139',
+      desc: 'Slow-steeped high-altitude Arabica cold brew poured over a crystal rock ice. Zero bitterness, pure botanical sweetness.'
+    },
+    {
+      word: 'DARK ROAST',
+      name: 'Single-Origin Italian Ristretto',
+      price: '₹79',
+      desc: 'Intense short extraction under 9 bars pressure, extracting sweet origin notes with dense hazelnut crema.'
+    }
+  ];
+
+  let currentSlide = 0;
+  const kineticText = document.getElementById('kinetic-text');
+  const brewName = document.getElementById('hero-brew-name');
+  const brewPrice = document.getElementById('hero-brew-price');
+  const heroDesc = document.querySelector('.hero-desc');
+  const prevBtn = document.getElementById('btn-hero-prev');
+  const nextBtn = document.getElementById('btn-hero-next');
+
+  function goToSlide(index, direction = 'next') {
+    currentSlide = (index + slides.length) % slides.length;
+    const slide = slides[currentSlide];
+
+    if (kineticText) {
+      kineticText.style.opacity = '0';
+      kineticText.style.transform = direction === 'next' ? 'translateY(-20px) scale(0.96)' : 'translateY(20px) scale(0.96)';
+
+      setTimeout(() => {
+        kineticText.textContent = slide.word;
+        kineticText.style.transform = direction === 'next' ? 'translateY(20px) scale(0.96)' : 'translateY(-20px) scale(0.96)';
+
+        requestAnimationFrame(() => {
+          kineticText.style.opacity = '1';
+          kineticText.style.transform = 'translateY(0) scale(1)';
+        });
+      }, 180);
+    }
+
+    if (brewName) brewName.textContent = slide.name;
+    if (brewPrice) brewPrice.textContent = slide.price;
+    if (heroDesc) heroDesc.textContent = slide.desc;
+
+    // Trigger gentle liquid surface ripple in 3D cup
+    if (window.caffyo3D && window.caffyo3D.triggerLiquidRipple) {
+      window.caffyo3D.triggerLiquidRipple();
+    }
+
+    // Play subtle bean click sound
+    if (window.caffyoAudio) {
+      window.caffyoAudio.playBeanClick();
+    }
+  }
+
+  // Provide global access to cycle roasts
+  window.cycleHeroRoast = () => {
+    goToSlide(currentSlide + 1, 'next');
+  };
+}
+
+/* Sticky Navbar Blur Effect */
+function initNavbarScroll() {
+  const navbar = document.querySelector('.header-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+}
+
+/* Roast Cycle & 3D Interactive Triggers (No Explosions) */
+function initExplosionTriggers() {
+  // Hero rotate roast button
+  const rotateRoastBtn = document.getElementById('btn-hero-explode');
+  if (rotateRoastBtn) {
+    rotateRoastBtn.addEventListener('click', () => {
+      if (window.cycleHeroRoast) {
+        window.cycleHeroRoast();
+      }
+      rotateRoastBtn.style.transform = 'scale(0.96)';
+      setTimeout(() => { rotateRoastBtn.style.transform = ''; }, 160);
+    });
+  }
+}
+
+/* HUD Camera Controls */
+function initHUDControls() {
+  const hudButtons = document.querySelectorAll('.hud-btn');
+  hudButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      hudButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const mode = btn.getAttribute('data-mode');
+      if (window.caffyo3D) {
+        window.caffyo3D.setViewMode(mode);
+      }
+      if (window.caffyoAudio) {
+        window.caffyoAudio.playBeanClick();
+      }
+    });
+  });
+}
+
+/* Audio Player & Toggle */
+function initAudioToggle() {
+  const soundBtn = document.getElementById('btn-sound-toggle');
+  if (!soundBtn) return;
+
+  soundBtn.addEventListener('click', () => {
+    if (window.caffyoAudio) {
+      const isPlaying = window.caffyoAudio.toggleSound();
+      if (isPlaying) {
+        soundBtn.classList.add('playing');
+        soundBtn.innerHTML = '🔊';
+        soundBtn.title = 'Mute Cafe Soundscape';
+        if (window.caffyoCart) window.caffyoCart.showToast('Cozy Cafe Soundscape Playing 🎶');
+      } else {
+        soundBtn.classList.remove('playing');
+        soundBtn.innerHTML = '🔈';
+        soundBtn.title = 'Play Ambient Soundscape';
+      }
+    }
+  });
+}
+
+/* Mobile Slide-in Drawer */
+function initMobileDrawer() {
+  const hamburgerBtn = document.getElementById('btn-mobile-menu');
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('mobile-drawer-overlay');
+  const closeBtn = document.getElementById('btn-close-mobile-drawer');
+
+  function openMenu() {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    hamburgerBtn.classList.add('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    hamburgerBtn.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => {
+    if (drawer.classList.contains('open')) closeMenu();
+    else openMenu();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  // Close when clicking mobile nav links
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+}
+
+/* Brew Lab / Living Cup Interactive Assembler */
+function initBrewLabControls() {
+  let currentRoast = 'signature';
+  let currentExtraction = 'double';
+  let currentMilk = 'oat';
+  let currentFlavor = 'caramel';
+
+  // Base & Extra prices matching official menu
+  const basePrices = {
+    blonde: 119, // Cafe Latte base
+    signature: 149, // Spanish Latte base
+    dark: 139 // Smooth Mocha base
+  };
+
+  const extraPrices = {
+    single: 0,
+    double: 30,
+    nitro: 50,
+    none: 0,
+    whole: 0,
+    oat: 30,
+    caramel: 20,
+    hazelnut: 20,
+    vanilla: 20
+  };
+
+  function calculatePrice() {
+    let price = (basePrices[currentRoast] || 149) +
+                (extraPrices[currentExtraction] || 0) +
+                (extraPrices[currentMilk] || 0) +
+                (extraPrices[currentFlavor] || 0);
+
+    const priceEl = document.getElementById('brew-calculated-price');
+    if (priceEl) priceEl.textContent = `₹${price}`;
+
+    const summaryEl = document.getElementById('brew-summary-text');
+    if (summaryEl) {
+      summaryEl.textContent = `${currentRoast.toUpperCase()} Roast • ${currentExtraction.toUpperCase()} Extraction • ${currentMilk.toUpperCase()} Milk • ${currentFlavor.toUpperCase()} Drizzle`;
+    }
+
+    // Update 3D Model
+    if (window.brewLab) {
+      window.brewLab.updateConfig(currentRoast, currentExtraction, currentMilk, currentFlavor);
+    }
+  }
+
+  // Roast Selection
+  document.querySelectorAll('[data-roast]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-roast]').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentRoast = btn.getAttribute('data-roast');
+      const label = document.getElementById('label-roast');
+      if (label) label.textContent = btn.textContent;
+      calculatePrice();
+    });
+  });
+
+  // Extraction Selection
+  document.querySelectorAll('[data-extract]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-extract]').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentExtraction = btn.getAttribute('data-extract');
+      const label = document.getElementById('label-extract');
+      if (label) label.textContent = btn.textContent;
+      calculatePrice();
+    });
+  });
+
+  // Milk Selection
+  document.querySelectorAll('[data-milk]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-milk]').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentMilk = btn.getAttribute('data-milk');
+      const label = document.getElementById('label-milk');
+      if (label) label.textContent = btn.textContent;
+      calculatePrice();
+    });
+  });
+
+  // Flavor Selection
+  document.querySelectorAll('[data-flavor]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-flavor]').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentFlavor = btn.getAttribute('data-flavor');
+      const label = document.getElementById('label-flavor');
+      if (label) label.textContent = btn.textContent;
+      calculatePrice();
+    });
+  });
+
+  // Add Custom Brew to Cart
+  const addBrewBtn = document.getElementById('btn-add-custom-brew');
+  if (addBrewBtn) {
+    addBrewBtn.addEventListener('click', () => {
+      const priceText = document.getElementById('brew-calculated-price').textContent;
+      const price = parseInt(priceText.replace('₹', '')) || 199;
+
+      const customItem = {
+        id: `assembled-brew-${Date.now()}`,
+        name: `The Living Cup (${currentRoast.toUpperCase()})`,
+        price: price,
+        qty: 1,
+        dietary: currentMilk === 'oat' ? 'vegan' : 'veg',
+        description: `Custom ${currentExtraction} extraction with ${currentMilk} milk and ${currentFlavor} drizzle.`
+      };
+
+      if (window.caffyoCart) {
+        window.caffyoCart.addCustomBrew(customItem);
+      }
+    });
+  }
+
+  calculatePrice();
+}
+
+/* Testimonial Carousel (Real Google Maps Reviews) */
+function initTestimonialSlider() {
+  const reviews = [
+    {
+      author: 'Hello',
+      avatar: 'H',
+      sub: 'Verified Dine-in • 2 Reviews',
+      quote: '“A cozy little cafe with such a warm and welcoming atmosphere. This was my second visit, and I had another lovely experience. A special thank you to Anushka, who welcomed me both times with such kindness and a genuine smile. It makes the coffee taste even better!”'
+    },
+    {
+      author: 'Pawan Choudhary',
+      avatar: 'P',
+      sub: 'Local Guide • 3 Reviews',
+      quote: '“Our overall experience was very pleasant. The staff members were exceptionally kind and welcoming throughout our visit. We found the flavors of the food to be quite delightful. It was a truly enjoyable occasion. We appreciate the positive atmosphere and excellent service.”'
+    },
+    {
+      author: 'Vikram Khurana',
+      avatar: 'V',
+      sub: 'Verified Guest • 5 Reviews',
+      quote: '“One of the best cafes I\'ve been to in Nagpur! The atmosphere is incredibly warm and inviting. I ordered the coffee and it was absolutely refreshing. The staff provided top-notch service. A perfect spot to relax or catch up with friends. Highly recommend!”'
+    }
+  ];
+
+  let currentIndex = 0;
+  const quoteEl = document.getElementById('testimonial-quote');
+  const authorEl = document.getElementById('testimonial-author');
+  const subEl = document.getElementById('testimonial-sub');
+  const avatarEl = document.getElementById('testimonial-avatar');
+
+  function updateTestimonial(idx) {
+    const rev = reviews[idx];
+    if (quoteEl) quoteEl.innerHTML = rev.quote;
+    if (authorEl) authorEl.textContent = rev.author;
+    if (subEl) subEl.textContent = rev.sub;
+    if (avatarEl) avatarEl.innerHTML = `<span>${rev.avatar}</span>`;
+  }
+
+  const prevBtn = document.getElementById('btn-prev-testimonial');
+  const nextBtn = document.getElementById('btn-next-testimonial');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+      updateTestimonial(currentIndex);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % reviews.length;
+      updateTestimonial(currentIndex);
+    });
+  }
+}
+
+/* Table Booking Form Handler */
+function initReservationForm() {
+  const form = document.getElementById('table-booking-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('book-name').value;
+    const date = document.getElementById('book-date').value;
+    const time = document.getElementById('book-time').value;
+    const guests = document.getElementById('book-guests').value;
+    const seating = document.getElementById('book-seating').value;
+
+    if (window.caffyoAudio) {
+      window.caffyoAudio.playChime(987.77, 0.25);
+    }
+
+    alert(`Table Reserved at CAFFYO by Zauq, Nagpur!\n\nGuest: ${name}\nDate & Time: ${date} at ${time}\nParty: ${guests} Guests (${seating})\n\nWe look forward to hosting you at Prestige Hospital Chowk! Anushka and our team will have your table ready.`);
+
+    form.reset();
+    if (window.caffyoCart) {
+      window.caffyoCart.showToast(`Table confirmed for ${name}`);
+    }
+  });
+}
+
+/* ============================================================
+   PRELOADER CONTROLLER
+   Smooth luxury intro animation before website reveal
+   ============================================================ */
+function initPreloader() {
+  const preloader = document.getElementById('caffyo-preloader');
+  if (!preloader) return;
+
+  const bar = document.getElementById('preloader-progress-bar');
+  const percentText = document.getElementById('preloader-percent');
+  const statusText = document.getElementById('preloader-status-text');
+
+  let current = 0;
+  const target = 100;
+  const startTime = performance.now();
+  const duration = 1350; // 1.35 seconds smooth entrance
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(1, elapsed / duration);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    current = Math.round(ease * target);
+
+    if (bar) bar.style.width = `${current}%`;
+    if (percentText) percentText.textContent = `${current}%`;
+
+    if (current < 45) {
+      if (statusText) statusText.textContent = 'BREWING AMBIENCE';
+    } else if (current < 85) {
+      if (statusText) statusText.textContent = 'CALIBRATING 3D CRAFT';
+    } else {
+      if (statusText) statusText.textContent = 'WELCOME TO CAFFYO';
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      setTimeout(() => {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 850);
+      }, 180);
+    }
+  }
+
+  requestAnimationFrame(step);
+
+  // Safety fallback after 2.5s
+  setTimeout(() => {
+    if (!preloader.classList.contains('loaded')) {
+      preloader.classList.add('loaded');
+    }
+  }, 2500);
+}
+
+/* ============================================================
+   DYNAMIC GOOGLE MAPS HOURS ENGINE (IST Real-Time Clock)
+   Syncs live open/closed status against Indian Standard Time
+   ============================================================ */
+function initLiveCafeStatus() {
+  function update() {
+    // Current Indian Standard Time (IST, UTC+5:30)
+    const now = new Date();
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const istTime = new Date(utcTime + (5.5 * 3600000));
+
+    const currentHour = istTime.getHours();
+    const currentMin = istTime.getMinutes();
+    const timeInMins = currentHour * 60 + currentMin;
+
+    // CAFFYO Google Maps Hours: 10:00 AM to 11:30 PM (600 mins to 1410 mins)
+    const openTimeMins = 10 * 60;        // 10:00 AM = 600
+    const closeTimeMins = 23 * 60 + 30; // 11:30 PM = 1410
+
+    const isOpen = timeInMins >= openTimeMins && timeInMins < closeTimeMins;
+
+    const statusBadge = document.getElementById('live-status-badge');
+    const statusCountdown = document.getElementById('live-time-countdown');
+    const pulseDot = document.querySelector('.live-pulse-dot');
+    const mobileStatus = document.getElementById('mobile-live-status');
+
+    if (isOpen) {
+      const remainingMins = closeTimeMins - timeInMins;
+      const remHours = Math.floor(remainingMins / 60);
+      const remM = remainingMins % 60;
+      const countdownStr = remHours > 0 ? `${remHours}h ${remM}m` : `${remM}m`;
+
+      if (statusBadge) {
+        statusBadge.textContent = 'Open Now';
+        statusBadge.classList.remove('closed');
+      }
+      if (statusCountdown) {
+        statusCountdown.textContent = `Closes at 11:30 PM IST (in ${countdownStr}) • Mon–Sun 10:00 AM – 11:30 PM`;
+      }
+      if (pulseDot) pulseDot.classList.remove('closed');
+      if (mobileStatus) {
+        mobileStatus.textContent = `Open Now • Closes 11:30 PM (in ${countdownStr})`;
+      }
+    } else {
+      let minsUntilOpen;
+      if (timeInMins < openTimeMins) {
+        minsUntilOpen = openTimeMins - timeInMins;
+      } else {
+        minsUntilOpen = (24 * 60 - timeInMins) + openTimeMins;
+      }
+      const remHours = Math.floor(minsUntilOpen / 60);
+      const remM = minsUntilOpen % 60;
+      const countdownStr = remHours > 0 ? `${remHours}h ${remM}m` : `${remM}m`;
+
+      if (statusBadge) {
+        statusBadge.textContent = 'Closed Now';
+        statusBadge.classList.add('closed');
+      }
+      if (statusCountdown) {
+        statusCountdown.textContent = `Opens at 10:00 AM IST (in ${countdownStr}) • Daily 10:00 AM – 11:30 PM`;
+      }
+      if (pulseDot) pulseDot.classList.add('closed');
+      if (mobileStatus) {
+        mobileStatus.textContent = `Closed Now • Opens 10:00 AM (in ${countdownStr})`;
+      }
+    }
+  }
+
+  update();
+  setInterval(update, 30000); // Live sync every 30 seconds
+}
+

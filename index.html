@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>CAFFYO by Zauq | Nagpur's Premier Artisanal 3D Coffee Experience</title>
+  <meta name="description" content="CAFFYO by Zauq (कफयो बाय ज़ॉक) in Nagpur, Maharashtra. Rated 4.5★ (116+ reviews). Experience interactive 3D coffee assembly, slow artisanal roasts, and warm hospitality at Prestige Hospital Chowk." />
+  <meta name="keywords" content="CAFFYO by Zauq, Nagpur cafe, coffee shop Nagpur, best coffee in Nagpur, 3D coffee website, specialty coffee, Chhaoni Rd cafe, Koradi Colony" />
+
+  <!-- Mobile Browser Theme Color -->
+  <meta name="theme-color" content="#0e0a07" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Google Fonts: Editorial Serif & Modern Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- ============================================================
+       PRELOADER: LUXURY EDITORIAL INTRO
+       Smooth animation before loading the website
+       ============================================================ -->
+  <div id="caffyo-preloader" class="caffyo-preloader" aria-hidden="false">
+    <div class="preloader-ambient-glow"></div>
+    <div class="preloader-content">
+      <div class="preloader-logo-wrap">
+        <img src="assets/brand/caffyo_zauq_logo.svg" alt="CAFFYO by Zauq" class="preloader-logo-img" />
+        <div class="preloader-glow-ring"></div>
+      </div>
+      <div class="preloader-meta">
+        <span class="preloader-tag">ARTISANAL COFFEE ROASTERY &bull; NAGPUR</span>
+      </div>
+      <div class="preloader-progress-track">
+        <div id="preloader-progress-bar" class="preloader-progress-bar"></div>
+      </div>
+      <div class="preloader-counter-row">
+        <span id="preloader-status-text" class="preloader-status-text">BREWING AMBIENCE</span>
+        <span id="preloader-percent" class="preloader-percent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- ============================================================
+       TOP NAVIGATION BAR
+       ============================================================ -->
+  <header class="header-nav">
+    <a href="#hero" class="nav-brand" aria-label="CAFFYO by Zauq Home">
+      <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" class="nav-brand-logo-img" />
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#interactive-assembly">Craft Assembly</a></li>
+        <li><a href="#editorial-story">Our Story</a></li>
+        <li><a href="#roasting-spectrum">Roasts</a></li>
+        <li><a href="#best-sellers">Best Sellers</a></li>
+        <li><a href="menu.html" style="color: var(--gold-accent); font-weight: 700;">Explore Menu &rarr;</a></li>
+        <li><a href="#visit">Visit &amp; Reserve</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Ambient Audio Synthesizer Toggle -->
+      <button id="btn-sound-toggle" class="btn-sound" title="Toggle Cafe Soundscape" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </button>
+
+      <!-- Cart Button linking to Menu Tray -->
+      <a href="menu.html" class="btn-cart-nav" aria-label="View Menu & Tray">
+        <span class="cart-label-text">Menu &amp; Tray</span>
+      </a>
+
+      <!-- Desktop Table Reservation CTA -->
+      <a href="#visit" class="btn-primary desktop-only-btn">Reserve Table</a>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="btn-mobile-menu" class="btn-hamburger" aria-label="Open mobile menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MOBILE SLIDE-IN DRAWER (Clean Editorial - No Emojis)
+       ============================================================ -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="nav-brand">
+        <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" class="nav-brand-logo-img" style="height: 36px; width: auto;" />
+      </div>
+      <button id="btn-close-mobile-drawer" class="btn-close-drawer" aria-label="Close menu">&times;</button>
+    </div>
+
+    <!-- Live Status Tag (Dynamic Google Maps Sync) -->
+    <div class="mobile-status-pill">
+      <span class="live-indicator"></span>
+      <span id="mobile-live-status">Syncing Google Maps Hours...</span>
+    </div>
+
+    <!-- Mobile Nav Links -->
+    <nav class="mobile-nav-menu">
+      <a href="#hero" class="mobile-nav-link">
+        <span>Home Canvas</span>
+      </a>
+      <a href="#interactive-assembly" class="mobile-nav-link">
+        <span>The Craft Build</span>
+      </a>
+      <a href="menu.html" class="mobile-nav-link" style="color: var(--gold-accent);">
+        <span>Official Menu (All 15 Sections) &rarr;</span>
+      </a>
+      <a href="#editorial-story" class="mobile-nav-link">
+        <span>The Art of Slow Brews</span>
+      </a>
+      <a href="#roasting-spectrum" class="mobile-nav-link">
+        <span>Roasting Spectrum</span>
+      </a>
+      <a href="#best-sellers" class="mobile-nav-link">
+        <span>Best Selling Items</span>
+      </a>
+      <a href="#visit" class="mobile-nav-link">
+        <span>Reserve Table / Location</span>
+      </a>
+    </nav>
+
+    <!-- Mobile Quick Dial & Directions -->
+    <div class="mobile-drawer-footer">
+      <a href="tel:+917120000000" class="btn-secondary" style="width: 100%; justify-content: center; padding: 12px;">
+        Call Cafe: +91 712 289 4400
+      </a>
+      <a href="https://maps.app.goo.gl/WQhd8hcG5fX18jAJA" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+        Google Maps Navigation
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       DRIBBLE-INSPIRED HERO SECTION (reference.mp4)
+       Giant kinetic typography + Centered 3D Cup + Next/Prev Arrows
+       ============================================================ -->
+  <section id="hero" class="hero-section">
+    <!-- Dribbble Giant Background Kinetic Typography -->
+    <div class="dribbble-kinetic-bg">
+      <div id="kinetic-text" class="kinetic-text">ESPRESSO</div>
+    </div>
+
+    <!-- WebGL Three.js Canvas Container -->
+    <div id="webgl-canvas-container">
+      <canvas id="three-canvas"></canvas>
+    </div>
+
+    <!-- Hero Content Overlay -->
+    <div class="hero-content">
+      <div class="hero-tag">
+        Chhaoni Road, Koradi Colony, Nagpur
+      </div>
+
+      <h1 class="hero-title">
+        Specialty Coffee.<br />
+        Roasted Fresh.<br />
+        Slowly Brewed.
+      </h1>
+
+      <p class="hero-desc">
+        Single-origin Arabica roasts, manual espresso extractions under 9 bars of pressure, and artisanal European toasties at Prestige Hospital Chowk.
+      </p>
+
+      <!-- Active Brew Tag (Changes with Dribbble slider) -->
+      <div class="hero-active-brew-pill">
+        <span id="hero-brew-name">Caffyo Signature Swan Latte</span> | <strong id="hero-brew-price">₹119</strong>
+      </div>
+
+      <!-- Action Buttons: Clean Architectural Rectangles -->
+      <div class="hero-cta-group">
+        <a href="menu.html" class="btn-primary">
+          Explore Menu <span>&rarr;</span>
+        </a>
+        <button id="btn-hero-explode" class="btn-secondary" aria-label="Explore coffee aroma">
+          Rotate Roast
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE TICKER STRIP (Clean Editorial Ticker - No Emojis)
+       ============================================================ -->
+  <div class="marquee-ticker-wrap" aria-hidden="true">
+    <div class="marquee-ticker-track">
+      <span>ARABICA SLOW BREWS</span>
+      <span class="ticker-star">&bull;</span>
+      <span>ARTISANAL TOASTY</span>
+      <span class="ticker-star">&bull;</span>
+      <span>SPANISH ICED LATTE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>BELGIAN HOT CHOCOLATE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>KAAPI NIRVANA FRAPPE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>CORTADO &amp; VELVET CREMA</span>
+      <span class="ticker-star">&bull;</span>
+      <span>PRESTIGE HOSPITAL CHOWK, NAGPUR</span>
+      <span class="ticker-star">&bull;</span>
+      <span>4.5 GOOGLE RATED (116+ REVIEWS)</span>
+      <span class="ticker-star">&bull;</span>
+      <!-- Loop duplicate for seamless continuous animation -->
+      <span>ARABICA SLOW BREWS</span>
+      <span class="ticker-star">&bull;</span>
+      <span>ARTISANAL TOASTY</span>
+      <span class="ticker-star">&bull;</span>
+      <span>SPANISH ICED LATTE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>BELGIAN HOT CHOCOLATE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>KAAPI NIRVANA FRAPPE</span>
+      <span class="ticker-star">&bull;</span>
+      <span>CORTADO &amp; VELVET CREMA</span>
+      <span class="ticker-star">&bull;</span>
+      <span>PRESTIGE HOSPITAL CHOWK, NAGPUR</span>
+      <span class="ticker-star">&bull;</span>
+      <span>4.5 GOOGLE RATED (116+ REVIEWS)</span>
+      <span class="ticker-star">&bull;</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       STATS STRIP (Grounded Facts - No Emojis, No Vague Metrics)
+       ============================================================ -->
+  <section class="stats-strip">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-info">
+          <h3>4.5 / 5</h3>
+          <p>116+ Verified Google Reviews</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-info">
+          <h3>15 Sections</h3>
+          <p>Official Dining &amp; Takeaway Menu</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-info">
+          <h3>₹79 to ₹260</h3>
+          <p>Transparent Nagpur Pricing</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-info">
+          <h3>Chhaoni Road</h3>
+          <p>Prestige Hospital Chowk, Nagpur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTERACTIVE DRINK ASSEMBLY SEQUENCE (Powered by 50 Real PNG Frames)
+       Reference: Afterglow Pistachio Tiramisu Iced Latte Build
+       ============================================================ -->
+  <section id="interactive-assembly" class="craft-sequence-section">
+    <div class="section-head text-center">
+      <span class="section-subtitle">Artisanal Extraction Build</span>
+      <h2 class="section-title">Pistachio Tiramisu Iced Latte</h2>
+      <p class="section-desc">
+        Interact with the extraction timeline below. Watch the double-shot Arabica espresso, chilled milk, and pistachio velvet cream marble in real-time.
+      </p>
+    </div>
+
+    <div class="craft-interactive-grid">
+      <!-- 3D Frame Sequence Canvas Stage -->
+      <div class="craft-stage-container">
+        <div id="craft-loading-indicator" class="craft-loading-indicator">Loading Craft Sequence...</div>
+        <canvas id="craft-frames-canvas"></canvas>
+
+        <!-- Scrubbing & Timeline Controls -->
+        <div class="craft-timeline-bar">
+          <button id="btn-play-sequence" class="btn-timeline-toggle">Play Extraction</button>
+          <input type="range" id="frame-scrubber" min="1" max="50" value="35" class="craft-scrubber-slider" aria-label="Scrub extraction sequence" />
+          <span id="frame-counter-label" class="frame-counter">Phase 35 / 50</span>
+        </div>
+
+        <!-- 4 Step Quick Jumps (Matching Reference Video Extraction Phases) -->
+        <div class="craft-phase-steps">
+          <button class="btn-phase-step" data-frame-phase="1">01 Base Glass &amp; Ice</button>
+          <button class="btn-phase-step" data-frame-phase="20">02 Espresso Pull</button>
+          <button class="btn-phase-step active" data-frame-phase="35">03 Pistachio Velvet Swirl</button>
+          <button class="btn-phase-step" data-frame-phase="48">04 Pistachio Crumble Dust</button>
+        </div>
+      </div>
+
+      <!-- Customization Panel (Matching Frame 48 Reference) -->
+      <div class="craft-customize-panel">
+        <div class="customize-head">
+          <span class="customize-tag">Signature Drink</span>
+          <h3>Customize Your Order</h3>
+          <p>Handcrafted by our baristas at Prestige Hospital Chowk</p>
+        </div>
+
+        <!-- Roast Selector -->
+        <div class="custom-field-group">
+          <label>Coffee Extraction</label>
+          <div class="custom-btn-row">
+            <button class="custom-opt-btn selected" data-custom-roast="signature">Caffyo Signature</button>
+            <button class="custom-opt-btn" data-custom-roast="chikmagalur">Chikmagalur Single-Origin</button>
+            <button class="custom-opt-btn" data-custom-roast="dark">Italian Dark</button>
+          </div>
+        </div>
+
+        <!-- Milk Selector -->
+        <div class="custom-field-group">
+          <label>Milk Selection</label>
+          <div class="custom-btn-row">
+            <button class="custom-opt-btn" data-custom-milk="whole">Whole Milk (Included)</button>
+            <button class="custom-opt-btn selected" data-custom-milk="oat">Oat Milk (+₹30)</button>
+          </div>
+        </div>
+
+        <!-- Order Summary & Action -->
+        <div class="craft-order-footer">
+          <div class="craft-price-display">
+            <span class="price-label">Drink Total</span>
+            <div id="craft-calculated-price" class="craft-price-val">₹209</div>
+            <div id="craft-summary-text" class="craft-summary-line">SIGNATURE Roast | OAT Milk | Double Shot Extraction</div>
+          </div>
+          <button id="btn-add-crafted-drink" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
+            Add to Order Tray
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDITORIAL STORY (Reference Section 2: Cream Background + Tilted Wireframes)
+       ============================================================ -->
+  <section id="editorial-story" class="editorial-story-section">
+    <div class="editorial-story-container">
+      <!-- Item 1: Coffee Heaven -->
+      <div class="editorial-row">
+        <div class="editorial-image-frame">
+          <div class="editorial-wireframe"></div>
+          <div class="editorial-photo-box">
+            <img src="assets/images/hero_coffee.jpg" alt="Artisan Latte Art" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="editorial-text-col">
+          <h2 class="editorial-headline">Coffee Heaven</h2>
+          <p class="editorial-desc">
+            At CAFFYO by Zauq, coffee is not just a morning routine: it is a crafted sensory awakening. Every bean is sourced from high-altitude estates across Chikmagalur, hand-sorted, and roasted to extract delicate floral aromatics and bold caramel notes.
+          </p>
+          <a href="menu.html#hot-coffee" class="btn-dark-pill">
+            View Coffee Menu <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 2: Zauq's Coffee / Ambiance (Reversed Layout) -->
+      <div class="editorial-row reversed">
+        <div class="editorial-image-frame">
+          <div class="editorial-wireframe"></div>
+          <div class="editorial-photo-box">
+            <img src="assets/images/cafe_interior.jpg" alt="Caffyo Boutique Interior" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="editorial-text-col">
+          <h2 class="editorial-headline">Zauq's Lounge</h2>
+          <p class="editorial-desc">
+            Nestled at Prestige Hospital Chowk in Nagpur, our cafe blends warm Edison glows, vintage leather booths, and an open barista brew bar. It is the perfect cozy corner to catch up with friends, read a book, or enjoy slow afternoon conversation.
+          </p>
+          <a href="#visit" class="btn-dark-pill">
+            Reserve Lounge Table <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OUR ROASTING SPECTRUM (Inspired by Café Aroma Reference)
+       4 Distinct Craft Profiles: Light, Medium Signature, Dark Velvet, Kyoto Cold Steep
+       ============================================================ -->
+  <section id="roasting-spectrum" class="roasting-spectrum-section">
+    <div class="section-head">
+      <span class="section-subtitle">The Science of Single-Origin</span>
+      <h2 class="section-title">Our Roasting Spectrum</h2>
+      <p class="section-desc">
+        Every coffee bean tells a story of terroir and temperature. At our Prestige Hospital Chowk brew bar, we calibrate drum temperatures to the degree to unlock the perfect aroma profile.
+      </p>
+    </div>
+
+    <div class="roasting-cards-grid">
+      <!-- 1. Light Roast -->
+      <div class="roasting-card">
+        <span class="roast-badge">Light Roast • 198°C</span>
+        <div class="roast-img-wrap">
+          <img src="assets/images/hero_coffee.jpg" alt="Chikmagalur Light Roast" loading="lazy" />
+        </div>
+        <div class="roast-content">
+          <h3>Chikmagalur Reserve</h3>
+          <p class="roast-notes">Notes: Wild Jasmine • Meyer Lemon • Crisp Apple</p>
+          <p class="roast-meta">First Crack Extraction • Bright Sparkling Acidity • Clean Finish</p>
+          <a href="menu.html#black-coffee" class="btn-roast-link">
+            Taste Ristretto (₹79) <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Medium Roast (House Signature) -->
+      <div class="roasting-card featured">
+        <span class="roast-badge gold">Medium Roast • House Signature</span>
+        <div class="roast-img-wrap">
+          <img src="assets/images/spanish_latte.jpg" alt="Caffyo Signature Medium Roast" loading="lazy" />
+        </div>
+        <div class="roast-content">
+          <h3>Caffyo House Blend</h3>
+          <p class="roast-notes">Notes: Toasted Hazelnut • Salted Caramel • Milk Chocolate</p>
+          <p class="roast-meta">Balanced Development • Rich Golden Crema • Ideal with Milk</p>
+          <a href="menu.html#hot-coffee" class="btn-roast-link">
+            Taste Swan Latte (₹119) <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Dark Roast -->
+      <div class="roasting-card">
+        <span class="roast-badge">Dark Roast • 222°C</span>
+        <div class="roast-img-wrap">
+          <img src="assets/images/gourmet_bites.jpg" alt="Italian Dark Velvet Roast" loading="lazy" />
+        </div>
+        <div class="roast-content">
+          <h3>Italian Dark Velvet</h3>
+          <p class="roast-notes">Notes: 85% Dark Cacao • Smoky Oak • Black Treacle</p>
+          <p class="roast-meta">Full French Body • Ultra Low Acidity • Heavy Viscous Mouthfeel</p>
+          <a href="menu.html#hot-coffee" class="btn-roast-link">
+            Taste Smooth Mocha (₹139) <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Cold Steep -->
+      <div class="roasting-card">
+        <span class="roast-badge blue">Kyoto Cold Steep • 18-Hr</span>
+        <div class="roast-img-wrap">
+          <img src="assets/images/cheesecake.jpg" alt="18-Hour Slow Steep Cold Brew" loading="lazy" />
+        </div>
+        <div class="roast-content">
+          <h3>Kyoto Slow Extraction</h3>
+          <p class="roast-notes">Notes: Damascus Rose • Vanilla Pod • Ruby Cranberry</p>
+          <p class="roast-meta">Sub-Zero Gravity Drip • 0% Bitterness • Velvety Smooth Sip</p>
+          <a href="menu.html#cold-brew" class="btn-roast-link">
+            Taste On The Rocks (₹139) <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEST SELLING ITEM (Reference Section 3: Warm Caramel / Ochre)
+       ============================================================ -->
+  <section id="best-sellers" class="best-sellers-section">
+    <div class="best-sellers-container">
+      <div class="best-sellers-head">
+        <h2>Best Selling Item</h2>
+        <p>
+          Crafted with care, loved by hundreds of guests across Nagpur. Discover our most celebrated creations.
+        </p>
+      </div>
+
+      <!-- Reference Underline Tabs: All / Brews / Bites / Sweets -->
+      <div class="editorial-category-tabs">
+        <button class="editorial-tab-btn active" data-filter="all">All</button>
+        <button class="editorial-tab-btn" data-filter="brews">Brews</button>
+        <button class="editorial-tab-btn" data-filter="bites">Toasty</button>
+        <button class="editorial-tab-btn" data-filter="desserts">Frappes</button>
+      </div>
+
+      <!-- 3-Card Grid Matching Reference Image -->
+      <div class="reference-cards-grid">
+        <!-- Card 1: Spanish Latte -->
+        <div class="reference-card">
+          <div class="ref-card-img-box">
+            <img src="assets/images/hero_coffee.jpg" alt="Caffyo Spanish Latte" loading="lazy" />
+          </div>
+          <h3 class="ref-card-title">Spanish Latte</h3>
+          <div class="ref-card-price">₹149</div>
+          <a href="menu.html#hot-coffee" class="ref-order-btn">Order on Menu →</a>
+        </div>
+
+        <!-- Card 2: Spanish Ice Latte -->
+        <div class="reference-card">
+          <div class="ref-card-img-box">
+            <img src="assets/images/spanish_latte.jpg" alt="Iced Spanish Cortado" loading="lazy" />
+          </div>
+          <h3 class="ref-card-title">Spanish Ice Latte</h3>
+          <div class="ref-card-price">₹139</div>
+          <a href="menu.html#iced-coffee" class="ref-order-btn">Order on Menu →</a>
+        </div>
+
+        <!-- Card 3: Kaapi Nirvana Blast -->
+        <div class="reference-card">
+          <div class="ref-card-img-box">
+            <img src="assets/images/gourmet_bites.jpg" alt="Kaapi Nirvana Blast" loading="lazy" />
+          </div>
+          <h3 class="ref-card-title">Kaapi Nirvana Blast</h3>
+          <div class="ref-card-price">₹179</div>
+          <a href="menu.html#thik-frappe" class="ref-order-btn">Order on Menu →</a>
+        </div>
+      </div>
+
+      <!-- Redirect CTA Button -->
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="menu.html" class="btn-primary" style="padding: 14px 32px; font-size: 1rem; align-self: center;">
+          View Full Menu Website (All 15 Sections) <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT OUR CUSTOMER SAYS (Reference Section 4: Cream + Dark Overlapping Card)
+       ============================================================ -->
+  <section id="reviews" class="testimonial-section">
+    <div class="testimonial-container">
+      <h2 class="testimonial-title">What Our Customer Says</h2>
+
+      <div class="testimonial-card-wrapper">
+        <!-- Overlapping Circular Avatar -->
+        <div class="testimonial-avatar-bubble" id="testimonial-avatar">
+          <span>H</span>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote" id="testimonial-quote">
+            “A cozy little cafe with such a warm and welcoming atmosphere. This was my second visit, and I had another lovely experience. A special thank you to <strong>Anushka</strong>, who welcomed me both times with such kindness and a genuine smile.”
+          </p>
+          <div class="testimonial-stars">★★★★★</div>
+          <h4 class="testimonial-author" id="testimonial-author">Hello</h4>
+          <div class="testimonial-sub" id="testimonial-sub">Verified Guest • 2 Reviews</div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows from Reference -->
+      <div class="testimonial-arrows">
+        <button id="btn-prev-testimonial" class="btn-arrow" aria-label="Previous review">←</button>
+        <button id="btn-next-testimonial" class="btn-arrow" aria-label="Next review">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NEWSLETTER & SPECIAL OFFERS (Reference Section 5: Caramel Band)
+       ============================================================ -->
+  <section class="newsletter-band">
+    <div class="newsletter-container">
+      <h3 class="newsletter-headline">
+        Stay Up To Date On All News And Offers.
+      </h3>
+
+      <div class="newsletter-form-col">
+        <p>Be the first to know about new seasonal roasts, chef's specials, and events at Caffyo.</p>
+        <form id="newsletter-form" class="newsletter-input-box" onsubmit="event.preventDefault(); alert('Welcome to the Caffyo by Zauq Inner Circle!'); this.reset();">
+          <input type="email" required placeholder="Enter Your Email Address" aria-label="Email Address" />
+          <button type="submit" aria-label="Subscribe">&rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VISIT & TABLE RESERVATIONS (Prestige Hospital Chowk, Nagpur)
+       ============================================================ -->
+  <section id="visit" class="visit-section">
+    <div class="section-head">
+      <span class="section-subtitle">Find Your Spot</span>
+      <h2 class="section-title">Join Us in Nagpur</h2>
+      <p class="section-desc">
+        Prestige Hospital Chowk, Chhaoni Road. Reserve a table for a peaceful work session or an intimate coffee date.
+      </p>
+    </div>
+
+    <div class="visit-grid">
+      <!-- Table Booking Form -->
+      <div class="booking-card">
+        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 6px; color: #fff;">
+          Reserve Your Table
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted-dark); margin-bottom: 18px;">
+          Instant confirmation • Warmly hosted by our team
+        </p>
+
+        <form id="table-booking-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="book-name">Your Full Name</label>
+              <input type="text" id="book-name" required placeholder="e.g. Vikram Sharma" />
+            </div>
+
+            <div class="form-group">
+              <label for="book-phone">Phone Number</label>
+              <input type="tel" id="book-phone" required placeholder="+91 98765 43210" />
+            </div>
+
+            <div class="form-group">
+              <label for="book-date">Date</label>
+              <input type="date" id="book-date" required value="2026-09-27" />
+            </div>
+
+            <div class="form-group">
+              <label for="book-time">Time Slot</label>
+              <select id="book-time" required>
+                <option value="11:00 AM">11:00 AM (Morning Brew)</option>
+                <option value="01:30 PM">01:30 PM (Brunch & Bites)</option>
+                <option value="04:30 PM" selected>04:30 PM (Golden Hour Coffee)</option>
+                <option value="07:00 PM">07:00 PM (Evening Lounge)</option>
+                <option value="09:30 PM">09:30 PM (Night Dessert & Latte)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="book-guests">Guests</label>
+              <select id="book-guests" required>
+                <option value="1">1 Person (Quiet Work / Solo)</option>
+                <option value="2" selected>2 Guests (Coffee Date)</option>
+                <option value="4">4 Guests (Friends & Family)</option>
+                <option value="6+">6+ Guests (Group Gathering)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="book-seating">Seating Ambience</label>
+              <select id="book-seating" required>
+                <option value="Cozy Leather Booth">Cozy Leather Booth</option>
+                <option value="Barista Brew Counter">Barista Brew Counter</option>
+                <option value="Corner Reading Nook">Corner Reading Nook</option>
+                <option value="Patio Outdoor">Garden / Patio Vibe</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label for="book-notes">Special Requests (Optional)</label>
+              <input type="text" id="book-notes" placeholder="Anniversary dessert candle, oat milk preference, etc." />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px; justify-content: center; padding: 14px;">
+            Confirm Reservation
+          </button>
+        </form>
+      </div>
+
+      <!-- Location Information Card -->
+      <div class="location-info-card">
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 18px; color: #fff;">
+            Cafe Information
+          </h3>
+
+          <div class="info-item">
+            <div class="info-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="info-item-content">
+              <h4>Address</h4>
+              <p>
+                Prestige Hospital chowk, Prestige Hospital, Chhaoni Rd, near Masjid, Koradi Colony, Nagpur, Maharashtra 440001
+              </p>
+              <p style="margin-top: 4px; color: var(--gold-accent); font-size: 0.8rem; font-family: monospace;">
+                Plus Code: 537H+FW Nagpur, Maharashtra
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="info-item-content">
+              <h4>Live Opening Hours (IST)</h4>
+              <div id="live-cafe-status" class="live-cafe-status-block">
+                <div class="status-indicator-line">
+                  <span class="live-pulse-dot"></span>
+                  <span id="live-status-badge" class="live-status-text">Checking Live Status...</span>
+                </div>
+                <p id="live-time-countdown" class="live-status-sub">Hours: 10:00 AM – 11:30 PM (All 7 Days)</p>
+                <div class="google-rating-sync">
+                  <span class="star-rating">★ 4.5</span>
+                  <span class="review-count">116+ Google Reviews &bull; Google Maps Verified</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div class="info-item-content">
+              <h4>Service Options</h4>
+              <p>Dine-in &bull; Takeaway &bull; Doorstep Delivery across Nagpur</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nagpur Map Actions -->
+        <div class="nagpur-map-box">
+          <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">CAFFYO by Zauq &bull; GPS Navigation</div>
+          <div style="font-size: 0.82rem; color: var(--text-muted-dark); margin-bottom: 12px;">Chhaoni Rd, Koradi Colony, Nagpur</div>
+          <div class="map-action-btns">
+            <a href="https://maps.app.goo.gl/WQhd8hcG5fX18jAJA" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 0.82rem; padding: 10px 18px;">
+              Get Directions &rarr;
+            </a>
+            <a href="tel:+917120000000" class="btn-secondary" style="font-size: 0.82rem; padding: 10px 18px;">
+              Call Cafe: +91 712 289 4400
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Bottom Dock -->
+  <nav class="mobile-bottom-dock" aria-label="Mobile quick actions">
+    <a href="#hero" class="dock-item active" data-dock="hero">
+      <span class="dock-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </span>
+      <span class="dock-label">Home</span>
+    </a>
+    <a href="#interactive-assembly" class="dock-item" data-dock="interactive-assembly">
+      <span class="dock-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+      </span>
+      <span class="dock-label">Craft Build</span>
+    </a>
+    <a href="menu.html" class="dock-item" aria-label="Go to menu" style="color: var(--gold-accent);">
+      <span class="dock-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </span>
+      <span class="dock-label">Menu &rarr;</span>
+    </a>
+    <a href="#visit" class="dock-item" aria-label="Book table">
+      <span class="dock-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </span>
+      <span class="dock-label">Reserve</span>
+    </a>
+  </nav>
+
+  <!-- ============================================================
+       FOOTER (Matches Reference Layout: Beige Box + Links + Thumbnail)
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- Left: Beige Brand Box from Reference -->
+      <div class="footer-brand-box">
+        <img src="assets/brand/caffyo_zauq_logo.svg" alt="CAFFYO by Zauq" style="height: 58px; width: auto; margin-bottom: 16px; display: block;" />
+        <h2 class="footer-brand-title">Caffyo by Zauq</h2>
+        <p class="footer-brand-sub">
+          Enjoy Better And Better Quality Coffee With Caffyo. Nagpur's artisan home for slow brews, warm hospitality, and confectionery elegance.
+        </p>
+      </div>
+
+      <!-- Center: Contact Us -->
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-list">
+          <p><strong>Email:</strong> caffyobyzauq@gmail.com</p>
+          <p><strong>Call Us:</strong> +91 712 289 4400</p>
+          <p><strong>Address:</strong> Prestige Hospital Chowk, Chhaoni Rd, Koradi Colony, Nagpur, Maharashtra 440001</p>
+        </div>
+      </div>
+
+      <!-- Right: Photo Thumbnail & Follow Us -->
+      <div class="footer-col">
+        <div class="footer-thumbnail-box">
+          <img src="assets/images/hero_coffee.jpg" alt="Caffyo Specialty Coffee" loading="lazy" />
+        </div>
+        <h4>Follow Us</h4>
+        <div class="footer-social-row">
+          <a href="https://www.instagram.com/caffyo.nagpur/?hl=en" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Instagram @caffyo.nagpur">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://maps.app.goo.gl/WQhd8hcG5fX18jAJA" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Google Maps">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>Copyright 2026 CAFFYO by Zauq. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/interactive-cup.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
