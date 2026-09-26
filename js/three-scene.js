@@ -52,7 +52,6 @@ class Caffyo3DExperience {
     this.init();
     this.createLights();
     this.createCoffeeCup();
-    this.createSaucerBeans();
     this.createFloatingBeans();
     this.createSteamSystem();
     this.setupEventListeners();
@@ -71,8 +70,8 @@ class Caffyo3DExperience {
       this.cameraDefaultPos.set(0, 1.9, 5.3);
       this.cameraTarget.set(0, 0.25, 0);
     } else {
-      this.cameraDefaultPos.set(0.8, 2.2, 5.2);
-      this.cameraTarget.set(0.8, 0.4, 0);
+      this.cameraDefaultPos.set(1.15, 2.2, 5.2);
+      this.cameraTarget.set(1.15, 0.38, 0);
     }
     this.camera.position.copy(this.cameraDefaultPos);
     this.camera.lookAt(this.cameraTarget);
@@ -93,11 +92,11 @@ class Caffyo3DExperience {
 
   createLights() {
     // Ambient light with warm undertones
-    const ambientLight = new THREE.AmbientLight(0x3a2215, 2.0);
+    const ambientLight = new THREE.AmbientLight(0x3a2215, 2.2);
     this.scene.add(ambientLight);
 
     // Warm Key Light casting crisp highlights on porcelain and beans
-    this.keyLight = new THREE.DirectionalLight(0xfff1e0, 2.6);
+    this.keyLight = new THREE.DirectionalLight(0xfff1e0, 2.2);
     this.keyLight.position.set(5, 9, 5);
     this.keyLight.castShadow = true;
     this.keyLight.shadow.mapSize.width = 1024;
@@ -107,13 +106,13 @@ class Caffyo3DExperience {
     this.scene.add(this.keyLight);
 
     // Rich Amber Rim Light for atmospheric glow
-    const rimLight = new THREE.DirectionalLight(0xe59866, 3.2);
+    const rimLight = new THREE.DirectionalLight(0xe59866, 2.6);
     rimLight.position.set(-6, 4, -4);
     this.scene.add(rimLight);
 
-    // Glowing Crema Point Light
-    this.pointLight = new THREE.PointLight(0xffa502, 3.5, 8);
-    this.pointLight.position.set(0, 1.8, 0);
+    // Soft warm crema bounce fill (delicate, natural, zero artificial blowout)
+    this.pointLight = new THREE.PointLight(0xffecd9, 0.35, 6);
+    this.pointLight.position.set(2.1, 2.8, 1.0);
     this.scene.add(this.pointLight);
   }
 
@@ -224,78 +223,34 @@ class Caffyo3DExperience {
     this.liquidOrigPos = new Float32Array(pos.array.length);
     this.liquidOrigPos.set(pos.array);
 
-    // Authentic Barista Crema & Latte Art Canvas
-    const cremaCanvas = document.createElement('canvas');
-    cremaCanvas.width = 1024;
-    cremaCanvas.height = 1024;
-    const ctx = cremaCanvas.getContext('2d');
-
-    // Deep espresso base gradient
-    const grad = ctx.createRadialGradient(512, 512, 30, 512, 512, 512);
-    grad.addColorStop(0, '#f9edd8');    // Warm steamed milk center
-    grad.addColorStop(0.15, '#e0a052'); // Golden hazelnut crema
-    grad.addColorStop(0.42, '#874012'); // Rich roasted amber
-    grad.addColorStop(0.78, '#3c1806'); // Dark espresso extraction
-    grad.addColorStop(1, '#180702');    // Deep roasted outer rim
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1024, 1024);
-
-    // Micro-texture: natural crema foam bubbles
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
-    for (let b = 0; b < 1500; b++) {
-      const bx = Math.random() * 1024;
-      const by = Math.random() * 1024;
-      const br = Math.random() * 2.2 + 0.4;
-      ctx.beginPath();
-      ctx.arc(bx, by, br, 0, Math.PI * 2);
-      ctx.fill();
+    // Authentic Barista Rosetta Latte Art Texture (from user reference)
+    const textureLoader = new THREE.TextureLoader();
+    const rosettaTexture = textureLoader.load('assets/images/latte_art_rosetta.png');
+    rosettaTexture.generateMipmaps = true;
+    rosettaTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    rosettaTexture.magFilter = THREE.LinearFilter;
+    rosettaTexture.encoding = THREE.sRGBEncoding;
+    rosettaTexture.center.set(0.5, 0.5);
+    rosettaTexture.rotation = Math.PI; // Heart crown faces towards the drinker/camera
+    if (this.renderer && this.renderer.capabilities && this.renderer.capabilities.getMaxAnisotropy) {
+      rosettaTexture.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
     }
 
-    // Realistic Barista Swan / Heart Rosetta Latte Art
-    const tiers = [
-      { r: 280, alpha: 0.32 },
-      { r: 230, alpha: 0.48 },
-      { r: 180, alpha: 0.68 },
-      { r: 130, alpha: 0.84 },
-      { r: 85,  alpha: 0.94 }
-    ];
+    // Microfoam depth normal / bump map for tactile realism
+    const rosettaNormal = textureLoader.load('assets/images/latte_art_rosetta_normal.png');
+    rosettaNormal.minFilter = THREE.LinearMipmapLinearFilter;
 
-    tiers.forEach(t => {
-      ctx.fillStyle = `rgba(255, 248, 236, ${t.alpha})`;
-      ctx.beginPath();
-      ctx.ellipse(512, 512 - t.r * 0.15, t.r * 0.85, t.r * 0.55, 0, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // Central crisp heart flourish
-    ctx.fillStyle = '#fff7ea';
-    ctx.beginPath();
-    ctx.moveTo(512, 470);
-    ctx.bezierCurveTo(460, 420, 440, 500, 512, 570);
-    ctx.bezierCurveTo(584, 500, 564, 420, 512, 470);
-    ctx.fill();
-
-    // Barista draw-through line
-    ctx.strokeStyle = '#df9b4b';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(512, 380);
-    ctx.lineTo(512, 620);
-    ctx.stroke();
-
-    const cremaTexture = new THREE.CanvasTexture(cremaCanvas);
-
-    // Translucent reflective physical liquid material with depth sorting
+    // Photorealistic velvety microfoam physical material
     const liquidMat = new THREE.MeshPhysicalMaterial({
-      map: cremaTexture,
-      color: 0x3d2012,
-      roughness: 0.05,
-      metalness: 0.04,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.03,
-      transmission: 0.18,
-      ior: 1.34,
-      reflectivity: 0.95,
+      map: rosettaTexture,
+      bumpMap: rosettaTexture,
+      bumpScale: 0.003,
+      color: 0xffffff,
+      roughness: 0.35,        // Soft microfoam scattering (not shiny plastic mirror)
+      metalness: 0.0,
+      clearcoat: 0.35,        // Subtle wet liquid sheen of freshly poured espresso
+      clearcoatRoughness: 0.20,
+      reflectivity: 0.70,
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -1.0
@@ -305,9 +260,9 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position: Desktop right side, elevated and framed for mobile
+    // Position: Shifted right on desktop to leave ample negative space for headline
     const isMobile = window.innerWidth <= 768;
-    this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.22 : -0.45, 0);
+    this.cupGroup.position.set(isMobile ? 0 : 2.15, isMobile ? -0.22 : -0.45, 0);
     if (isMobile) {
       this.cupGroup.scale.setScalar(0.92);
     }
@@ -336,39 +291,9 @@ class Caffyo3DExperience {
     return geo;
   }
 
-  /* Realistic Roasted Arabica Beans resting naturally on the Porcelain Saucer */
+  /* Saucer kept clean and pristine per user request (no beans on plate) */
   createSaucerBeans() {
-    const beanGeo = this.createCoffeeBeanGeometry();
-    const roastColors = [0x2c1407, 0x4a240f, 0x3d1c0a, 0x5a2d14];
-
-    // 7 artisanal roasted beans naturally placed on the saucer rim beside the cup
-    const saucerPlacements = [
-      { r: 1.50, a: 0.45, rotY: 0.35, rotZ: 0.12 },
-      { r: 1.62, a: 0.78, rotY: -0.55, rotZ: -0.08 },
-      { r: 1.66, a: 2.10, rotY: 1.25, rotZ: 0.15 },
-      { r: 1.52, a: 2.48, rotY: -0.85, rotZ: 0.10 },
-      { r: 1.72, a: 3.85, rotY: 0.65, rotZ: -0.12 },
-      { r: 1.56, a: 4.95, rotY: 2.15, rotZ: 0.08 },
-      { r: 1.68, a: 5.30, rotY: -1.35, rotZ: 0.14 }
-    ];
-
-    saucerPlacements.forEach((b, i) => {
-      const color = roastColors[i % roastColors.length];
-      const mat = new THREE.MeshStandardMaterial({
-        color: color,
-        roughness: 0.42,
-        metalness: 0.15
-      });
-      const mesh = new THREE.Mesh(beanGeo, mat);
-      const bx = Math.cos(b.a) * b.r;
-      const bz = Math.sin(b.a) * b.r;
-      mesh.position.set(bx, 0.07, bz);
-      mesh.rotation.set(0.12, b.rotY, b.rotZ);
-      mesh.scale.set(0.68, 0.68, 0.68);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      this.cupGroup.add(mesh); // Stays attached to the porcelain saucer
-    });
+    // Plate beans removed per user instruction
   }
 
   /* 28 Floating Artisanal Roasted Beans orbiting gently in 3D around the cup */
@@ -388,9 +313,11 @@ class Caffyo3DExperience {
 
       const mesh = new THREE.Mesh(beanGeo, mat);
       const angle = (i / beanCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-      const radius = 2.2 + Math.random() * 2.8;
+      const radius = 2.4 + Math.random() * 2.6;
+      const isMobile = window.innerWidth <= 768;
+      const cupX = isMobile ? 0 : 2.15;
       const y = -0.5 + Math.random() * 2.4;
-      const x = Math.cos(angle) * radius;
+      const x = cupX + Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
 
       const scale = 0.52 + Math.random() * 0.42;
@@ -425,14 +352,16 @@ class Caffyo3DExperience {
   }
 
   createSteamSystem() {
-    const count = 75;
+    const count = 45;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(count * 3);
 
+    const isMobile = window.innerWidth <= 768;
+    const cupX = isMobile ? 0 : 2.15;
     for (let i = 0; i < count; i++) {
-      positions[i * 3 + 0] = this.cupGroup.position.x + (Math.random() - 0.5) * 0.7;
-      positions[i * 3 + 1] = 0.8 + Math.random() * 2.5;
-      positions[i * 3 + 2] = this.cupGroup.position.z + (Math.random() - 0.5) * 0.7;
+      positions[i * 3 + 0] = cupX + (Math.random() - 0.5) * 0.6;
+      positions[i * 3 + 1] = 1.35 + Math.random() * 2.0;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 0.6;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -442,21 +371,21 @@ class Caffyo3DExperience {
     canvas.height = 64;
     const ctx = canvas.getContext('2d');
     const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, 'rgba(255, 235, 210, 0.75)');
-    grad.addColorStop(0.5, 'rgba(229, 152, 102, 0.25)');
-    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    grad.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+    grad.addColorStop(0.5, 'rgba(240, 230, 220, 0.12)');
+    grad.addColorStop(1, 'rgba(240, 230, 220, 0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 64, 64);
 
     const texture = new THREE.CanvasTexture(canvas);
 
     const material = new THREE.PointsMaterial({
-      color: 0xffd2a0,
-      size: 0.6,
+      color: 0xffffff,
+      size: 0.35,
       map: texture,
       transparent: true,
-      opacity: 0.4,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.12,
+      blending: THREE.NormalBlending,
       depthWrite: false
     });
 
@@ -583,21 +512,21 @@ class Caffyo3DExperience {
 
     switch (mode) {
       case 'orbit':
-        this.cameraDefaultPos.set(isMobile ? 0 : 0.8, isMobile ? 2.5 : 2.2, isMobile ? 6.2 : 5.2);
-        this.cameraTarget.set(isMobile ? 0 : 0.8, 0.4, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.15, isMobile ? 2.5 : 2.2, isMobile ? 6.2 : 5.2);
+        this.cameraTarget.set(isMobile ? 0 : 1.15, 0.38, 0);
         break;
       case 'explode':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.2, 3.5, 6.8);
-        this.cameraTarget.set(isMobile ? 0 : 1.2, 0.8, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.7, 3.5, 6.8);
+        this.cameraTarget.set(isMobile ? 0 : 1.7, 0.8, 0);
         this.explode(1.3);
         break;
       case 'crema':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.5, 2.4, 1.8);
-        this.cameraTarget.set(isMobile ? 0 : 1.5, 1.2, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 2.15, 2.4, 1.8);
+        this.cameraTarget.set(isMobile ? 0 : 2.15, 1.2, 0);
         break;
       case 'roast':
-        this.cameraDefaultPos.set(isMobile ? 0 : -0.5, 1.8, 4.2);
-        this.cameraTarget.set(isMobile ? 0 : 1.5, 0.5, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 0.2, 1.8, 4.2);
+        this.cameraTarget.set(isMobile ? 0 : 2.15, 0.5, 0);
         break;
     }
   }
@@ -622,15 +551,15 @@ class Caffyo3DExperience {
 
       const isMobile = window.innerWidth <= 768;
       if (this.cupGroup) {
-        this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.22 : -0.45, 0);
+        this.cupGroup.position.set(isMobile ? 0 : 2.15, isMobile ? -0.22 : -0.45, 0);
         this.cupGroup.scale.setScalar(isMobile ? 0.92 : 1.0);
       }
       if (isMobile) {
         this.cameraDefaultPos.set(0, 1.9, 5.3);
         this.cameraTarget.set(0, 0.25, 0);
       } else {
-        this.cameraDefaultPos.set(0.8, 2.1, 5.1);
-        this.cameraTarget.set(0.8, 0.35, 0);
+        this.cameraDefaultPos.set(1.15, 2.2, 5.2);
+        this.cameraTarget.set(1.15, 0.38, 0);
       }
     });
 
@@ -806,10 +735,14 @@ class Caffyo3DExperience {
       pos.needsUpdate = true;
       this.liquidMesh.geometry.computeVertexNormals();
 
-      // Swirling barista crema texture
+      // Responsive physical micro-inertia for latte art (anchored & upright)
       if (this.liquidMesh.material && this.liquidMesh.material.map) {
         this.liquidMesh.material.map.center.set(0.5, 0.5);
-        this.liquidMesh.material.map.rotation += (0.015 + this.fluid.angularVel * 0.4) * dt;
+        this.liquidMesh.material.map.rotation = THREE.MathUtils.lerp(
+          this.liquidMesh.material.map.rotation || Math.PI,
+          Math.PI + this.fluid.angularVel * 0.06,
+          0.12
+        );
       }
     }
 
@@ -823,7 +756,8 @@ class Caffyo3DExperience {
           bean.velocity.addScaledVector(toHome, 4.0 * dt);
         } else {
           bean.angle += bean.orbitSpeed * dt * 0.35;
-          const targetX = Math.cos(bean.angle) * bean.baseRadius;
+          const cupX = this.cupGroup ? this.cupGroup.position.x : 0;
+          const targetX = cupX + Math.cos(bean.angle) * bean.baseRadius;
           const targetZ = Math.sin(bean.angle) * bean.baseRadius;
           const targetY = bean.originalPos.y + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
 
@@ -883,13 +817,13 @@ class Caffyo3DExperience {
       const count = positions.length / 3;
 
       for (let i = 0; i < count; i++) {
-        positions[i * 3 + 1] += 0.012;
-        positions[i * 3 + 0] += Math.sin(elapsedTime * 1.8 + i) * 0.0025;
+        positions[i * 3 + 1] += 0.009;
+        positions[i * 3 + 0] += Math.sin(elapsedTime * 1.5 + i) * 0.0018;
 
         if (positions[i * 3 + 1] > 3.6) {
-          positions[i * 3 + 0] = this.cupGroup.position.x + (Math.random() - 0.5) * 0.6;
-          positions[i * 3 + 1] = 0.8;
-          positions[i * 3 + 2] = this.cupGroup.position.z + (Math.random() - 0.5) * 0.6;
+          positions[i * 3 + 0] = this.cupGroup.position.x + (Math.random() - 0.5) * 0.5;
+          positions[i * 3 + 1] = 1.35 + Math.random() * 0.3;
+          positions[i * 3 + 2] = this.cupGroup.position.z + (Math.random() - 0.5) * 0.5;
         }
       }
       this.steamParticles.geometry.attributes.position.needsUpdate = true;
