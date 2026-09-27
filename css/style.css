@@ -311,144 +311,6 @@ img {
   background: rgba(240, 237, 208, 0.08);
 }
 
-/* Hamburger for Mobile */
-.btn-hamburger {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  z-index: 1002;
-}
-
-.btn-hamburger .bar {
-  width: 22px;
-  height: 2px;
-  background: var(--bone);
-  border-radius: 2px;
-  transition: var(--transition);
-}
-
-.btn-hamburger.active .bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.btn-hamburger.active .bar:nth-child(2) {
-  opacity: 0;
-}
-.btn-hamburger.active .bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Mobile Drawer */
-.mobile-drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(16, 23, 13, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 2000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.mobile-drawer-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobile-drawer {
-  position: fixed;
-  top: 0;
-  right: -320px;
-  width: 300px;
-  max-width: 85vw;
-  height: 100vh;
-  background: #1b2418;
-  border-left: 1px solid var(--border-moss);
-  z-index: 2001;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: -10px 0 40px rgba(16, 23, 13, 0.8);
-}
-
-.mobile-drawer.open {
-  right: 0;
-}
-
-.mobile-drawer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(240, 237, 208, 0.08);
-}
-
-.mobile-status-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(122, 158, 110, 0.12);
-  border: 1px solid rgba(122, 158, 110, 0.3);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.78rem;
-  color: var(--moss-accent);
-  font-weight: 600;
-  margin: 18px 0;
-}
-
-.live-indicator {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--moss-accent);
-  box-shadow: 0 0 8px var(--moss-accent);
-  animation: pulse-ring 1.5s infinite;
-}
-
-.mobile-nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  overflow-y: auto;
-}
-
-.mobile-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
-  color: var(--text-light);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-.mobile-nav-link:hover,
-.mobile-nav-link.active {
-  background: rgba(122, 158, 110, 0.15);
-  color: var(--moss-accent);
-}
-
-.mobile-drawer-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(240, 237, 208, 0.08);
-}
-
 /* ============================================================
    DRIBBLE-INSPIRED HERO SECTION (reference.mp4)
    Giant kinetic typography + Centered 3D Cup + Next/Prev Arrows
@@ -1681,6 +1543,11 @@ img {
   border-bottom: 1px solid rgba(240, 237, 208, 0.08);
 }
 
+.footer-brand-box img {
+  /* white logo needs to read on the light Pistachio brand box */
+  filter: brightness(0.2) sepia(1) hue-rotate(52deg) saturate(2.4);
+}
+
 .footer-brand-box {
   background: var(--tan);
   color: var(--cafe-noir);
@@ -1812,10 +1679,6 @@ img {
   }
   .desktop-nav,
   .desktop-only-btn {
-    display: none !important;
-  }
-  /* Hamburger hidden on mobile — bottom dock is the primary nav */
-  .btn-hamburger {
     display: none !important;
   }
   /* Keep header minimal: hide cart label, shrink sound btn */
@@ -3065,14 +2928,4 @@ img {
 
 .newsletter-input-box input::placeholder {
   color: rgba(46, 64, 41, 0.55);
-}
-
-.btn-close-drawer {
-  background: rgba(240, 237, 208, 0.12);
-  color: var(--bone);
-  border: 1px solid rgba(240, 237, 208, 0.18);
-}
-
-.btn-close-drawer:hover {
-  background: rgba(240, 237, 208, 0.22);
 }
