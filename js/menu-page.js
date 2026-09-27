@@ -114,15 +114,15 @@ const CAFFYO_SECTIONS_DATA = [
       { id: 'creamy-mushroom-toast', name: 'Creamy Mushroom Toast', price: 200, type: 'veg', desc: 'Sautéed garlic button mushrooms folded in parmesan cream on sourdough' },
       { id: 'paneer-pastrani-toast', name: 'Paneer Pastrani Toast', price: 220, type: 'veg', desc: 'Spiced cottage cheese pastrani slice with herb seasoning' },
       { id: 'chicken-pastrani-toast', name: 'Chicken Pastrani Toast', price: 220, type: 'nonveg', desc: 'Smoked chicken pastrani slices with garlic herb dressing' },
-      { id: 'plain-omelette', name: 'Plain Omelette', price: 160, type: 'nonveg', outOfStock: true, desc: 'Fluffy double-egg classic omelette served with toast' },
-      { id: 'masala-omelette', name: 'Masala Omelette', price: 170, type: 'nonveg', outOfStock: true, desc: 'Farm-fresh eggs beaten with onions, tomatoes, coriander and spices' },
-      { id: 'mushrooms-pesto-cheese-omelette', name: 'Mushrooms And Pesto Cheese Omelette', price: 180, type: 'nonveg', outOfStock: true, desc: 'Pan-folded omelette with sautéed mushrooms, basil pesto and cheese' },
-      { id: 'garlic-chicken-omelette', name: 'Garlic Chicken Omelette', price: 180, type: 'nonveg', outOfStock: true, desc: 'Tender garlic chicken chunks folded in fluffy egg wrap' },
-      { id: 'french-omelette', name: 'French Omelette', price: 190, type: 'nonveg', outOfStock: true, desc: 'Velvety smooth butter-basted classic French rolled omelette' },
-      { id: 'customized-omlette', name: 'Customized Omlette', price: 210, type: 'nonveg', outOfStock: true, desc: 'Choose your toppings, cheeses and fillings' },
-      { id: 'veg-breakfast-platter', name: 'Veg Breakfast Platter', price: 300, type: 'veg', outOfStock: true, desc: 'Grilled tomatoes, baked beans, toast, hash browns and beverage' },
-      { id: 'non-veg-breakfast-platter', name: 'Non Veg Breakfast Platter', price: 350, type: 'nonveg', outOfStock: true, desc: 'Eggs your way, chicken sausages, baked beans, toast and hash brown' },
-      { id: 'platter-customize', name: 'Platter Customize', price: 360, type: 'veg', outOfStock: true, desc: 'Full custom chef platter crafted to your choice' }
+      { id: 'plain-omelette', name: 'Plain Omelette', price: 160, type: 'nonveg', desc: 'Fluffy double-egg classic omelette served with toast' },
+      { id: 'masala-omelette', name: 'Masala Omelette', price: 170, type: 'nonveg', desc: 'Farm-fresh eggs beaten with onions, tomatoes, coriander and spices' },
+      { id: 'mushrooms-pesto-cheese-omelette', name: 'Mushrooms And Pesto Cheese Omelette', price: 180, type: 'nonveg', desc: 'Pan-folded omelette with sautéed mushrooms, basil pesto and cheese' },
+      { id: 'garlic-chicken-omelette', name: 'Garlic Chicken Omelette', price: 180, type: 'nonveg', desc: 'Tender garlic chicken chunks folded in fluffy egg wrap' },
+      { id: 'french-omelette', name: 'French Omelette', price: 190, type: 'nonveg', desc: 'Velvety smooth butter-basted classic French rolled omelette' },
+      { id: 'customized-omlette', name: 'Customized Omlette', price: 210, type: 'nonveg', desc: 'Choose your toppings, cheeses and fillings' },
+      { id: 'veg-breakfast-platter', name: 'Veg Breakfast Platter', price: 300, type: 'veg', desc: 'Grilled tomatoes, baked beans, toast, hash browns and beverage' },
+      { id: 'non-veg-breakfast-platter', name: 'Non Veg Breakfast Platter', price: 350, type: 'nonveg', desc: 'Eggs your way, chicken sausages, baked beans, toast and hash brown' },
+      { id: 'platter-customize', name: 'Platter Customize', price: 360, type: 'veg', desc: 'Full custom chef platter crafted to your choice' }
     ]
   },
   {
@@ -134,9 +134,9 @@ const CAFFYO_SECTIONS_DATA = [
       { id: 'peri-peri-fries', name: 'Peri Peri Fries', price: 180, type: 'veg', customisable: true, desc: 'Crisp fries tossed in piquant African peri peri spice mix' },
       { id: 'cheese-loaded-fries', name: 'Cheese Loaded Fries', price: 190, type: 'veg', customisable: true, desc: 'Crispy fries smothered in house warm cheese sauce and jalapeños' },
       { id: 'honey-chilli-potato', name: 'Honey Chilli Potato', price: 200, type: 'veg', desc: 'Crispy potato fingers wok-tossed in sweet honey chilli glaze' },
-      { id: 'cheese-balls', name: 'Cheese Balls', price: 220, type: 'veg', outOfStock: true, desc: 'Golden crumbed crispy balls filled with gooey molten cheese' },
-      { id: 'cheese-nachos', name: 'Cheese Nachos', price: 240, type: 'veg', outOfStock: true, desc: 'Crunchy corn tortilla chips layered with salsa, sour cream & cheese sauce' },
-      { id: 'chicken-popcorn', name: 'Chicken Popcorn', price: 260, type: 'nonveg', outOfStock: true, desc: 'Bite-sized seasoned tender chicken nuggets fried golden' },
+      { id: 'cheese-balls', name: 'Cheese Balls', price: 220, type: 'veg', desc: 'Golden crumbed crispy balls filled with gooey molten cheese' },
+      { id: 'cheese-nachos', name: 'Cheese Nachos', price: 240, type: 'veg', desc: 'Crunchy corn tortilla chips layered with salsa, sour cream & cheese sauce' },
+      { id: 'chicken-popcorn', name: 'Chicken Popcorn', price: 260, type: 'nonveg', desc: 'Bite-sized seasoned tender chicken nuggets fried golden' },
       { id: 'honey-chilli-wings', name: 'Honey Chilli Wings', price: 299, type: 'nonveg', desc: 'Juicy chicken wings coated in sticky honey chilli garlic sauce' },
       { id: 'tempura-prawns', name: 'Tempura Prawns', price: 320, type: 'nonveg', desc: 'Light, crisp Japanese tempura battered prawns with dip' },
       { id: 'bird-eye-chilli-prawns', name: 'Bird Eye Chilli Prawns', price: 320, type: 'nonveg', desc: 'Succulent prawns tossed with spicy fiery bird eye chillies' },
@@ -227,7 +227,7 @@ const CAFFYO_SECTIONS_DATA = [
       { id: 'mexican-steak', name: 'Mexican Steak', price: 300, type: 'veg', desc: 'Grilled spiced vegetable steak served with Mexican rice, beans and salsa' },
       { id: 'pesto-chicken-steak', name: 'Pesto Chicken Steak', price: 320, type: 'nonveg', desc: 'Tender chicken breast seared with aromatic basil pesto sauce, sautéed veggies & mash' },
       { id: 'melting-chicken-steak', name: 'Melting Chicken Steak', price: 340, type: 'nonveg', desc: 'Juicy chicken steak blanketed in molten cheese, served with pepper sauce and fries' },
-      { id: 'fish-and-chips', name: 'Fish & Chips', price: 350, type: 'nonveg', outOfStock: true, desc: 'Crisp golden battered fish fillet served with tartar dip and seasoned fries' }
+      { id: 'fish-and-chips', name: 'Fish & Chips', price: 350, type: 'nonveg', desc: 'Crisp golden battered fish fillet served with tartar dip and seasoned fries' }
     ]
   },
   {
@@ -247,7 +247,7 @@ const CAFFYO_SECTIONS_DATA = [
       { id: 'passion-fruit-ice-tea', name: 'Passion Fruit Ice Tea', price: 190, type: 'veg', desc: 'Tangy tropical passionfruit syrup shaken with iced tea' },
       { id: 'jamun-ice-tea', name: 'Jamun Ice Tea', price: 190, type: 'veg', desc: 'Rich local Indian black plum (jamun) reduction infused with iced tea' },
       { id: 'hell-energy-drink', name: 'Hell', price: 130, type: 'veg', desc: 'Chilled Hell Energy Drink can' },
-      { id: 'red-bull', name: 'Red Bull', price: 180, type: 'veg', outOfStock: true, desc: 'Chilled Red Bull Energy Drink can' },
+      { id: 'red-bull', name: 'Red Bull', price: 180, type: 'veg', desc: 'Chilled Red Bull Energy Drink can' },
       { id: 'water-bottle', name: 'Water Bottle', price: 10, type: 'veg', desc: 'Packaged mineral water bottle' }
     ]
   },
@@ -256,7 +256,7 @@ const CAFFYO_SECTIONS_DATA = [
     title: 'Pancakes, Kulfi & Desserts',
     icon: '🥞',
     items: [
-      { id: 'tiranga-kulfi', name: 'Tiranga Kulfi', price: 79, type: 'veg', outOfStock: true, desc: 'Traditional tri-flavored Indian frozen dessert on stick' },
+      { id: 'tiranga-kulfi', name: 'Tiranga Kulfi', price: 79, type: 'veg', desc: 'Traditional tri-flavored Indian frozen dessert on stick' },
       { id: 'brownie', name: 'Brownie', price: 170, type: 'veg', desc: 'Warm fudgy Belgian dark chocolate brownie' },
       { id: 'pastry', name: 'Pastry', price: 200, type: 'veg', desc: 'Fresh daily pastry slice from our bakery counter' },
       { id: 'pancakes-with-maple-syrup', name: 'Pancakes With Maple Syrup', price: 220, type: 'veg', desc: 'Stack of fluffy golden pancakes drizzled with warm maple syrup and butter' },
@@ -279,8 +279,90 @@ class DedicatedMenuController {
   init() {
     this.renderSections();
     this.bindEvents();
+    this.setupCategoryModal();
+    this.setupCategoryStripControls();
     this.setupScrollSpy();
     this.updateCartUI();
+    this.updateFilterUI();
+    this.adjustHeaderSpacing();
+
+    const header = document.getElementById('menu-fixed-header');
+    if (header && window.ResizeObserver) {
+      const ro = new ResizeObserver(() => {
+        this.adjustHeaderSpacing();
+      });
+      ro.observe(header);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        this.adjustHeaderSpacing();
+      });
+    }
+
+    window.addEventListener('load', () => {
+      this.adjustHeaderSpacing();
+    });
+
+    window.addEventListener('resize', () => {
+      this.adjustHeaderSpacing();
+    });
+
+    if (window.location.hash) {
+      const hashId = window.location.hash.substring(1);
+      setTimeout(() => {
+        this.scrollToSection(hashId);
+      }, 150);
+    }
+  }
+
+  adjustHeaderSpacing() {
+    const header = document.getElementById('menu-fixed-header');
+    if (!header) return;
+    const h = Math.ceil(header.getBoundingClientRect().height);
+    const isMobile = window.innerWidth <= 768;
+    const extra = isMobile ? 16 : 24;
+    const totalSpacing = h + extra;
+
+    document.documentElement.style.setProperty('--menu-header-height', `${h}px`);
+    document.body.style.paddingTop = `${totalSpacing}px`;
+    document.documentElement.style.scrollPaddingTop = `${totalSpacing}px`;
+  }
+
+  getItemQty(id) {
+    const item = this.cart.find(i => i.id === id);
+    return item ? item.qty : 0;
+  }
+
+  getItemImage(sectionId, item) {
+    if (['hot-coffee', 'hot-chocolate'].includes(sectionId)) {
+      return 'assets/images/hero_coffee.jpg';
+    }
+    if (['iced-coffee', 'cold-brew', 'mocktails'].includes(sectionId)) {
+      return 'assets/images/spanish_latte.jpg';
+    }
+    if (['thik-frappe', 'thik-shakes', 'desserts'].includes(sectionId)) {
+      return 'assets/images/cheesecake.jpg';
+    }
+    return 'assets/images/gourmet_bites.jpg';
+  }
+
+  renderItemActionHtml(item) {
+    const qty = this.getItemQty(item.id);
+    if (qty > 0) {
+      return `
+        <div class="item-qty-stepper" data-stepper="${item.id}">
+          <button class="btn-qty-minus" data-qty-minus="${item.id}" aria-label="Decrease quantity of ${item.name}">&minus;</button>
+          <span class="qty-count-text" data-qty-count="${item.id}">${qty}</span>
+          <button class="btn-qty-plus" data-qty-plus="${item.id}" aria-label="Increase quantity of ${item.name}">&plus;</button>
+        </div>
+      `;
+    }
+    return `
+      <button class="btn-add-menu-item" data-add="${item.id}" aria-label="Add ${item.name} to tray">
+        <span>+</span> Add
+      </button>
+    `;
   }
 
   renderSections() {
@@ -307,25 +389,30 @@ class DedicatedMenuController {
             <h2>${section.title}</h2>
           </div>
           <div class="section-items-grid">
-            ${filteredItems.map(item => `
-              <div class="menu-item-row-card ${item.outOfStock ? 'out-of-stock' : ''}" data-item-id="${item.id}">
+            ${filteredItems.map(item => {
+              const imgSrc = this.getItemImage(section.id, item);
+              return `
+              <div class="menu-item-row-card" data-item-id="${item.id}">
                 <div class="item-left-info">
                   <div class="item-name-row">
                     <span class="diet-symbol ${item.type === 'veg' ? 'veg' : 'nonveg'}" title="${item.type === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}"></span>
                     <h3 class="item-name-text">${item.name}</h3>
                     <div class="item-badges-wrap">
                       ${item.customisable ? '<span class="badge-customisable">Customisable</span>' : ''}
-                      ${item.outOfStock ? '<span class="badge-sold-out">Sold Out</span>' : ''}
                     </div>
                   </div>
                   <p class="item-desc-text">${item.desc}</p>
                   <div class="item-price-tag">₹${item.price}</div>
                 </div>
-                <button class="btn-add-menu-item" data-add="${item.id}" ${item.outOfStock ? 'disabled aria-disabled="true"' : ''} aria-label="Add ${item.name} to tray">
-                  <span>+</span> ${item.outOfStock ? 'Sold Out' : 'Add'}
-                </button>
+                <div class="item-card-action-side">
+                  <div class="item-card-thumb">
+                    <img src="${imgSrc}" alt="${item.name}" loading="lazy" />
+                  </div>
+                  ${this.renderItemActionHtml(item)}
+                </div>
               </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </section>
       `;
@@ -337,17 +424,37 @@ class DedicatedMenuController {
           <div style="font-size: 40px; margin-bottom: 12px;">☕</div>
           <h3 style="color:#fff; margin-bottom: 8px;">No matching items found</h3>
           <p>Try searching for "Latte", "Pizza", "Fries", or "Burger".</p>
+          <button id="btn-empty-reset" class="btn-reset-filters" style="margin-top: 16px; padding: 8px 18px; font-size: 0.9rem;">Clear Search &amp; Filters</button>
         </div>
       `;
+      container.querySelector('#btn-empty-reset')?.addEventListener('click', () => this.resetFilters());
     } else {
       container.innerHTML = html;
     }
 
     // Bind Add Buttons
     container.querySelectorAll('[data-add]:not([disabled])').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const id = btn.getAttribute('data-add');
         this.addItemById(id);
+      });
+    });
+
+    // Bind In-card Stepper Buttons
+    container.querySelectorAll('[data-qty-plus]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-qty-plus');
+        this.addItemById(id);
+      });
+    });
+
+    container.querySelectorAll('[data-qty-minus]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-qty-minus');
+        this.removeItemById(id);
       });
     });
   }
@@ -358,6 +465,79 @@ class DedicatedMenuController {
       if (found) return found;
     }
     return null;
+  }
+
+  syncCardQty(id) {
+    const cardSide = document.querySelector(`.menu-item-row-card[data-item-id="${id}"] .item-card-action-side`);
+    if (!cardSide) return;
+
+    const item = this.findItemById(id);
+    if (!item) return;
+
+    const qty = this.getItemQty(id);
+    const existingStepper = cardSide.querySelector(`[data-stepper="${id}"]`);
+    const existingAddBtn = cardSide.querySelector(`[data-add="${id}"]`);
+
+    if (qty > 0) {
+      if (existingStepper) {
+        const countEl = existingStepper.querySelector(`[data-qty-count="${id}"]`);
+        if (countEl) countEl.textContent = qty;
+      } else if (existingAddBtn) {
+        existingAddBtn.outerHTML = `
+          <div class="item-qty-stepper" data-stepper="${id}">
+            <button class="btn-qty-minus" data-qty-minus="${id}" aria-label="Decrease quantity of ${item.name}">&minus;</button>
+            <span class="qty-count-text" data-qty-count="${id}">${qty}</span>
+            <button class="btn-qty-plus" data-qty-plus="${id}" aria-label="Increase quantity of ${item.name}">&plus;</button>
+          </div>
+        `;
+        const newStepper = cardSide.querySelector(`[data-stepper="${id}"]`);
+        if (newStepper) {
+          newStepper.querySelector(`[data-qty-minus="${id}"]`)?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.removeItemById(id);
+          });
+          newStepper.querySelector(`[data-qty-plus="${id}"]`)?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.addItemById(id);
+          });
+        }
+      }
+    } else {
+      if (existingStepper) {
+        existingStepper.outerHTML = `
+          <button class="btn-add-menu-item" data-add="${id}" aria-label="Add ${item.name} to tray">
+            <span>+</span> Add
+          </button>
+        `;
+        const newAddBtn = cardSide.querySelector(`[data-add="${id}"]`);
+        if (newAddBtn) {
+          newAddBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.addItemById(id);
+          });
+        }
+      }
+    }
+  }
+
+  resetAllCardSteppers() {
+    document.querySelectorAll('.item-qty-stepper').forEach(stepper => {
+      const id = stepper.getAttribute('data-stepper');
+      const item = this.findItemById(id);
+      if (!item) return;
+      stepper.outerHTML = `
+        <button class="btn-add-menu-item" data-add="${id}" aria-label="Add ${item.name} to tray">
+          <span>+</span> Add
+        </button>
+      `;
+    });
+    document.querySelectorAll('.menu-item-row-card .btn-add-menu-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-add');
+        this.addItemById(id);
+      });
+    });
   }
 
   addItemById(id) {
@@ -374,6 +554,7 @@ class DedicatedMenuController {
     this.showToast(`Added ${item.name} (₹${item.price}) to tray!`);
     this.updateCartUI();
     this.renderCartDrawer();
+    this.syncCardQty(id);
   }
 
   removeItemById(id) {
@@ -387,6 +568,7 @@ class DedicatedMenuController {
     }
     this.updateCartUI();
     this.renderCartDrawer();
+    this.syncCardQty(id);
   }
 
   updateCartUI() {
@@ -408,22 +590,20 @@ class DedicatedMenuController {
 
   renderCartDrawer() {
     const list = document.getElementById('cart-items-list');
-    const subtotalEl = document.getElementById('cart-subtotal');
-    const taxEl = document.getElementById('cart-tax');
+    const countEl = document.getElementById('cart-item-count');
     const totalEl = document.getElementById('cart-total');
 
     if (!list) return;
 
     if (this.cart.length === 0) {
       list.innerHTML = `
-        <div style="text-align:center; padding: 40px 10px; color: var(--text-muted);">
+        <div style="text-align:center; padding: 48px 12px; color: var(--text-muted);">
           <span style="font-size: 40px; display: block; margin-bottom: 8px;">☕</span>
-          <h4 style="color:#fff; margin-bottom: 4px;">Tray is Empty</h4>
-          <p style="font-size: 0.82rem;">Select items from our sections above to build your order.</p>
+          <h4 style="color:#fff; margin-bottom: 4px;">Your Tray is Empty</h4>
+          <p style="font-size: 0.82rem;">Select items from the menu to review your order selection.</p>
         </div>
       `;
-      if (subtotalEl) subtotalEl.textContent = '₹0';
-      if (taxEl) taxEl.textContent = '₹0';
+      if (countEl) countEl.textContent = '0 Items';
       if (totalEl) totalEl.textContent = '₹0';
       return;
     }
@@ -431,13 +611,13 @@ class DedicatedMenuController {
     list.innerHTML = this.cart.map(item => `
       <div class="cart-item-row">
         <div>
-          <h4 style="font-size: 0.92rem; color: #fff;">${item.name}</h4>
-          <span style="font-size: 0.78rem; color: var(--gold-accent);">₹${item.price} each</span>
+          <h4 style="font-size: 0.95rem; color: #fff;">${item.name}</h4>
+          <span style="font-size: 0.80rem; color: var(--gold-accent);">₹${item.price} each &bull; ₹${item.price * item.qty}</span>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
-          <button class="btn-qty" data-dec="${item.id}">-</button>
+          <button class="btn-qty" data-dec="${item.id}" aria-label="Decrease quantity">-</button>
           <span style="font-weight:700; color:#fff; min-width:20px; text-align:center;">${item.qty}</span>
-          <button class="btn-qty" data-inc="${item.id}">+</button>
+          <button class="btn-qty" data-inc="${item.id}" aria-label="Increase quantity">+</button>
         </div>
       </div>
     `).join('');
@@ -449,14 +629,11 @@ class DedicatedMenuController {
       b.addEventListener('click', () => this.addItemById(b.getAttribute('data-inc')));
     });
 
+    const totalCount = this.cart.reduce((sum, item) => sum + item.qty, 0);
     const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const tax = Math.round(subtotal * 0.05); // 5% GST
-    const delivery = this.orderType === 'delivery' ? 30 : 0;
-    const total = subtotal + tax + delivery;
 
-    if (subtotalEl) subtotalEl.textContent = `₹${subtotal}`;
-    if (taxEl) taxEl.textContent = `₹${tax}`;
-    if (totalEl) totalEl.textContent = `₹${total}`;
+    if (countEl) countEl.textContent = `${totalCount} ${totalCount === 1 ? 'Item' : 'Items'}`;
+    if (totalEl) totalEl.textContent = `₹${subtotal}`;
   }
 
   openDrawer() {
@@ -475,32 +652,325 @@ class DedicatedMenuController {
 
   setupScrollSpy() {
     const pills = document.querySelectorAll('.cat-pill');
-    window.addEventListener('scroll', () => {
-      let currentSectionId = '';
-      CAFFYO_SECTIONS_DATA.forEach(sec => {
-        const el = document.getElementById(sec.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 160 && rect.bottom >= 120) {
-            currentSectionId = sec.id;
-          }
-        }
-      });
+    const wrapper = document.querySelector('.category-scroll-wrapper');
+    let ticking = false;
 
-      if (currentSectionId) {
-        pills.forEach(p => {
-          if (p.getAttribute('href') === `#${currentSectionId}`) {
-            p.classList.add('active');
-            p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-          } else {
-            p.classList.remove('active');
+    window.addEventListener('scroll', () => {
+      if (this.isNavigating) return; // Prevent fight with smooth navigation clicks
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          let currentSectionId = '';
+          const header = document.getElementById('menu-fixed-header');
+          const headerHeight = header ? header.offsetHeight : 140;
+          const scrollPos = window.scrollY + headerHeight + 20;
+
+          CAFFYO_SECTIONS_DATA.forEach(sec => {
+            const el = document.getElementById(sec.id);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPos >= top && scrollPos < top + height) {
+                currentSectionId = sec.id;
+              }
+            }
+          });
+
+          if (currentSectionId && currentSectionId !== this.activeSectionId) {
+            this.activeSectionId = currentSectionId;
+
+            pills.forEach(p => {
+              const matches = p.getAttribute('href') === `#${currentSectionId}`;
+              p.classList.toggle('active', matches);
+
+              if (matches && wrapper) {
+                // Scroll ONLY the horizontal pill strip, NEVER trigger window scrolling!
+                const targetLeft = p.offsetLeft - (wrapper.clientWidth / 2) + (p.offsetWidth / 2);
+                wrapper.scrollTo({
+                  left: targetLeft,
+                  behavior: 'smooth'
+                });
+              }
+            });
           }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  scrollToSection(targetId) {
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+
+    this.isNavigating = true;
+    this.activeSectionId = targetId;
+
+    const pills = document.querySelectorAll('.cat-pill');
+    const wrapper = document.querySelector('.category-scroll-wrapper');
+    pills.forEach(p => {
+      const matches = p.getAttribute('href') === `#${targetId}`;
+      p.classList.toggle('active', matches);
+      if (matches && wrapper) {
+        wrapper.scrollTo({
+          left: p.offsetLeft - (wrapper.clientWidth / 2) + (p.offsetWidth / 2),
+          behavior: 'smooth'
         });
       }
     });
+
+    const header = document.getElementById('menu-fixed-header');
+    const headerHeight = header ? Math.ceil(header.getBoundingClientRect().height) : 155;
+    const isMobile = window.innerWidth <= 768;
+    const extraOffset = isMobile ? 16 : 24;
+    const navOffset = headerHeight + extraOffset;
+
+    let targetY = 0;
+    if (targetId === 'hot-coffee') {
+      targetY = 0;
+    } else {
+      targetY = Math.max(0, targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset);
+    }
+
+    window.scrollTo({
+      top: targetY,
+      behavior: 'smooth'
+    });
+
+    if (history.pushState) {
+      history.pushState(null, '', `#${targetId}`);
+    }
+
+    setTimeout(() => {
+      this.isNavigating = false;
+    }, 650);
+  }
+
+  setupCategoryModal() {
+    const listEl = document.getElementById('categories-sheet-list');
+    const modal = document.getElementById('categories-sheet-modal');
+    const overlay = document.getElementById('categories-modal-overlay');
+    const btnOpen = document.getElementById('btn-floating-categories');
+    const btnClose = document.getElementById('btn-close-categories-modal');
+
+    if (listEl) {
+      listEl.innerHTML = CAFFYO_SECTIONS_DATA.map(sec => `
+        <a href="#${sec.id}" class="cat-sheet-item" data-sheet-target="${sec.id}">
+          <div class="cat-sheet-left">
+            <span class="cat-sheet-icon">${sec.icon}</span>
+            <div>
+              <div class="cat-sheet-title">${sec.title}</div>
+              <div class="cat-sheet-count">${sec.items.length} items</div>
+            </div>
+          </div>
+          <span class="cat-sheet-arrow">&rarr;</span>
+        </a>
+      `).join('');
+
+      listEl.querySelectorAll('.cat-sheet-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = item.getAttribute('data-sheet-target');
+          this.closeCategoryModal();
+          this.scrollToSection(targetId);
+        });
+      });
+    }
+
+    if (btnOpen) {
+      btnOpen.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.openCategoryModal();
+      });
+    }
+    if (btnClose) {
+      btnClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.closeCategoryModal();
+      });
+    }
+    if (overlay) {
+      overlay.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.closeCategoryModal();
+      });
+    }
+  }
+
+  setupCategoryStripControls() {
+    const wrapper = document.querySelector('.category-scroll-wrapper');
+    const prevBtn = document.getElementById('btn-cat-prev');
+    const nextBtn = document.getElementById('btn-cat-next');
+
+    if (!wrapper) return;
+
+    const updateArrows = () => {
+      const atStart = wrapper.scrollLeft <= 6;
+      const atEnd = wrapper.scrollLeft >= (wrapper.scrollWidth - wrapper.clientWidth - 6);
+
+      if (prevBtn) {
+        prevBtn.disabled = atStart;
+      }
+      if (nextBtn) {
+        nextBtn.disabled = atEnd;
+      }
+    };
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: -260, behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: 260, behavior: 'smooth' });
+      });
+    }
+
+    wrapper.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows, { passive: true });
+    setTimeout(updateArrows, 150);
+
+    // Mouse drag-to-scroll support for desktop
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let hasDragged = false;
+
+    wrapper.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      isDown = true;
+      hasDragged = false;
+      wrapper.classList.add('is-dragging');
+      startX = e.pageX - wrapper.offsetLeft;
+      scrollLeft = wrapper.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      wrapper.classList.remove('is-dragging');
+      setTimeout(() => {
+        hasDragged = false;
+      }, 50);
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - wrapper.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) {
+        hasDragged = true;
+      }
+      wrapper.scrollLeft = scrollLeft - walk;
+    });
+
+    // Intercept clicks on category pills
+    wrapper.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
+        const href = pill.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          this.scrollToSection(targetId);
+        }
+      });
+    });
+
+    // Intercept clicks on spotlight category cards
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const href = card.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          this.scrollToSection(targetId);
+        }
+      });
+    });
+  }
+
+  openCategoryModal() {
+    const modal = document.getElementById('categories-sheet-modal');
+    const overlay = document.getElementById('categories-modal-overlay');
+    if (modal) modal.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+  }
+
+  closeCategoryModal() {
+    const modal = document.getElementById('categories-sheet-modal');
+    const overlay = document.getElementById('categories-modal-overlay');
+    if (modal) modal.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  updateFilterUI() {
+    const feedbackBar = document.getElementById('filter-feedback-bar');
+    const feedbackText = document.getElementById('filter-feedback-text');
+    const btnClearSearch = document.getElementById('btn-clear-search');
+
+    if (btnClearSearch) {
+      btnClearSearch.style.display = (this.searchQuery && this.searchQuery.trim().length > 0) ? 'flex' : 'none';
+    }
+
+    let activeFilterParts = [];
+    if (this.searchQuery && this.searchQuery.trim().length > 0) {
+      activeFilterParts.push(`matching "${this.searchQuery.trim()}"`);
+    }
+    if (this.dietFilter === 'veg') {
+      activeFilterParts.push('Pure Veg only');
+    } else if (this.dietFilter === 'nonveg') {
+      activeFilterParts.push('Non-Veg only');
+    }
+
+    if (feedbackBar && feedbackText) {
+      if (activeFilterParts.length > 0) {
+        feedbackBar.style.display = 'flex';
+        feedbackText.textContent = `Showing items ${activeFilterParts.join(' • ')}`;
+      } else {
+        feedbackBar.style.display = 'none';
+      }
+    }
+
+    this.adjustHeaderSpacing();
+  }
+
+  resetFilters() {
+    this.searchQuery = '';
+    this.dietFilter = 'all';
+
+    const searchInput = document.getElementById('menu-search-input');
+    if (searchInput) searchInput.value = '';
+
+    document.querySelectorAll('.btn-diet-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-diet') === 'all');
+    });
+
+    this.renderSections();
+    this.updateFilterUI();
   }
 
   bindEvents() {
+    // Smooth Category Navigation
+    document.querySelectorAll('.cat-pill, .spotlight-card').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const targetId = href.substring(1);
+        e.preventDefault();
+        this.scrollToSection(targetId);
+      });
+    });
+
     // Diet Filters
     document.querySelectorAll('.btn-diet-filter').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -508,16 +978,34 @@ class DedicatedMenuController {
         btn.classList.add('active');
         this.dietFilter = btn.getAttribute('data-diet');
         this.renderSections();
+        this.updateFilterUI();
       });
     });
 
-    // Search Box
+    // Search Box & Clear Button
     const searchInput = document.getElementById('menu-search-input');
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         this.searchQuery = e.target.value;
         this.renderSections();
+        this.updateFilterUI();
       });
+    }
+
+    const clearSearchBtn = document.getElementById('btn-clear-search');
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        this.searchQuery = '';
+        this.renderSections();
+        this.updateFilterUI();
+      });
+    }
+
+    // Reset Filters from feedback bar
+    const resetFiltersBtn = document.getElementById('btn-reset-filters');
+    if (resetFiltersBtn) {
+      resetFiltersBtn.addEventListener('click', () => this.resetFilters());
     }
 
     // Cart Triggers
@@ -535,88 +1023,16 @@ class DedicatedMenuController {
       if (e.target === overlay) this.closeDrawer();
     });
 
-    // Order type toggles
-    document.querySelectorAll('.btn-order-type').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.btn-order-type').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        this.orderType = btn.getAttribute('data-type');
-        const tableGroup = document.getElementById('pos-table-group');
-        if (tableGroup) {
-          tableGroup.style.display = this.orderType === 'dinein' ? 'block' : 'none';
-        }
-        this.renderCartDrawer();
-      });
-    });
-
-    // Checkout Submit -> Triggers Live Order Tracker Modal
-    const checkoutSubmit = document.getElementById('btn-checkout-submit');
-    if (checkoutSubmit) {
-      checkoutSubmit.addEventListener('click', () => {
-        if (this.cart.length === 0) {
-          this.showToast('Please add items to your tray first!');
-          return;
-        }
-
-        const count = this.cart.reduce((s, i) => s + i.qty, 0);
-        const subtotal = this.cart.reduce((s, i) => s + (i.price * i.qty), 0);
-        const total = subtotal + Math.round(subtotal * 0.05);
-
-        const guestName = document.getElementById('pos-guest-name')?.value.trim() || 'Guest';
-        const tableSelect = document.getElementById('pos-table-select');
-        const tableText = this.orderType === 'dinein' ? (tableSelect?.value || 'Table 04 - Indoor Garden') : (this.orderType === 'takeaway' ? '🥡 Takeaway Counter' : '🛵 Doorstep Delivery');
-
-        // Populate Tracker Summary
-        const trackerTableText = document.getElementById('tracker-table-text');
-        if (trackerTableText) {
-          trackerTableText.textContent = `${guestName} • ${tableText}`;
-        }
-
-        const trackerSummary = document.getElementById('tracker-items-summary');
-        if (trackerSummary) {
-          trackerSummary.innerHTML = this.cart.map(item => `
-            <div class="tracker-item-line">
-              <span>${item.qty}x ${item.name}</span>
-              <strong>₹${item.price * item.qty}</strong>
-            </div>
-          `).join('') + `
-            <div class="tracker-item-line" style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 6px; font-weight: 700; color: #2ed573;">
-              <span>Total Bill (Incl. 5% GST)</span>
-              <span>₹${total}</span>
-            </div>
-          `;
-        }
-
-        // Close Drawer and Open Live Order Tracker Modal
-        this.closeDrawer();
-        const trackerModal = document.getElementById('order-tracker-overlay');
-        if (trackerModal) {
-          trackerModal.classList.add('open');
-        }
-
-        this.showToast('Order #CZ-27362 sent to Barista!');
-
-        // Reset Cart
+    // Clear Tray Button
+    const clearTrayBtn = document.getElementById('btn-clear-tray');
+    if (clearTrayBtn) {
+      clearTrayBtn.addEventListener('click', () => {
+        if (this.cart.length === 0) return;
         this.cart = [];
         this.updateCartUI();
         this.renderCartDrawer();
-      });
-    }
-
-    // Close Tracker Handlers
-    const closeTrackerBtn = document.getElementById('btn-close-tracker');
-    const keepBrowsingBtn = document.getElementById('btn-tracker-keep-browsing');
-    const trackerOverlay = document.getElementById('order-tracker-overlay');
-
-    const closeTracker = () => {
-      if (trackerOverlay) trackerOverlay.classList.remove('open');
-    };
-
-    if (closeTrackerBtn) closeTrackerBtn.addEventListener('click', closeTracker);
-    if (keepBrowsingBtn) keepBrowsingBtn.addEventListener('click', closeTracker);
-    if (trackerOverlay) {
-      trackerOverlay.addEventListener('click', (e) => {
-        if (e.target === trackerOverlay) closeTracker();
+        this.resetAllCardSteppers();
+        this.showToast('Tray cleared');
       });
     }
   }

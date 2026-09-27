@@ -1,7 +1,7 @@
 /* ============================================================
    CAFFYO by Zauq - Main Application Controller
    Glues 3D Physics, Living Cup Assembly, Testimonial Slider,
-   Mobile Drawer, Bottom Dock, and Table Booking
+   Mobile Drawer, Bottom Dock, and Interactive Controls
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDrawer();
   initTestimonialSlider();
   initBestSellersTabs();
-  initReservationForm();
+  initBrewGuideTabs();
   initBottomDock();
 });
 
@@ -481,32 +481,39 @@ function initBestSellersTabs() {
   });
 }
 
-/* Table Booking Form Handler */
-function initReservationForm() {
-  const form = document.getElementById('table-booking-form');
-  if (!form) return;
+/* ============================================================
+   INTERACTIVE BARISTA BREW GUIDE CONTROLLER (Bean & Brew Reference)
+   Switches between brew tabs: espresso, pourover, frenchpress, coldbrew
+   ============================================================ */
+function initBrewGuideTabs() {
+  const tabs = document.querySelectorAll('.brew-tab-btn');
+  const panes = document.querySelectorAll('.brew-tab-pane');
+  if (!tabs.length || !panes.length) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-tab');
+      if (!targetId) return;
 
-    const name = document.getElementById('book-name').value;
-    const date = document.getElementById('book-date').value;
-    const time = document.getElementById('book-time').value;
-    const guests = document.getElementById('book-guests').value;
-    const seating = document.getElementById('book-seating').value;
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
 
-    if (window.caffyoAudio) {
-      window.caffyoAudio.playChime(987.77, 0.25);
-    }
+      panes.forEach(pane => {
+        if (pane.id === `tab-${targetId}`) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
 
-    alert(`Table Reserved at CAFFYO, Sadar, Nagpur!\n\nGuest: ${name}\nDate & Time: ${date} at ${time}\nParty: ${guests} Guests (${seating})\n\nWe look forward to hosting you at CAFFYO (Opposite Haldirams, Sadar)! Anushka and our team will have your table ready.`);
-
-    form.reset();
-    if (window.caffyoCart) {
-      window.caffyoCart.showToast(`Table confirmed for ${name}`);
-    }
+      // Play soft bean click
+      if (window.caffyoAudio && window.caffyoAudio.playBeanClick) {
+        window.caffyoAudio.playBeanClick();
+      }
+    });
   });
 }
+
 
 /* ============================================================
    PRELOADER CONTROLLER
@@ -682,3 +689,4 @@ function initBottomDock() {
     if (el) observer.observe(el);
   });
 }
+

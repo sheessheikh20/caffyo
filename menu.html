@@ -16,40 +16,104 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Dedicated Menu Stylesheet -->
-  <link rel="stylesheet" href="css/menu.css" />
+  <link rel="stylesheet" href="css/menu.css?v=2.4" />
 </head>
 <body>
 
   <!-- ============================================================
-       TOP HEADER BAR (Green Grounds Coffee & DineCraft Inspired)
+       PERMANENT FIXED UNIFIED MENU HEADER
+       Contains: Brand Bar, Category Pills, Filter & Live Search
+       Never moves or jumps on scroll — 100% fixed at top!
        ============================================================ -->
-  <header class="menu-top-header">
-    <div class="menu-header-inner">
-      <a href="index.html" class="btn-back-home" title="Back to Home">
-        <span>←</span> Home
-      </a>
+  <header id="menu-fixed-header" class="menu-fixed-header-wrapper" aria-label="Menu Header Navigation">
+    <!-- Row 1: Brand Bar, Home Navigation & Tray Trigger -->
+    <div class="menu-top-header">
+      <div class="menu-header-inner">
+        <a href="index.html" class="btn-back-home" title="Back to Home">
+          <span>←</span> Home
+        </a>
 
-      <a href="index.html" class="brand-center-block" style="text-decoration: none;">
-        <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" style="height: 38px; width: auto;" />
-      </a>
+        <a href="index.html" class="brand-center-block" style="text-decoration: none;">
+          <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" style="height: 38px; width: auto;" />
+        </a>
 
-      <div class="header-right-actions">
-        <!-- Live Table / Order Status Badge -->
-        <div class="store-status-badge">
-          <span class="live-dot"></span> Open Today • Till 11:30 PM
+        <div class="header-right-actions">
+          <!-- Live Table / Order Status Badge -->
+          <div class="store-status-badge">
+            <span class="live-dot"></span> Open Today • Till 11:30 PM
+          </div>
+
+          <button id="btn-menu-nav-cart" class="btn-menu-cart" aria-label="Open order tray">
+            <span>🛒</span> Tray <span class="menu-cart-count" style="display: none;">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Category Navigation Strip (Scrollspy & Quick Jump enabled) -->
+    <nav class="category-sticky-bar" aria-label="Menu categories">
+      <div class="category-nav-container">
+        <!-- Left Scroll Arrow -->
+        <button id="btn-cat-prev" class="btn-cat-nav-arrow prev" aria-label="Scroll categories left">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="category-scroll-wrapper" id="category-scroll-wrapper">
+          <a href="#hot-coffee" class="cat-pill active"><span class="pill-icon">☕</span> Hot Coffee</a>
+          <a href="#iced-coffee" class="cat-pill"><span class="pill-icon">🧊</span> Iced Coffee</a>
+          <a href="#cold-brew" class="cat-pill"><span class="pill-icon">⏳</span> Cold Brew</a>
+          <a href="#thik-frappe" class="cat-pill"><span class="pill-icon">🥤</span> Thik Frappes</a>
+          <a href="#hot-chocolate" class="cat-pill"><span class="pill-icon">🍫</span> Hot Chocolate</a>
+          <a href="#thik-shakes" class="cat-pill"><span class="pill-icon">🍨</span> Thik Shakes</a>
+          <a href="#toasts-breakfast" class="cat-pill"><span class="pill-icon">🍞</span> Toasts &amp; Breakfast</a>
+          <a href="#appetisers" class="cat-pill"><span class="pill-icon">🍟</span> Appetisers</a>
+          <a href="#burgers" class="cat-pill"><span class="pill-icon">🍔</span> Burgers</a>
+          <a href="#sandwiches-wraps" class="cat-pill"><span class="pill-icon">🥪</span> Wraps</a>
+          <a href="#salads" class="cat-pill"><span class="pill-icon">🥗</span> Salads</a>
+          <a href="#pizza" class="cat-pill"><span class="pill-icon">🍕</span> Pizza</a>
+          <a href="#pasta" class="cat-pill"><span class="pill-icon">🍝</span> Pasta</a>
+          <a href="#mains" class="cat-pill"><span class="pill-icon">🥩</span> Mains</a>
+          <a href="#mocktails" class="cat-pill"><span class="pill-icon">🍹</span> Mocktails</a>
+          <a href="#desserts" class="cat-pill"><span class="pill-icon">🥞</span> Desserts</a>
         </div>
 
-        <button id="btn-menu-nav-cart" class="btn-menu-cart" aria-label="Open order tray">
-          <span>🛒</span> Tray <span class="menu-cart-count" style="display: none;">0</span>
+        <!-- Right Scroll Arrow -->
+        <button id="btn-cat-next" class="btn-cat-nav-arrow next" aria-label="Scroll categories right">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
+    </nav>
+
+    <!-- Row 3: Dietary Filter & Live Search Strip -->
+    <div class="menu-controls-strip">
+      <div class="diet-filter-group" aria-label="Dietary filters">
+        <button class="btn-diet-filter active" data-diet="all">All Items</button>
+        <button class="btn-diet-filter" data-diet="veg">
+          <span class="filter-dot veg"></span> Pure Veg
+        </button>
+        <button class="btn-diet-filter" data-diet="nonveg">
+          <span class="filter-dot nonveg"></span> Non-Veg
+        </button>
+      </div>
+
+      <div class="menu-search-input-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="menu-search-input" placeholder="Search coffee, burgers, pizza, pasta..." autocomplete="off" />
+        <button id="btn-clear-search" class="btn-clear-search" aria-label="Clear search" style="display: none;">&times;</button>
+      </div>
+    </div>
+
+    <!-- Live Filter Summary / Feedback Bar -->
+    <div id="filter-feedback-bar" class="filter-feedback-bar" style="display: none;">
+      <span id="filter-feedback-text">Showing filtered items</span>
+      <button id="btn-reset-filters" class="btn-reset-filters">Reset Filters</button>
     </div>
   </header>
 
   <!-- ============================================================
-       SPOTLIGHT CATEGORY CARDS (Green Grounds Coffee Reference)
-       Quick 1-tap jump to the most celebrated sections
+       SCROLLABLE CONTENT AREA
        ============================================================ -->
+  <!-- Spotlight Category Cards -->
   <section class="spotlight-categories-strip">
     <div class="spotlight-grid">
       <!-- 1. Coffee -->
@@ -103,51 +167,12 @@
   </section>
 
   <!-- ============================================================
-       STICKY CATEGORY SUB-NAV BAR (Scrollspy enabled)
-       ============================================================ -->
-  <nav class="category-sticky-bar" aria-label="Menu categories">
-    <div class="category-scroll-wrapper">
-      <a href="#hot-coffee" class="cat-pill active">Hot Coffee</a>
-      <a href="#iced-coffee" class="cat-pill">Iced Coffee</a>
-      <a href="#cold-brew" class="cat-pill">Cold Brew</a>
-      <a href="#thik-frappe" class="cat-pill">Thik Frappes</a>
-      <a href="#hot-chocolate" class="cat-pill">Hot Chocolate</a>
-      <a href="#thik-shakes" class="cat-pill">Thik Shakes</a>
-      <a href="#toasts-breakfast" class="cat-pill">Toasts &amp; Breakfast</a>
-      <a href="#appetisers" class="cat-pill">Appetisers</a>
-      <a href="#burgers" class="cat-pill">Burgers</a>
-      <a href="#sandwiches-wraps" class="cat-pill">Sandwiches &amp; Wraps</a>
-      <a href="#salads" class="cat-pill">Salads</a>
-      <a href="#pizza" class="cat-pill">Pizza</a>
-      <a href="#pasta" class="cat-pill">Pasta</a>
-      <a href="#mains" class="cat-pill">Steaks &amp; Mains</a>
-      <a href="#mocktails" class="cat-pill">Mocktails &amp; Coolers</a>
-      <a href="#desserts" class="cat-pill">Pancakes &amp; Desserts</a>
-    </div>
-  </nav>
-
-  <!-- ============================================================
-       CONTROLS: DIETARY FILTER & LIVE SEARCH
-       ============================================================ -->
-  <div class="menu-controls-strip">
-    <div class="diet-filter-group" aria-label="Dietary filters">
-      <button class="btn-diet-filter active" data-diet="all">All Items</button>
-      <button class="btn-diet-filter" data-diet="veg">Pure Veg</button>
-      <button class="btn-diet-filter" data-diet="nonveg">Non-Veg</button>
-    </div>
-
-    <div class="menu-search-input-box">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="menu-search-input" placeholder="Search coffee, burgers, pasta, frappes, cold brews..." />
-    </div>
-  </div>
-
-  <!-- ============================================================
        SECTIONS CONTAINER (Rendered dynamically with official prices)
        ============================================================ -->
   <main id="menu-sections-container" class="menu-content-container">
     <!-- Populated automatically by js/menu-page.js from CAFFYO_SECTIONS_DATA -->
   </main>
+
 
   <!-- ============================================================
        MOBILE FLOATING BOTTOM TRAY BAR (Phone friendly)
@@ -163,136 +188,73 @@
   </div>
 
   <!-- ============================================================
-       ORDER TRAY DRAWER (Green Grounds Coffee POS Purchase Receipt Style)
+       SELECTION TRAY DRAWER (Items View Only - No Order Placement)
        ============================================================ -->
   <div id="cart-overlay" class="cart-drawer-overlay"></div>
-  <aside id="cart-drawer" class="cart-drawer" aria-label="Your Order Tray">
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Your Selection Tray">
     <div class="cart-drawer-head">
       <div>
         <h3 style="font-family: var(--font-serif); color: #fff; font-size: 1.25rem;">
-          Purchase Receipt
+          Your Selection Tray
         </h3>
         <span class="receipt-id-tag">CAFFYO &bull; Opposite Haldirams, Sadar</span>
       </div>
       <button id="btn-close-cart-drawer" class="btn-close-drawer" aria-label="Close tray">&times;</button>
     </div>
 
-    <!-- Segmented Order Mode Selector (Green Grounds Coffee Reference) -->
-    <div class="pos-order-mode-tabs">
-      <button class="btn-order-type active" data-type="dinein">Dine In</button>
-      <button class="btn-order-type" data-type="takeaway">Take Away</button>
-      <button class="btn-order-type" data-type="delivery">Doorstep</button>
-    </div>
-
-    <!-- Customer & Table Selection -->
-    <div class="pos-customer-details-box">
-      <div class="pos-input-group">
-        <label for="pos-guest-name">Guest Name</label>
-        <input type="text" id="pos-guest-name" placeholder="Your name (e.g. Vikram S)" />
-      </div>
-      <div class="pos-input-group" id="pos-table-group">
-        <label for="pos-table-select">Table Number</label>
-        <select id="pos-table-select">
-          <option value="Table 01 - Main Lounge">Table 01 - Main Lounge</option>
-          <option value="Table 02 - Barista View">Table 02 - Barista View</option>
-          <option value="Table 04 - Indoor Garden" selected>Table 04 - Indoor Garden</option>
-          <option value="Table 07 - Terrace Alfresco">Table 07 - Terrace Alfresco</option>
-          <option value="Table 09 - Reading Corner">Table 09 - Reading Corner</option>
-          <option value="Table 12 - Private Booth">Table 12 - Private Booth</option>
-        </select>
-      </div>
-    </div>
-
+    <!-- Items List (Pure Display & Quantity Review) -->
     <div id="cart-items-list" class="cart-items-list">
       <!-- Items injected dynamically -->
-    </div>
-
-    <!-- Special Barista Note -->
-    <div class="pos-special-note-box">
-      <input type="text" id="pos-order-note" placeholder="Special requests (e.g. Extra hot, oat milk, less sweet)..." />
     </div>
 
     <div class="cart-drawer-footer">
       <div class="price-breakdown">
         <div class="price-row">
-          <span>Subtotal</span>
-          <span id="cart-subtotal">₹0</span>
-        </div>
-        <div class="price-row">
-          <span>GST (5%)</span>
-          <span id="cart-tax">₹0</span>
+          <span>Total Selected Items</span>
+          <span id="cart-item-count" style="color: #fff; font-weight: 600;">0 Items</span>
         </div>
         <div class="price-row total">
-          <span>Grand Total</span>
+          <span>Estimated Total</span>
           <span id="cart-total">₹0</span>
         </div>
       </div>
 
-      <button id="btn-checkout-submit" class="btn-checkout-submit">
-        Send Order to Barista Counter &rarr;
+      <!-- Direct Counter Order Notice -->
+      <div class="tray-counter-notice">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold-accent); flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Items saved in tray. Please place your order directly at the barista counter or with your table server.</span>
+      </div>
+
+      <button id="btn-clear-tray" class="btn-clear-tray" aria-label="Clear Tray">
+        Clear Tray
       </button>
     </div>
   </aside>
 
-  <!-- ============================================================
-       LIVE ORDER STATUS TRACKER MODAL (Green Grounds Mobile App Reference)
-       ============================================================ -->
-  <div id="order-tracker-overlay" class="order-tracker-overlay">
-    <div class="order-tracker-card">
-      <div class="tracker-header">
-        <div>
-          <h3>Order #CZ-27362 Confirmed</h3>
-          <p id="tracker-table-text">Table 04 &bull; Indoor Garden</p>
-        </div>
-        <button id="btn-close-tracker" class="btn-close-drawer" aria-label="Close tracking">&times;</button>
-      </div>
+  <!-- Floating Browse Menu Button -->
+  <button id="btn-floating-categories" class="btn-floating-categories" aria-label="Browse full menu categories">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    <span>Browse Menu (16)</span>
+  </button>
 
-      <!-- Live Animated Progress Bar -->
-      <div class="tracker-progress-wrap">
-        <div class="tracker-progress-bar">
-          <div class="tracker-progress-fill"></div>
-        </div>
-        <div class="tracker-steps-row">
-          <div class="tracker-step done">
-            <span class="step-dot">&bull;</span>
-            <span class="step-label">Received</span>
-          </div>
-          <div class="tracker-step active">
-            <span class="step-dot">&bull;</span>
-            <span class="step-label">Brewing</span>
-          </div>
-          <div class="tracker-step">
-            <span class="step-dot">&bull;</span>
-            <span class="step-label">Plating</span>
-          </div>
-          <div class="tracker-step">
-            <span class="step-dot">&bull;</span>
-            <span class="step-label">Served</span>
-          </div>
-        </div>
+  <!-- Categories Bottom Sheet / Quick Jump Modal -->
+  <div id="categories-modal-overlay" class="categories-modal-overlay"></div>
+  <aside id="categories-sheet-modal" class="categories-sheet-modal" aria-label="Browse All 16 Menu Categories">
+    <div class="categories-modal-header">
+      <div>
+        <h3 style="font-family: var(--font-serif); color: #fff; font-size: 1.25rem;">
+          Menu Categories
+        </h3>
+        <span style="font-size: 0.78rem; color: var(--gold-accent);">Jump instantly to any section</span>
       </div>
-
-      <div class="tracker-eta-box">
-        <div class="eta-left">
-          <span>Estimated Preparation Time</span>
-          <h4>7 - 9 Minutes</h4>
-        </div>
-        <div class="eta-pulse">&bull; Live in Kitchen</div>
-      </div>
-
-      <div class="tracker-items-summary" id="tracker-items-summary">
-        <!-- Injected dynamically -->
-      </div>
-
-      <div class="tracker-actions">
-        <button id="btn-tracker-keep-browsing" class="btn-secondary" style="width: 100%; justify-content: center;">
-          Add More Bites or Drinks
-        </button>
-      </div>
+      <button id="btn-close-categories-modal" class="btn-close-categories-modal" aria-label="Close categories">&times;</button>
     </div>
-  </div>
+    <div id="categories-sheet-list" class="categories-list-scroll">
+      <!-- Injected by setupCategoryModal() -->
+    </div>
+  </aside>
 
   <!-- Scripts -->
-  <script src="js/menu-page.js"></script>
+  <script src="js/menu-page.js?v=2.4"></script>
 </body>
 </html>

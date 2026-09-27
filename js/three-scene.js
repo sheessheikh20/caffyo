@@ -31,6 +31,11 @@ class Caffyo3DExperience {
     this.shockwaves = [];
     this.pointLight = null;
 
+    // Sweet Cinematic Entry Animation
+    this.entryProgress = 0;
+    this.entryDuration = 1.6;
+    this.hasCompletedEntry = false;
+
     // Fluid Slosh Physics & Interactive Surface Simulator
     this.fluid = {
       sloshX: 0,
@@ -112,25 +117,25 @@ class Caffyo3DExperience {
     let targetY = 0.40;
 
     if (width <= 480) {
-      // Small Phones (e.g. 360-480px)
-      scale = Math.min(0.40, Math.max(0.32, (width / 390) * 0.36));
+      // Small Phones (e.g. 360-480px, iPhone SE) - fitted inside window with natural margins
+      scale = 0.48;
       restX = 0;
-      restY = 1.25; // Raised high to eliminate empty space above cup in mobile view
+      restY = 0.80;
       camX = 0;
-      camY = 1.9;
-      camZ = 5.4;
+      camY = 1.62;
+      camZ = 5.3;
       targetX = 0;
-      targetY = 0.18;
+      targetY = 0.42;
     } else if (width <= 768) {
       // Standard & Large Phones (481-768px)
-      scale = Math.min(0.46, Math.max(0.38, (width / 500) * 0.42));
+      scale = 0.52;
       restX = 0;
-      restY = 1.15;
+      restY = 0.80;
       camX = 0;
-      camY = 1.9;
-      camZ = 5.4;
+      camY = 1.62;
+      camZ = 5.3;
       targetX = 0;
-      targetY = 0.18;
+      targetY = 0.42;
     } else if (width <= 1024) {
       // Tablets (769-1024px)
       scale = 0.65;
@@ -174,8 +179,8 @@ class Caffyo3DExperience {
       targetY = 0.40;
     }
 
-    // Height-based compensation if viewport height is compact (all screens)
-    if (height < 750) {
+    // Height-based compensation if viewport height is compact (desktop only)
+    if (width > 768 && height < 750) {
       const heightRatio = Math.max(0.65, height / 760);
       scale *= heightRatio;
     }
@@ -192,6 +197,30 @@ class Caffyo3DExperience {
 
     this.cameraDefaultPos.set(camX, camY, camZ);
     this.cameraTarget.set(targetX, targetY, 0);
+
+    // Responsive adaptation of floating bean trajectories on resize
+    if (this.beans && this.beans.length > 0) {
+      const isMobile = width <= 768;
+      this.beans.forEach((bean, i) => {
+        const isLowerBean = isMobile && (i % 2 === 1);
+        bean.isLowerBean = isLowerBean;
+        if (isMobile) {
+          const cupY = 0.80;
+          if (isLowerBean) {
+            bean.homeX = (Math.sin(i * 3.7) * 0.5) * 2.8;
+            bean.homeY = -1.5 + ((i % 8) / 8) * 1.8;
+            bean.homeZ = -0.5 + Math.sin(i * 2.1) * 0.9;
+          } else {
+            bean.baseRadius = 1.05 + ((i % 6) / 6) * 1.25;
+            bean.baseOffsetY = (Math.sin(i * 1.8) * 0.5) * 1.2;
+          }
+        } else {
+          bean.isLowerBean = false;
+          bean.baseRadius = 2.2 + ((i % 7) / 7) * 2.6;
+          bean.baseOffsetY = (Math.sin(i * 1.8) * 0.5) * 1.8;
+        }
+      });
+    }
   }
 
   createLights() {
@@ -367,14 +396,13 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position & Scale: Positioned comfortably to the right on desktop, centered on mobile
+    // Position & Scale: Starts slightly lower and scaled down for sweet entry animation
     const isMobile = window.innerWidth <= 768;
     const initX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
     const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.22 : -0.28);
-    const initScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.52 : 0.86);
-    this.cupGroup.position.set(initX, initY, 0);
-    this.cupGroup.scale.setScalar(initScale);
-    this.cupGroup.rotation.set(0.28, 0.30, 0);
+    this.cupGroup.position.set(initX - (isMobile ? 0 : 0.6), initY - 2.0, -0.6);
+    this.cupGroup.scale.setScalar(0.04);
+    this.cupGroup.rotation.set(0.65, -0.90, 0.20);
     this.scene.add(this.cupGroup);
   }
 
@@ -405,11 +433,12 @@ class Caffyo3DExperience {
     // Plate beans removed per user instruction
   }
 
-  /* 28 Floating Artisanal Roasted Beans orbiting gently in 3D around the cup */
+  /* 32 Floating Artisanal Roasted Beans orbiting & drifting in 3D around the cup and behind text */
   createFloatingBeans() {
     const beanGeo = this.createCoffeeBeanGeometry();
     const roastColors = [0x261105, 0x3d1a08, 0x4e230b, 0x5c2b0e, 0x1f0e04];
-    const beanCount = 28;
+    const beanCount = 32;
+    const isMobile = window.innerWidth <= 768;
 
     for (let i = 0; i < beanCount; i++) {
       const color = roastColors[i % roastColors.length];
@@ -422,16 +451,40 @@ class Caffyo3DExperience {
 
       const mesh = new THREE.Mesh(beanGeo, mat);
       const angle = (i / beanCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-      const radius = 2.4 + Math.random() * 2.6;
-      const isMobile = window.innerWidth <= 768;
-      const cupX = isMobile ? 0 : 2.9;
-      const cupY = isMobile ? 1.25 : -0.28;
-      const yOffset = (Math.random() - 0.5) * 1.6;
-      const y = cupY + yOffset;
-      const x = cupX + Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
+      const isLowerBean = isMobile && (i % 2 === 1);
 
-      const scale = 0.52 + Math.random() * 0.42;
+      let x, y, z, radius, yOffset;
+
+      if (isMobile) {
+        const cupX = 0;
+        const cupY = 0.85;
+        if (isLowerBean) {
+          // Lower beans drifting directly BEHIND text
+          x = (Math.random() - 0.5) * 3.2;
+          y = -1.5 + Math.random() * 1.8; // Behind headline, desc & buttons
+          z = -0.6 + Math.random() * 1.6;
+          radius = Math.hypot(x, y - cupY);
+          yOffset = y - cupY;
+        } else {
+          // Upper beans orbiting around the cup
+          radius = 1.3 + Math.random() * 1.6;
+          yOffset = (Math.random() - 0.5) * 1.4;
+          y = cupY + yOffset;
+          x = cupX + Math.cos(angle) * radius;
+          z = (Math.random() - 0.4) * 2.2;
+        }
+      } else {
+        // Desktop distribution
+        const cupX = 2.4;
+        const cupY = -0.28;
+        radius = 2.2 + Math.random() * 2.6;
+        yOffset = (Math.random() - 0.5) * 1.8;
+        y = cupY + yOffset;
+        x = cupX + Math.cos(angle) * radius;
+        z = Math.sin(angle) * radius;
+      }
+
+      const scale = 0.48 + Math.random() * 0.40;
       mesh.scale.set(scale, scale, scale);
       mesh.position.set(x, y, z);
       mesh.rotation.set(
@@ -446,10 +499,14 @@ class Caffyo3DExperience {
       this.beans.push({
         mesh: mesh,
         originalPos: new THREE.Vector3(x, y, z),
+        homeX: x,
+        homeY: y,
+        homeZ: z,
+        isLowerBean: isLowerBean,
         baseOffsetY: yOffset,
         baseRadius: radius,
         angle: angle,
-        orbitSpeed: (0.12 + Math.random() * 0.18) * (i % 2 === 0 ? 1 : -1),
+        orbitSpeed: (0.14 + Math.random() * 0.20) * (i % 2 === 0 ? 1 : -1),
         bobFreq: 0.7 + Math.random() * 1.1,
         bobAmp: 0.08 + Math.random() * 0.14,
         phase: Math.random() * Math.PI * 2,
@@ -777,31 +834,57 @@ class Caffyo3DExperience {
       if (this.cupGroup) {
         const isMobile = window.innerWidth <= 768;
         const targetX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
-        const targetY = (this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 1.25 : -0.28)) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const targetY = (this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.16 : -0.28)) + Math.sin(elapsedTime * 0.8) * 0.02;
         const restZ = 0;
+        const targetScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.52 : 0.86);
 
         // Ideal aesthetic presentation angle:
-        // ~16° tilt forward (0.28 rad) displays the rosette/heart latte art clearly
-        // ~17° rotation (0.30 rad) showcases the ceramic handle and cup silhouette
         const restRotX = 0.28;
         const restRotY = 0.30 + Math.sin(elapsedTime * 0.3) * 0.05;
         const restRotZ = 0;
 
-        const returnSpeed = 0.055; // Silky smooth damped spring back
-        this.cupGroup.position.x += (targetX - this.cupGroup.position.x) * returnSpeed;
-        this.cupGroup.position.y += (targetY - this.cupGroup.position.y) * returnSpeed;
-        this.cupGroup.position.z += (restZ - this.cupGroup.position.z) * returnSpeed;
+        if (!this.hasCompletedEntry) {
+          this.entryProgress += dt / this.entryDuration;
+          if (this.entryProgress >= 1.0) {
+            this.entryProgress = 1.0;
+            this.hasCompletedEntry = true;
+            this.fluid.waveEnergy = 0.65; // subtle welcoming ripple upon arrival
+          }
 
-        // Smooth responsive scale transition
-        if (this.targetScale !== undefined) {
-          const curScale = this.cupGroup.scale.x;
-          const nextScale = curScale + (this.targetScale - curScale) * returnSpeed;
-          this.cupGroup.scale.setScalar(nextScale);
+          const t = this.entryProgress;
+          // Smooth quartic ease-out
+          const ease = 1 - Math.pow(1 - t, 4);
+          const scaleEase = 1 - Math.pow(1 - t, 3.2);
+
+          const startX = targetX - (isMobile ? 0 : 0.6);
+          const startY = targetY - 2.0;
+
+          this.cupGroup.position.x = THREE.MathUtils.lerp(startX, targetX, ease);
+          this.cupGroup.position.y = THREE.MathUtils.lerp(startY, targetY, ease) + Math.sin(t * Math.PI) * 0.08;
+          this.cupGroup.position.z = THREE.MathUtils.lerp(-0.6, restZ, ease);
+
+          this.cupGroup.scale.setScalar(THREE.MathUtils.lerp(0.04, targetScale, scaleEase));
+
+          this.cupGroup.rotation.x = THREE.MathUtils.lerp(0.65, restRotX, ease);
+          this.cupGroup.rotation.y = THREE.MathUtils.lerp(-0.90, restRotY, ease);
+          this.cupGroup.rotation.z = THREE.MathUtils.lerp(0.20, restRotZ, ease);
+        } else {
+          const returnSpeed = 0.055; // Silky smooth damped spring back
+          this.cupGroup.position.x += (targetX - this.cupGroup.position.x) * returnSpeed;
+          this.cupGroup.position.y += (targetY - this.cupGroup.position.y) * returnSpeed;
+          this.cupGroup.position.z += (restZ - this.cupGroup.position.z) * returnSpeed;
+
+          // Smooth responsive scale transition
+          if (this.targetScale !== undefined) {
+            const curScale = this.cupGroup.scale.x;
+            const nextScale = curScale + (this.targetScale - curScale) * returnSpeed;
+            this.cupGroup.scale.setScalar(nextScale);
+          }
+
+          this.cupGroup.rotation.x += (restRotX - this.cupGroup.rotation.x) * returnSpeed;
+          this.cupGroup.rotation.y += (restRotY - this.cupGroup.rotation.y) * returnSpeed;
+          this.cupGroup.rotation.z += (restRotZ - this.cupGroup.rotation.z) * returnSpeed;
         }
-
-        this.cupGroup.rotation.x += (restRotX - this.cupGroup.rotation.x) * returnSpeed;
-        this.cupGroup.rotation.y += (restRotY - this.cupGroup.rotation.y) * returnSpeed;
-        this.cupGroup.rotation.z += (restRotZ - this.cupGroup.rotation.z) * returnSpeed;
       }
     }
 
@@ -886,14 +969,26 @@ class Caffyo3DExperience {
           const toHome = new THREE.Vector3().subVectors(bean.originalPos, bean.mesh.position);
           bean.velocity.addScaledVector(toHome, 4.0 * dt);
         } else {
-          bean.angle += bean.orbitSpeed * dt * 0.35;
           const cupX = this.cupGroup ? this.cupGroup.position.x : 0;
           const cupY = this.cupGroup ? this.cupGroup.position.y : 0;
-          const targetX = cupX + Math.cos(bean.angle) * bean.baseRadius;
-          const targetZ = Math.sin(bean.angle) * bean.baseRadius;
-          const targetY = cupY + (bean.baseOffsetY !== undefined ? bean.baseOffsetY : 0) + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
+          const isMobile = window.innerWidth <= 768;
+          let targetX, targetY, targetZ;
+
+          if (isMobile && bean.isLowerBean) {
+            // Lower beans float and drift smoothly directly BEHIND text
+            targetX = bean.homeX + Math.sin(elapsedTime * bean.bobFreq * 0.6 + bean.phase) * 0.35;
+            targetY = bean.homeY + Math.cos(elapsedTime * bean.bobFreq * 0.7 + bean.phase) * 0.18;
+            targetZ = bean.homeZ + Math.sin(elapsedTime * 0.5 + bean.phase) * 0.22;
+          } else {
+            // Upper beans orbiting around the cup
+            bean.angle += bean.orbitSpeed * dt * 0.35;
+            targetX = cupX + Math.cos(bean.angle) * bean.baseRadius;
+            targetZ = Math.sin(bean.angle) * bean.baseRadius;
+            targetY = cupY + (bean.baseOffsetY !== undefined ? bean.baseOffsetY : 0) + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
+          }
 
           bean.originalPos.x = targetX;
+          bean.originalPos.y = targetY;
           bean.originalPos.z = targetZ;
           bean.mesh.position.x += (targetX - bean.mesh.position.x) * 0.06;
           bean.mesh.position.y += (targetY - bean.mesh.position.y) * 0.06;
