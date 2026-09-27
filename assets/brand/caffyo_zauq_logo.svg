@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" width="100%" height="100%">
   <defs>
     <linearGradient id="caffyoGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0edd0"/>
-      <stop offset="40%" stop-color="#f0edd0"/>
-      <stop offset="70%" stop-color="#f0edd0"/>
-      <stop offset="100%" stop-color="#f0edd0"/>
+      <stop offset="0%" stop-color="#f5e1ad"/>
+      <stop offset="40%" stop-color="#dfc282"/>
+      <stop offset="70%" stop-color="#caa256"/>
+      <stop offset="100%" stop-color="#b68939"/>
     </linearGradient>
     <linearGradient id="caffyoGoldStroke" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f0edd0"/>
-      <stop offset="50%" stop-color="#f0edd0"/>
-      <stop offset="100%" stop-color="#f0edd0"/>
+      <stop offset="0%" stop-color="#f8e7be"/>
+      <stop offset="50%" stop-color="#d4af62"/>
+      <stop offset="100%" stop-color="#b88f40"/>
     </linearGradient>
     <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="1.5" result="blur" />

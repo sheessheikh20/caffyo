@@ -293,7 +293,7 @@ class DedicatedMenuController {
       container.innerHTML = `
         <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
           <div style="font-size: 40px; margin-bottom: 12px;">☕</div>
-          <h3 style="color:#f0edd0; margin-bottom: 8px;">No matching items found</h3>
+          <h3 style="color:#fff; margin-bottom: 8px;">No matching items found</h3>
           <p>Try searching for "Latte", "Pizza", "Fries", or "Burger".</p>
         </div>
       `;
@@ -376,7 +376,7 @@ class DedicatedMenuController {
       list.innerHTML = `
         <div style="text-align:center; padding: 40px 10px; color: var(--text-muted);">
           <span style="font-size: 40px; display: block; margin-bottom: 8px;">☕</span>
-          <h4 style="color:#f0edd0; margin-bottom: 4px;">Tray is Empty</h4>
+          <h4 style="color:#fff; margin-bottom: 4px;">Tray is Empty</h4>
           <p style="font-size: 0.82rem;">Select items from our sections above to build your order.</p>
         </div>
       `;
@@ -389,12 +389,12 @@ class DedicatedMenuController {
     list.innerHTML = this.cart.map(item => `
       <div class="cart-item-row">
         <div>
-          <h4 style="font-size: 0.92rem; color: #f0edd0;">${item.name}</h4>
-          <span style="font-size: 0.78rem; color: var(--moss-accent);">₹${item.price} each</span>
+          <h4 style="font-size: 0.92rem; color: #fff;">${item.name}</h4>
+          <span style="font-size: 0.78rem; color: var(--gold-accent);">₹${item.price} each</span>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
           <button class="btn-qty" data-dec="${item.id}">-</button>
-          <span style="font-weight:700; color:#f0edd0; min-width:20px; text-align:center;">${item.qty}</span>
+          <span style="font-weight:700; color:#fff; min-width:20px; text-align:center;">${item.qty}</span>
           <button class="btn-qty" data-inc="${item.id}">+</button>
         </div>
       </div>
@@ -543,7 +543,7 @@ class DedicatedMenuController {
               <strong>₹${item.price * item.qty}</strong>
             </div>
           `).join('') + `
-            <div class="tracker-item-line" style="border-top: 1px dashed rgba(240, 237, 208,0.2); padding-top: 6px; font-weight: 700; color: #c5dfb0;">
+            <div class="tracker-item-line" style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 6px; font-weight: 700; color: #2ed573;">
               <span>Total Bill (Incl. 5% GST)</span>
               <span>₹${total}</span>
             </div>

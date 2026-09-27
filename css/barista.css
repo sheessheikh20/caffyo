@@ -4,43 +4,31 @@
    ============================================================ */
 
 :root {
-  /* ============================================================
-     Pistachio Cream palette (active)
-       Deep Sage      #4A6741 - panels, cards, surfaces
-       Sage Green     #7A9E6E - primary accent (buttons, active states)
-       Pistachio      #9DC08B - accent light / hover
-       Pale Pistachio #C5DFB0 - secondary text, prices, secondary buttons
-       Cream          #F0EDD0 - primary text
-       (#2E4029 = deepened Deep Sage, the deliberately rare dark accent)
-     Legacy variable names (--kombu, --moss-*, --bone, --tan, --cafe-noir)
-     map onto the roles above - keep using them.
-     ============================================================ */
-
-  --bg-menu-dark: #1e2a1a;
-  --bg-menu-section: #263320;
-  --bg-menu-card: #4a6741;
-  --bg-menu-card-hover: #56744a;
-  --moss-accent: #7a9e6e;
-  --moss-light: #9dc08b;
-  --bone: #f0edd0;
-  --tan: #c5dfb0;
-  --bone-text: #f0edd0;
-  --text-main: #f0edd0;
-  --text-muted: #c5dfb0;
-  --text-dim: #aec59c;
-  --border-moss: rgba(122, 158, 110,0.2);
-  --border-dim: rgba(197, 223, 176, 0.14);
-  --status-new: #7a9e6e;
-  --status-preparing: #9dc08b;
-  --status-ready: #4a6741;
-  --status-completed: #aec59c;
+  --bg-menu-dark: #0e0a07;
+  --bg-menu-section: #0e0a07;
+  --bg-menu-card: #1c1309;
+  --bg-menu-card-hover: #2a1e11;
+  --gold-accent: #e59866;
+  --gold-light: #f2c497;
+  --gold-bright: #f2c497;
+  --gold-crema: #f5f0e6;
+  --cream-text: #f5f0e6;
+  --text-main: #f5f0e6;
+  --text-muted: #8a7560;
+  --text-dim: #6b5d4f;
+  --border-gold: rgba(229,152,102,0.2);
+  --border-dim: rgba(229,152,102,0.1);
+  --status-new: #e59866;
+  --status-preparing: #f2c497;
+  --status-ready: #f2c497;
+  --status-completed: #8a7560;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-menu-dark);
-  color: var(--bone-text);
+  color: var(--cream-text);
   overflow-x: hidden;
 }
 
@@ -71,10 +59,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 18px 28px;
-  /* Cafe Noir counter bar - the palette's rare accent, marks the barista station */
-  background: linear-gradient(180deg, rgba(46, 64, 41, 0.55) 0%, rgba(30, 42, 26, 0.9) 100%);
+  background: rgba(14, 10, 7, 0.85);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(197, 223, 176, 0.22);
+  border-bottom: 1px solid var(--border-gold);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -82,7 +69,7 @@ body {
 .header-left h1 {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
-  color: var(--moss-light);
+  color: var(--gold-light);
 }
 .subtitle {
   color: var(--text-muted);
@@ -96,14 +83,14 @@ body {
   padding: 7px 16px;
   border-radius: 20px;
   background: var(--bg-menu-card);
-  border: 1px solid var(--border-moss);
+  border: 1px solid var(--border-gold);
   color: var(--text-muted);
   font-size: 0.82rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 .filter-btn.active, .filter-btn:hover {
-  background: var(--moss-accent);
+  background: var(--gold-accent);
   color: var(--bg-menu-dark);
   font-weight: 600;
 }
@@ -127,7 +114,7 @@ body {
 /* Order Card */
 .order-card {
   background: var(--bg-menu-card);
-  border: 1px solid var(--border-moss);
+  border: 1px solid var(--border-gold);
   border-radius: 16px;
   padding: 18px;
   transition: all 0.3s ease;
@@ -135,7 +122,7 @@ body {
   overflow: hidden;
 }
 .order-card:hover {
-  box-shadow: 0 0 20px rgba(122, 158, 110, 0.25);
+  box-shadow: 0 0 20px rgba(229, 152, 102, 0.25);
   transform: translateY(-2px);
 }
 .order-card::before {
@@ -144,7 +131,7 @@ body {
   top: 0; left: 0;
   width: 4px;
   height: 100%;
-  background: var(--status-color, var(--moss-accent));
+  background: var(--status-color, var(--gold-accent));
 }
 .order-header {
   display: flex;
@@ -155,7 +142,7 @@ body {
 .order-number {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
-  color: var(--moss-light);
+  color: var(--gold-light);
 }
 .order-status-badge {
   padding: 4px 12px;
@@ -164,8 +151,8 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 600;
-  background: var(--status-bg, rgba(122, 158, 110,0.15));
-  color: var(--status-color, var(--moss-accent));
+  background: var(--status-bg, rgba(229,152,102,0.15));
+  color: var(--status-color, var(--gold-accent));
 }
 .order-meta {
   display: flex;
@@ -175,30 +162,30 @@ body {
   font-size: 0.82rem;
   color: var(--text-muted);
 }
-.order-meta span { color: var(--bone-text); font-weight: 500; }
+.order-meta span { color: var(--cream-text); font-weight: 500; }
 
 .items-list { margin-bottom: 16px; }
 .item-row {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(122, 158, 110,0.1);
+  border-bottom: 1px solid rgba(229,152,102,0.1);
   font-size: 0.85rem;
 }
 .item-row:last-child { border-bottom: none; }
-.item-name { color: var(--bone-text); }
+.item-name { color: var(--cream-text); }
 .item-qty { color: var(--text-muted); }
-.item-price { color: var(--moss-light); font-weight: 600; }
+.item-price { color: var(--gold-light); font-weight: 600; }
 
 .order-total {
   display: flex;
   justify-content: space-between;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--moss-light);
+  color: var(--gold-light);
   margin-bottom: 16px;
   padding-top: 10px;
-  border-top: 1px solid var(--border-moss);
+  border-top: 1px solid var(--border-gold);
 }
 
 .status-controls {
@@ -209,7 +196,7 @@ body {
 .status-btn {
   flex: 1;
   padding: 8px 10px;
-  border: 1px solid var(--border-moss);
+  border: 1px solid var(--border-gold);
   border-radius: 8px;
   background: var(--bg-menu-dark);
   color: var(--text-muted);
@@ -219,15 +206,15 @@ body {
 }
 .status-btn:hover {
   background: var(--bg-menu-card);
-  color: var(--bone-text);
+  color: var(--cream-text);
 }
 .status-btn.active {
-  background: var(--moss-accent);
+  background: var(--gold-accent);
   color: var(--bg-menu-dark);
   font-weight: 600;
 }
 .status-btn.ready { background: var(--status-ready); color: var(--bg-menu-dark); }
-.status-btn.completed { background: var(--text-muted); color: var(--bone); }
+.status-btn.completed { background: var(--text-muted); color: #fff; }
 
 .order-time {
   position: absolute;
@@ -245,13 +232,13 @@ body {
   color: var(--text-muted);
 }
 .empty-icon { font-size: 56px; margin-bottom: 14px; opacity: 0.4; }
-.empty-state h3 { color: var(--bone-text); margin-bottom: 6px; }
+.empty-state h3 { color: var(--cream-text); margin-bottom: 6px; }
 
 /* Detail Overlay */
 .detail-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(16, 23, 13, 0.75);
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -260,7 +247,7 @@ body {
 }
 .detail-card {
   background: var(--bg-menu-card);
-  border: 1px solid var(--border-moss);
+  border: 1px solid var(--border-gold);
   border-radius: 20px;
   max-width: 600px;
   width: 100%;

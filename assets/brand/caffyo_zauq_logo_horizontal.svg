@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" width="100%" height="100%">
   <defs>
     <linearGradient id="navCaffyoGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0edd0"/>
-      <stop offset="45%" stop-color="#f0edd0"/>
-      <stop offset="80%" stop-color="#f0edd0"/>
-      <stop offset="100%" stop-color="#f0edd0"/>
+      <stop offset="0%" stop-color="#faebd0"/>
+      <stop offset="45%" stop-color="#e2c589"/>
+      <stop offset="80%" stop-color="#caa256"/>
+      <stop offset="100%" stop-color="#b68939"/>
     </linearGradient>
     <linearGradient id="navCaffyoGoldStroke" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f0edd0"/>
-      <stop offset="50%" stop-color="#f0edd0"/>
-      <stop offset="100%" stop-color="#f0edd0"/>
+      <stop offset="0%" stop-color="#faebd0"/>
+      <stop offset="50%" stop-color="#d4af62"/>
+      <stop offset="100%" stop-color="#b88f40"/>
     </linearGradient>
   </defs>
 
@@ -42,7 +42,7 @@
   </g>
 
   <!-- Vertical Divider Line -->
-  <line x1="60" y1="14" x2="60" y2="56" stroke="rgba(240, 237, 208, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="60" y1="14" x2="60" y2="56" stroke="rgba(212, 175, 98, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
 
   <!-- Brand Typography -->
   <g transform="translate(76, 0)">

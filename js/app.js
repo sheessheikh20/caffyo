@@ -1,7 +1,7 @@
 ﻿/* ============================================================
    CAFFYO by Zauq - Main Application Controller
    Glues 3D Physics, Living Cup Assembly, Testimonial Slider,
-   Bottom Dock, and Table Booking
+   Mobile Drawer, Bottom Dock, and Table Booking
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHUDControls();
   initAudioToggle();
   initBrewLabControls();
+  initMobileDrawer();
   initTestimonialSlider();
   initReservationForm();
   initBottomDock();
@@ -185,10 +186,6 @@ function initHUDControls() {
 }
 
 /* Audio Player & Toggle */
-// Line-art speaker icons — keep the nav icon vector, never an emoji
-const SOUND_ICON_ON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>';
-const SOUND_ICON_OFF = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
-
 function initAudioToggle() {
   const soundBtn = document.getElementById('btn-sound-toggle');
   if (!soundBtn) return;
@@ -198,15 +195,54 @@ function initAudioToggle() {
       const isPlaying = window.caffyoAudio.toggleSound();
       if (isPlaying) {
         soundBtn.classList.add('playing');
-        soundBtn.innerHTML = SOUND_ICON_ON;
+        soundBtn.innerHTML = '🔊';
         soundBtn.title = 'Mute Cafe Soundscape';
-        if (window.caffyoCart) window.caffyoCart.showToast('Cozy Cafe Soundscape Playing');
+        if (window.caffyoCart) window.caffyoCart.showToast('Cozy Cafe Soundscape Playing 🎶');
       } else {
         soundBtn.classList.remove('playing');
-        soundBtn.innerHTML = SOUND_ICON_OFF;
+        soundBtn.innerHTML = '🔈';
         soundBtn.title = 'Play Ambient Soundscape';
       }
     }
+  });
+}
+
+/* Mobile Slide-in Drawer */
+function initMobileDrawer() {
+  const hamburgerBtn = document.getElementById('btn-mobile-menu');
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('mobile-drawer-overlay');
+  const closeBtn = document.getElementById('btn-close-mobile-drawer');
+
+  function openMenu() {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    hamburgerBtn.classList.add('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    hamburgerBtn.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => {
+    if (drawer.classList.contains('open')) closeMenu();
+    else openMenu();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  // Close when clicking mobile nav links
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
   });
 }
 
@@ -491,6 +527,7 @@ function initLiveCafeStatus() {
     const statusBadge = document.getElementById('live-status-badge');
     const statusCountdown = document.getElementById('live-time-countdown');
     const pulseDot = document.querySelector('.live-pulse-dot');
+    const mobileStatus = document.getElementById('mobile-live-status');
 
     if (isOpen) {
       const remainingMins = closeTimeMins - timeInMins;
@@ -506,6 +543,9 @@ function initLiveCafeStatus() {
         statusCountdown.textContent = `Closes at 11:30 PM IST (in ${countdownStr}) • Mon–Sun 10:00 AM – 11:30 PM`;
       }
       if (pulseDot) pulseDot.classList.remove('closed');
+      if (mobileStatus) {
+        mobileStatus.textContent = `Open Now • Closes 11:30 PM (in ${countdownStr})`;
+      }
     } else {
       let minsUntilOpen;
       if (timeInMins < openTimeMins) {
@@ -525,6 +565,9 @@ function initLiveCafeStatus() {
         statusCountdown.textContent = `Opens at 10:00 AM IST (in ${countdownStr}) • Daily 10:00 AM – 11:30 PM`;
       }
       if (pulseDot) pulseDot.classList.add('closed');
+      if (mobileStatus) {
+        mobileStatus.textContent = `Closed Now • Opens 10:00 AM (in ${countdownStr})`;
+      }
     }
   }
 

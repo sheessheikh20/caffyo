@@ -60,10 +60,10 @@ class Caffyo3DExperience {
 
   init() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x141f12, 0.08);
+    this.scene.fog = new THREE.FogExp2(0x100b07, 0.08);
 
     const aspect = this.container.clientWidth / this.container.clientHeight;
-    this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
+    this.camera = new THREE.PerspectiveCamera(isMobile ? 50 : 45, aspect, 0.1, 100);
 
     this.applyResponsiveCamera();
     this.camera.position.copy(this.cameraDefaultPos);
@@ -76,27 +76,28 @@ class Caffyo3DExperience {
       powerPreference: 'high-performance'
     });
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.3;
+    this.renderer.toneMappingExposure = isMobile ? 1.4 : 1.3;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   }
 
   /**
    * Frames the 3D cup for the current viewport.
-   * Mobile: the cup + saucer are fitted to the screen WIDTH, so the composition
-   * stays perfect on every phone size — nothing cropped, nothing over-zoomed.
+   * Mobile: the cup + saucer are fitted to the screen WIDTH with generous
+   * padding, so the composition stays perfect on every phone size.
+   * Desktop: cinematic offset composition.
    */
   applyResponsiveCamera() {
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
       const aspect = this.camera.aspect || (this.container.clientWidth / this.container.clientHeight);
       const visiblePerUnit = 2 * Math.tan((this.camera.fov * Math.PI / 180) / 2);
-      const cupFitWidth = 3.25; // world-space width of the framed cup + saucer
-      const dist = Math.min(11.5, Math.max(6.4, cupFitWidth / (visiblePerUnit * aspect)));
-      this.cameraDefaultPos.set(0, dist * 0.203, dist);
-      this.cameraTarget.set(0, 0.296 - dist * 0.166, 0);
+      const cupFitWidth = 3.0; // world-space width of the framed cup + saucer
+      const dist = Math.min(12.0, Math.max(7.0, cupFitWidth / (visiblePerUnit * aspect)));
+      this.cameraDefaultPos.set(0, dist * 0.18, dist);
+      this.cameraTarget.set(0, 0.35 - dist * 0.14, 0);
     } else {
       this.cameraDefaultPos.set(0.9, 2.6, 4.4);
       this.cameraTarget.set(0.9, 0.55, 0);
@@ -104,12 +105,13 @@ class Caffyo3DExperience {
   }
 
   createLights() {
+    const isMobile = window.innerWidth <= 768;
     // Ambient light with warm undertones
-    const ambientLight = new THREE.AmbientLight(0x3a2215, 2.2);
+    const ambientLight = new THREE.AmbientLight(0x3a2215, isMobile ? 2.4 : 2.2);
     this.scene.add(ambientLight);
 
     // Warm Key Light casting crisp highlights on porcelain and beans
-    this.keyLight = new THREE.DirectionalLight(0xfff1e0, 2.2);
+    this.keyLight = new THREE.DirectionalLight(0xfff1e0, isMobile ? 2.4 : 2.2);
     this.keyLight.position.set(5, 9, 5);
     this.keyLight.castShadow = true;
     this.keyLight.shadow.mapSize.width = 1024;
@@ -119,12 +121,12 @@ class Caffyo3DExperience {
     this.scene.add(this.keyLight);
 
     // Rich Amber Rim Light for atmospheric glow
-    const rimLight = new THREE.DirectionalLight(0xe59866, 2.6);
+    const rimLight = new THREE.DirectionalLight(0xe59866, isMobile ? 2.8 : 2.6);
     rimLight.position.set(-6, 4, -4);
     this.scene.add(rimLight);
 
     // Soft warm crema bounce fill (delicate, natural, zero artificial blowout)
-    this.pointLight = new THREE.PointLight(0xffecd9, 0.35, 6);
+    this.pointLight = new THREE.PointLight(0xffecd9, isMobile ? 0.4 : 0.35, 6);
     this.pointLight.position.set(2.1, 2.8, 1.0);
     this.scene.add(this.pointLight);
   }
@@ -276,12 +278,12 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position: Centered-right for cinematic hero view matching user preference
+    // Position: Centered for mobile (aesthetic), right-offset for desktop (cinematic)
     const isMobile = window.innerWidth <= 768;
-    this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.22 : -0.30, 0);
+    this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.15 : -0.30, 0);
     this.cupGroup.rotation.set(0.28, 0.30, 0);
     if (isMobile) {
-      this.cupGroup.scale.setScalar(0.92);
+      this.cupGroup.scale.setScalar(0.85);
     }
     this.scene.add(this.cupGroup);
   }
@@ -313,11 +315,12 @@ class Caffyo3DExperience {
     // Plate beans removed per user instruction
   }
 
-  /* 28 Floating Artisanal Roasted Beans orbiting gently in 3D around the cup */
+  /* Floating Artisanal Roasted Beans orbiting gently in 3D around the cup */
   createFloatingBeans() {
     const beanGeo = this.createCoffeeBeanGeometry();
     const roastColors = [0x261105, 0x3d1a08, 0x4e230b, 0x5c2b0e, 0x1f0e04];
-    const beanCount = 28;
+    const isMobile = window.innerWidth <= 768;
+    const beanCount = isMobile ? 14 : 28;
 
     for (let i = 0; i < beanCount; i++) {
       const color = roastColors[i % roastColors.length];
@@ -330,14 +333,13 @@ class Caffyo3DExperience {
 
       const mesh = new THREE.Mesh(beanGeo, mat);
       const angle = (i / beanCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-      const radius = 2.4 + Math.random() * 2.6;
-      const isMobile = window.innerWidth <= 768;
+      const radius = isMobile ? 2.0 + Math.random() * 1.8 : 2.4 + Math.random() * 2.6;
       const cupX = isMobile ? 0 : 2.9;
       const y = -0.5 + Math.random() * 2.4;
       const x = cupX + Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
 
-      const scale = 0.52 + Math.random() * 0.42;
+      const scale = isMobile ? 0.4 + Math.random() * 0.3 : 0.52 + Math.random() * 0.42;
       mesh.scale.set(scale, scale, scale);
       mesh.position.set(x, y, z);
       mesh.rotation.set(
@@ -369,16 +371,16 @@ class Caffyo3DExperience {
   }
 
   createSteamSystem() {
-    const count = 45;
+    const isMobile = window.innerWidth <= 768;
+    const count = isMobile ? 25 : 45;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(count * 3);
 
-    const isMobile = window.innerWidth <= 768;
     const cupX = isMobile ? 0 : 2.9;
     for (let i = 0; i < count; i++) {
-      positions[i * 3 + 0] = cupX + (Math.random() - 0.5) * 0.6;
-      positions[i * 3 + 1] = 1.35 + Math.random() * 2.0;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 0.6;
+      positions[i * 3 + 0] = cupX + (Math.random() - 0.5) * 0.5;
+      positions[i * 3 + 1] = 1.35 + Math.random() * 1.8;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -398,10 +400,10 @@ class Caffyo3DExperience {
 
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.35,
+      size: isMobile ? 0.28 : 0.35,
       map: texture,
       transparent: true,
-      opacity: 0.12,
+      opacity: isMobile ? 0.1 : 0.12,
       blending: THREE.NormalBlending,
       depthWrite: false
     });
@@ -529,21 +531,21 @@ class Caffyo3DExperience {
 
     switch (mode) {
       case 'orbit':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.45, isMobile ? 2.5 : 2.2, isMobile ? 6.2 : 5.5);
-        this.cameraTarget.set(isMobile ? 0 : 1.45, 0.38, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.45, isMobile ? 2.2 : 2.2, isMobile ? 5.8 : 5.5);
+        this.cameraTarget.set(isMobile ? 0 : 1.45, 0.35, 0);
         break;
       case 'explode':
-        this.cameraDefaultPos.set(isMobile ? 0 : 1.95, 3.5, 6.8);
-        this.cameraTarget.set(isMobile ? 0 : 1.95, 0.8, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 1.95, 3.2, 6.5);
+        this.cameraTarget.set(isMobile ? 0 : 1.95, 0.75, 0);
         this.explode(1.3);
         break;
       case 'crema':
-        this.cameraDefaultPos.set(isMobile ? 0 : 2.9, 2.4, 1.8);
-        this.cameraTarget.set(isMobile ? 0 : 2.9, 1.2, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 2.9, 2.2, 1.8);
+        this.cameraTarget.set(isMobile ? 0 : 2.9, 1.1, 0);
         break;
       case 'roast':
-        this.cameraDefaultPos.set(isMobile ? 0 : 0.5, 1.8, 4.2);
-        this.cameraTarget.set(isMobile ? 0 : 2.9, 0.5, 0);
+        this.cameraDefaultPos.set(isMobile ? 0 : 0.5, 1.6, 4.0);
+        this.cameraTarget.set(isMobile ? 0 : 2.9, 0.45, 0);
         break;
     }
   }
@@ -568,8 +570,8 @@ class Caffyo3DExperience {
 
       const isMobile = window.innerWidth <= 768;
       if (this.cupGroup) {
-        this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
-        this.cupGroup.scale.setScalar(isMobile ? 0.92 : 1.0);
+        this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.15 : -0.45, 0);
+        this.cupGroup.scale.setScalar(isMobile ? 0.85 : 1.0);
       }
       this.applyResponsiveCamera();
     });
@@ -693,7 +695,7 @@ class Caffyo3DExperience {
       // When user releases finger or cursor, smoothly spring back to the perfect showcase angle
       if (this.cupGroup) {
         const restX = isMobile ? 0 : 1.5;
-        const restY = (isMobile ? -0.22 : -0.30) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const restY = (isMobile ? -0.15 : -0.30) + Math.sin(elapsedTime * 0.8) * 0.02;
         const restZ = 0;
 
         // Ideal aesthetic presentation angle:

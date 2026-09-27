@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>CAFFYO by Zauq | Specialty Coffee &amp; Slow Roasts · Nagpur</title>
-  <meta name="description" content="CAFFYO by Zauq (कफयो बाय ज़ॉक) in Nagpur, Maharashtra. Rated 4.5★ (116+ reviews). Slow-roasted specialty coffee, fresh bakes and warm hospitality at Prestige Hospital Chowk." />
-  <meta name="keywords" content="CAFFYO by Zauq, Nagpur cafe, coffee shop Nagpur, best coffee in Nagpur, specialty coffee, slow roast, Chhaoni Rd cafe, Koradi Colony" />
+  <title>CAFFYO by Zauq | Nagpur's Premier Artisanal 3D Coffee Experience</title>
+  <meta name="description" content="CAFFYO by Zauq (कफयो बाय ज़ॉक) in Nagpur, Maharashtra. Rated 4.5★ (116+ reviews). Experience interactive 3D coffee assembly, slow artisanal roasts, and warm hospitality at Prestige Hospital Chowk." />
+  <meta name="keywords" content="CAFFYO by Zauq, Nagpur cafe, coffee shop Nagpur, best coffee in Nagpur, 3D coffee website, specialty coffee, Chhaoni Rd cafe, Koradi Colony" />
 
   <!-- Mobile Browser Theme Color -->
-  <meta name="theme-color" content="#1e2a1a" />
+  <meta name="theme-color" content="#0e0a07" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <!-- Google Fonts: Editorial Serif & Modern Sans -->
@@ -61,9 +61,13 @@
     <!-- Desktop Navigation Links -->
     <nav class="desktop-nav">
       <ul class="nav-links">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#interactive-assembly">Craft Assembly</a></li>
         <li><a href="#editorial-story">Our Story</a></li>
         <li><a href="#roasting-spectrum">Roasts</a></li>
-        <li><a href="#visit">Visit</a></li>
+        <li><a href="#best-sellers">Best Sellers</a></li>
+        <li><a href="menu.html" style="color: var(--gold-accent); font-weight: 700;">Explore Menu &rarr;</a></li>
+        <li><a href="#visit">Visit &amp; Reserve</a></li>
       </ul>
     </nav>
 
@@ -75,14 +79,74 @@
 
       <!-- Cart Button linking to Menu Tray -->
       <a href="menu.html" class="btn-cart-nav" aria-label="View Menu & Tray">
-        <span class="cart-label-text">Menu</span>
+        <span class="cart-label-text">Menu &amp; Tray</span>
       </a>
 
       <!-- Desktop Table Reservation CTA -->
       <a href="#visit" class="btn-primary desktop-only-btn">Reserve Table</a>
 
+      <!-- Mobile Hamburger Button -->
+      <button id="btn-mobile-menu" class="btn-hamburger" aria-label="Open mobile menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
+
+  <!-- ============================================================
+       MOBILE SLIDE-IN DRAWER (Clean Editorial - No Emojis)
+       ============================================================ -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="nav-brand">
+        <img src="assets/brand/caffyo_zauq_logo_horizontal.svg" alt="CAFFYO by Zauq" class="nav-brand-logo-img" style="height: 36px; width: auto;" />
+      </div>
+      <button id="btn-close-mobile-drawer" class="btn-close-drawer" aria-label="Close menu">&times;</button>
+    </div>
+
+    <!-- Live Status Tag (Dynamic Google Maps Sync) -->
+    <div class="mobile-status-pill">
+      <span class="live-indicator"></span>
+      <span id="mobile-live-status">Syncing Google Maps Hours...</span>
+    </div>
+
+    <!-- Mobile Nav Links -->
+    <nav class="mobile-nav-menu">
+      <a href="#hero" class="mobile-nav-link">
+        <span>Home Canvas</span>
+      </a>
+      <a href="#interactive-assembly" class="mobile-nav-link">
+        <span>The Craft Build</span>
+      </a>
+      <a href="menu.html" class="mobile-nav-link" style="color: var(--gold-accent);">
+        <span>Official Menu (All 15 Sections) &rarr;</span>
+      </a>
+      <a href="#editorial-story" class="mobile-nav-link">
+        <span>The Art of Slow Brews</span>
+      </a>
+      <a href="#roasting-spectrum" class="mobile-nav-link">
+        <span>Roasting Spectrum</span>
+      </a>
+      <a href="#best-sellers" class="mobile-nav-link">
+        <span>Best Selling Items</span>
+      </a>
+      <a href="#visit" class="mobile-nav-link">
+        <span>Reserve Table / Location</span>
+      </a>
+    </nav>
+
+    <!-- Mobile Quick Dial & Directions -->
+    <div class="mobile-drawer-footer">
+      <a href="tel:+917120000000" class="btn-secondary" style="width: 100%; justify-content: center; padding: 12px;">
+        Call Cafe: +91 712 289 4400
+      </a>
+      <a href="https://maps.app.goo.gl/WQhd8hcG5fX18jAJA" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+        Google Maps Navigation
+      </a>
+    </div>
+  </aside>
 
   <!-- ============================================================
        DRIBBLE-INSPIRED HERO SECTION (reference.mp4)
@@ -211,10 +275,10 @@
   <section id="interactive-assembly" class="craft-sequence-section">
     <div class="craft-section-inner">
       <div class="section-head text-center">
-        <span class="section-subtitle">Crafted At The Bar</span>
-        <h2 class="section-title">The Zauq Craft</h2>
+        <span class="section-subtitle">Artisanal Extraction Build</span>
+        <h2 class="section-title">The Craft Assembly</h2>
         <p class="section-desc">
-          Hand-poured and slow-steeped, served warm at Prestige Hospital Chowk, Nagpur.
+          Interactive brew craft studio — crafted at Prestige Hospital Chowk, Nagpur.
         </p>
       </div>
 
@@ -230,8 +294,8 @@
               <line x1="14" y1="1" x2="14" y2="4"/>
             </svg>
           </div>
-          <div class="craft-empty-badge">Handcrafted Daily</div>
-          <h3 class="craft-empty-title">Slow Bar Rituals</h3>
+          <div class="craft-empty-badge">Interactive Craft Studio</div>
+          <h3 class="craft-empty-title">Craft Experience</h3>
           <p class="craft-empty-sub">Coming Soon</p>
         </div>
       </div>
@@ -492,7 +556,7 @@
     <div class="visit-grid">
       <!-- Table Booking Form -->
       <div class="booking-card">
-        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 6px; color: #f0edd0;">
+        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 6px; color: #fff;">
           Reserve Your Table
         </h3>
         <p style="font-size: 0.85rem; color: var(--text-muted-dark); margin-bottom: 18px;">
@@ -562,7 +626,7 @@
       <!-- Location Information Card -->
       <div class="location-info-card">
         <div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 18px; color: #f0edd0;">
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 18px; color: #fff;">
             Cafe Information
           </h3>
 
@@ -575,7 +639,7 @@
               <p>
                 Prestige Hospital chowk, Prestige Hospital, Chhaoni Rd, near Masjid, Koradi Colony, Nagpur, Maharashtra 440001
               </p>
-              <p style="margin-top: 4px; color: var(--tan); font-size: 0.8rem; font-family: monospace;">
+              <p style="margin-top: 4px; color: var(--gold-accent); font-size: 0.8rem; font-family: monospace;">
                 Plus Code: 537H+FW Nagpur, Maharashtra
               </p>
             </div>
@@ -614,7 +678,7 @@
 
         <!-- Nagpur Map Actions -->
         <div class="nagpur-map-box">
-          <div style="font-weight: 700; color: #f0edd0; margin-bottom: 4px;">CAFFYO by Zauq &bull; GPS Navigation</div>
+          <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">CAFFYO by Zauq &bull; GPS Navigation</div>
           <div style="font-size: 0.82rem; color: var(--text-muted-dark); margin-bottom: 12px;">Chhaoni Rd, Koradi Colony, Nagpur</div>
           <div class="map-action-btns">
             <a href="https://maps.app.goo.gl/WQhd8hcG5fX18jAJA" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 0.82rem; padding: 10px 18px;">
