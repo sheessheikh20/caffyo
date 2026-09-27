@@ -5,7 +5,7 @@
    - Staggered downward motion: Glass -> Raspberry -> Milk -> Matcha -> Ice -> Straw
    - Uses untouched original frames (ezgif-frame-001.png -> ezgif-frame-023.png)
    - Dynamic viewport crop: pushes surrounding props outside visible area
-   - Subtle 4-edge feathering dissolving seamlessly into #0D0805
+   - Subtle 4-edge feathering dissolving seamlessly into #1b2418
    - Completely independent of user scroll position
    ============================================================ */
 
@@ -156,39 +156,39 @@ class AutoMatchaAssembly {
     const fadeTop = 22;   // Subtle feather on top
     const fadeBottom = 18;// Subtle feather on bottom
 
-    // Left edge -> softly fade into #0D0805
+    // Left edge -> softly fade into #1b2418
     const gradL = ctx.createLinearGradient(drawX - 1, 0, drawX + fadeX, 0);
-    gradL.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
-    gradL.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
-    gradL.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
-    gradL.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    gradL.addColorStop(0.0, 'rgba(20, 29, 17, 1.0)');
+    gradL.addColorStop(0.3, 'rgba(20, 29, 17, 0.7)');
+    gradL.addColorStop(0.7, 'rgba(20, 29, 17, 0.2)');
+    gradL.addColorStop(1.0, 'rgba(20, 29, 17, 0.0)');
     ctx.fillStyle = gradL;
     ctx.fillRect(drawX - 2, drawY - 2, fadeX + 2, drawH + 4);
 
-    // Right edge -> softly fade into #0D0805
+    // Right edge -> softly fade into #1b2418
     const gradR = ctx.createLinearGradient(drawX + drawW + 1, 0, drawX + drawW - fadeX, 0);
-    gradR.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
-    gradR.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
-    gradR.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
-    gradR.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    gradR.addColorStop(0.0, 'rgba(20, 29, 17, 1.0)');
+    gradR.addColorStop(0.3, 'rgba(20, 29, 17, 0.7)');
+    gradR.addColorStop(0.7, 'rgba(20, 29, 17, 0.2)');
+    gradR.addColorStop(1.0, 'rgba(20, 29, 17, 0.0)');
     ctx.fillStyle = gradR;
     ctx.fillRect(drawX + drawW - fadeX, drawY - 2, fadeX + 2, drawH + 4);
 
-    // Top edge -> softly fade into #0D0805
+    // Top edge -> softly fade into #1b2418
     const gradT = ctx.createLinearGradient(0, drawY - 1, 0, drawY + fadeTop);
-    gradT.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
-    gradT.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
-    gradT.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
-    gradT.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    gradT.addColorStop(0.0, 'rgba(20, 29, 17, 1.0)');
+    gradT.addColorStop(0.3, 'rgba(20, 29, 17, 0.7)');
+    gradT.addColorStop(0.7, 'rgba(20, 29, 17, 0.2)');
+    gradT.addColorStop(1.0, 'rgba(20, 29, 17, 0.0)');
     ctx.fillStyle = gradT;
     ctx.fillRect(drawX - 2, drawY - 2, drawW + 4, fadeTop + 2);
 
-    // Bottom edge -> softly fade into #0D0805
+    // Bottom edge -> softly fade into #1b2418
     const gradB = ctx.createLinearGradient(0, drawY + drawH + 1, 0, drawY + drawH - fadeBottom);
-    gradB.addColorStop(0.0, 'rgba(13, 8, 5, 1.0)');
-    gradB.addColorStop(0.3, 'rgba(13, 8, 5, 0.7)');
-    gradB.addColorStop(0.7, 'rgba(13, 8, 5, 0.2)');
-    gradB.addColorStop(1.0, 'rgba(13, 8, 5, 0.0)');
+    gradB.addColorStop(0.0, 'rgba(20, 29, 17, 1.0)');
+    gradB.addColorStop(0.3, 'rgba(20, 29, 17, 0.7)');
+    gradB.addColorStop(0.7, 'rgba(20, 29, 17, 0.2)');
+    gradB.addColorStop(1.0, 'rgba(20, 29, 17, 0.0)');
     ctx.fillStyle = gradB;
     ctx.fillRect(drawX - 2, drawY + drawH - fadeBottom, drawW + 4, fadeBottom + 2);
   }
@@ -202,8 +202,8 @@ class AutoMatchaAssembly {
     const w = this.displayWidth;
     const h = this.displayHeight;
 
-    // Fill background with exact section background #0D0805
-    this.ctx.fillStyle = '#0D0805';
+    // Fill background with exact section background #1b2418
+    this.ctx.fillStyle = '#1b2418';
     this.ctx.fillRect(0, 0, w, h);
 
     const aspect = this.crop.sw / this.crop.sh;
