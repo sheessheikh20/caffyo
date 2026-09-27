@@ -704,7 +704,7 @@ class CaffyoCartManager {
       grid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted-dark);">
           <div style="font-size: 40px; margin-bottom: 12px;">☕</div>
-          <h3 style="color: #fff; margin-bottom: 8px;">No Items Found</h3>
+          <h3 style="color: #e5d7c4; margin-bottom: 8px;">No Items Found</h3>
           <p>Try searching for "Spanish Latte", "Fries", "Pasta", or "Frappe".</p>
         </div>
       `;
@@ -809,7 +809,7 @@ class CaffyoCartManager {
       list.innerHTML = `
         <div class="cart-empty-state" style="text-align:center; padding: 40px 10px; color: var(--text-muted);">
           <span style="font-size: 42px; display: block; margin-bottom: 10px;">☕</span>
-          <h4 style="color: var(--gold-crema); margin-bottom: 4px;">Your Tray is Empty</h4>
+          <h4 style="color: var(--bone); margin-bottom: 4px;">Your Tray is Empty</h4>
           <p style="font-size: 0.85rem;">Add some freshly pulled Spanish Lattes, Cheese Chilli Toast, or Pasta!</p>
         </div>
       `;
@@ -822,12 +822,12 @@ class CaffyoCartManager {
     list.innerHTML = this.cart.map(item => `
       <div class="cart-item-row">
         <div class="cart-item-info">
-          <h4 style="font-size: 0.92rem; color: var(--gold-crema); margin-bottom: 2px;">${item.name}</h4>
-          <p style="font-size: 0.8rem; color: var(--gold-accent);">₹${item.price} each</p>
+          <h4 style="font-size: 0.92rem; color: var(--bone); margin-bottom: 2px;">${item.name}</h4>
+          <p style="font-size: 0.8rem; color: var(--moss-accent);">₹${item.price} each</p>
         </div>
         <div class="cart-item-qty">
           <button class="btn-qty" data-dec="${item.id}">-</button>
-          <span style="font-weight:700; min-width:20px; text-align:center; color: var(--gold-crema);">${item.qty}</span>
+          <span style="font-weight:700; min-width:20px; text-align:center; color: var(--bone);">${item.qty}</span>
           <button class="btn-qty" data-inc="${item.id}">+</button>
         </div>
       </div>
@@ -1043,7 +1043,7 @@ class CaffyoCartManager {
 
   showReceipt(order) {
     const itemsHtml = order.items.map(item =>
-      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(229,152,102,0.1);color:#f5ead7;font-size:0.85rem;">
+      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(136, 144, 99,0.1);color:#e5d7c4;font-size:0.85rem;">
         <span>${item.name} x${item.qty}</span>
         <span>₹${(item.price * item.qty)}</span>
       </div>`
@@ -1054,36 +1054,36 @@ class CaffyoCartManager {
     const html = `
       <div style="
         position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-        background:#0e0a07;border:1px solid rgba(229,152,102,0.3);
+        background:#1a2113;border:1px solid rgba(136, 144, 99,0.3);
         border-radius:16px;max-width:420px;width:90%;max-height:80vh;overflow-y:auto;
-        padding:28px;z-index:9999;color:#f5ead7;font-family:'Inter',sans-serif;
+        padding:28px;z-index:9999;color:#e5d7c4;font-family:'Inter',sans-serif;
       ">
         <div style="text-align:center;margin-bottom:20px;">
-          <h3 style="font-family:'Playfair Display',serif;color:#e59866;font-size:1.4rem;margin:0;">Order Confirmed!</h3>
-          <p style="color:#8a7560;font-size:0.85rem;margin:6px 0 0;">#CZ-${order.orderNum}</p>
+          <h3 style="font-family:'Playfair Display',serif;color:#889063;font-size:1.4rem;margin:0;">Order Confirmed!</h3>
+          <p style="color:#97907b;font-size:0.85rem;margin:6px 0 0;">#CZ-${order.orderNum}</p>
         </div>
-        <div style="background:rgba(229,152,102,0.08);border-radius:10px;padding:14px;margin-bottom:18px;font-size:0.82rem;color:#a89070;line-height:1.6;">
-          <div><strong style="color:#f5ead7;">Mode:</strong> ${modeText}</div>
-          <div><strong style="color:#f5ead7;">Customer:</strong> ${order.customerDetails}</div>
+        <div style="background:rgba(136, 144, 99,0.08);border-radius:10px;padding:14px;margin-bottom:18px;font-size:0.82rem;color:#b7ab8e;line-height:1.6;">
+          <div><strong style="color:#e5d7c4;">Mode:</strong> ${modeText}</div>
+          <div><strong style="color:#e5d7c4;">Customer:</strong> ${order.customerDetails}</div>
         </div>
-        <div style="border-top:1px solid rgba(229,152,102,0.2);padding:8px 0;font-size:0.78rem;color:#8a7560;">Items</div>
+        <div style="border-top:1px solid rgba(136, 144, 99,0.2);padding:8px 0;font-size:0.78rem;color:#97907b;">Items</div>
         ${itemsHtml}
-        <div style="border-top:2px solid rgba(229,152,102,0.3);margin-top:14px;padding-top:12px;">
-          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:0.9rem;color:#f5ead7;">
+        <div style="border-top:2px solid rgba(136, 144, 99,0.3);margin-top:14px;padding-top:12px;">
+          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:0.9rem;color:#e5d7c4;">
             <span>Subtotal</span><span>₹${order.subtotal}</span>
           </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#a89070;">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#b7ab8e;">
             <span>GST (5%)</span><span>₹${order.tax}</span>
           </div>
-          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:#e59866;margin-top:6px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:#889063;margin-top:6px;">
             <span>Total</span><span>₹${order.total}</span>
           </div>
         </div>
         <div style="text-align:center;margin-top:22px;">
-          <div style="font-size:0.75rem;color:#8a7560;">Barista will begin crafting shortly</div>
+          <div style="font-size:0.75rem;color:#97907b;">Barista will begin crafting shortly</div>
           <button onclick="this.closest('div').parentElement.remove();document.getElementById('receipt-backdrop')?.remove()"
             style="
-              margin-top:14px;background:#e59866;color:#0e0a07;border:none;
+              margin-top:14px;background:#889063;color:#1a2113;border:none;
               padding:8px 28px;border-radius:8px;font-weight:600;
               cursor:pointer;font-size:0.85rem;
             ">Done</button>
@@ -1094,7 +1094,7 @@ class CaffyoCartManager {
     document.body.insertAdjacentHTML('beforeend', `
       <div id="receipt-backdrop" style="
         position:fixed;top:0;left:0;right:0;bottom:0;
-        background:rgba(0,0,0,0.7);z-index:9998;
+        background:rgba(13, 17, 8,0.7);z-index:9998;
       "></div>
       ${html}
     `);

@@ -60,19 +60,12 @@ class Caffyo3DExperience {
 
   init() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x100b07, 0.08);
+    this.scene.fog = new THREE.FogExp2(0x0f140b, 0.08);
 
     const aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
 
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      this.cameraDefaultPos.set(0, 1.9, 5.3);
-      this.cameraTarget.set(0, 0.25, 0);
-    } else {
-      this.cameraDefaultPos.set(0.9, 2.6, 4.4);
-      this.cameraTarget.set(0.9, 0.55, 0);
-    }
+    this.applyResponsiveCamera();
     this.camera.position.copy(this.cameraDefaultPos);
     this.camera.lookAt(this.cameraTarget);
 
@@ -88,6 +81,26 @@ class Caffyo3DExperience {
     this.renderer.toneMappingExposure = 1.3;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  }
+
+  /**
+   * Frames the 3D cup for the current viewport.
+   * Mobile: the cup + saucer are fitted to the screen WIDTH, so the composition
+   * stays perfect on every phone size — nothing cropped, nothing over-zoomed.
+   */
+  applyResponsiveCamera() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      const aspect = this.camera.aspect || (this.container.clientWidth / this.container.clientHeight);
+      const visiblePerUnit = 2 * Math.tan((this.camera.fov * Math.PI / 180) / 2);
+      const cupFitWidth = 3.25; // world-space width of the framed cup + saucer
+      const dist = Math.min(11.5, Math.max(6.4, cupFitWidth / (visiblePerUnit * aspect)));
+      this.cameraDefaultPos.set(0, dist * 0.203, dist);
+      this.cameraTarget.set(0, 0.296 - dist * 0.166, 0);
+    } else {
+      this.cameraDefaultPos.set(0.9, 2.6, 4.4);
+      this.cameraTarget.set(0.9, 0.55, 0);
+    }
   }
 
   createLights() {
@@ -558,13 +571,7 @@ class Caffyo3DExperience {
         this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
         this.cupGroup.scale.setScalar(isMobile ? 0.92 : 1.0);
       }
-      if (isMobile) {
-        this.cameraDefaultPos.set(0, 1.9, 5.3);
-        this.cameraTarget.set(0, 0.25, 0);
-      } else {
-        this.cameraDefaultPos.set(1.45, 2.2, 5.5);
-        this.cameraTarget.set(1.45, 0.38, 0);
-      }
+      this.applyResponsiveCamera();
     });
 
     // Mouse Movement & Drag Momentum
