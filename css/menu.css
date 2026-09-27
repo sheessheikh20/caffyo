@@ -435,6 +435,50 @@ body {
   transform: scale(1.05);
 }
 
+.btn-add-menu-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+}
+
+.item-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge-customisable {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--gold-accent);
+  background: rgba(229, 152, 102, 0.12);
+  border: 1px solid rgba(229, 152, 102, 0.35);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.badge-sold-out {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.menu-item-row-card.out-of-stock {
+  opacity: 0.6;
+}
+
 /* ============================================================
    MOBILE BOTTOM FLOATING TRAY BAR
    ============================================================ */

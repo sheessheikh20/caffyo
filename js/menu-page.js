@@ -1,45 +1,27 @@
 /* ============================================================
    CAFFYO by Zauq - Dedicated Menu Website Logic
-   Full categorization directly from official printed menu
+   Full categorization & official pricing from Petpooja live menu
+   Prestige Hospital Chowk, Koradi Colony, Nagpur
    ============================================================ */
 
 const CAFFYO_SECTIONS_DATA = [
   {
     id: 'hot-coffee',
-    title: 'Hot Coffee Cream & Milk',
+    title: 'Hot Coffee',
     icon: '☕',
     items: [
-      { id: 'cappuccino', name: 'Cappuccino', price: 109, type: 'veg', desc: 'Espresso balanced with steamed milk and dense velvety foam' },
-      { id: 'cafe-latte', name: 'Cafe Latte', price: 119, type: 'veg', desc: 'Smooth espresso poured with silky microfoam swan art' },
-      { id: 'caramel-latte', name: 'Caramel Latte', price: 139, type: 'veg', desc: 'Buttery slow-cooked caramel syrup swirled with espresso & milk' },
-      { id: 'hazelnut-latte', name: 'Hazelnut Latte', price: 139, type: 'veg', desc: 'Toasted aromatic hazelnut infusion with creamy latte' },
-      { id: 'smooth-mocha', name: 'Smooth Mocha', price: 139, type: 'veg', desc: 'Rich espresso folded with molten Dutch chocolate' },
-      { id: 'vanilla-latte', name: 'Vanilla Latte', price: 139, type: 'veg', desc: 'Pure Madagascar vanilla essence with smooth steamed milk' },
-      { id: 'mocha-caramel-latte', name: 'Mocha Caramel Latte', price: 139, type: 'veg', desc: 'Double indulgence: bittersweet cocoa and golden caramel drizzle' },
-      { id: 'spanish-latte', name: 'Spanish Latte', price: 149, type: 'veg', desc: 'Signature espresso pulled over rich condensed milk and velvet microfoam' },
-      { id: 'sea-salt-mocha-caramel', name: 'Sea Salt Mocha / Caramel', price: 149, type: 'veg', desc: 'Flakes of sea salt cutting through dark cocoa or caramel sweetness' }
-    ]
-  },
-  {
-    id: 'black-coffee',
-    title: 'Black Coffee',
-    icon: '🫘',
-    items: [
-      { id: 'ristretto', name: 'Ristretto', price: 79, type: 'veg', desc: 'Short extraction pulling sweet, dense origin notes without bitterness' },
-      { id: 'espresso', name: 'Espresso', price: 89, type: 'veg', desc: 'Single-origin Arabica pulled under 9 bars with hazelnut crema' },
-      { id: 'americano', name: 'Americano', price: 99, type: 'veg', desc: 'Double espresso pulled over hot mineral water for a clean lingering cup' }
-    ]
-  },
-  {
-    id: 'hot-chocolate',
-    title: 'Hot Chocolate',
-    icon: '🍫',
-    items: [
-      { id: 'plain-hot-chocolate', name: 'Plain Hot Chocolate', price: 119, type: 'veg', desc: 'Comforting warm cocoa whisked with steamed whole milk' },
-      { id: 'belgium-hot-chocolate', name: 'Belgium Hot Chocolate', price: 139, type: 'veg', desc: 'Silky melted Belgian dark chocolate ganache' },
-      { id: 'caramel-hot-chocolate', name: 'Caramel Hot Chocolate', price: 139, type: 'veg', desc: 'Hot chocolate infused with buttery caramel sauce' },
-      { id: 'hazelnut-hot-chocolate', name: 'Hazelnut Hot Chocolate', price: 139, type: 'veg', desc: 'Warm chocolate blended with roasted hazelnut butter' },
-      { id: 'madagascar-hot-chocolate', name: 'Madagascar Hot Chocolate', price: 149, type: 'veg', desc: 'Single-origin Madagascar dark cocoa with fruity berry warmth' }
+      { id: 'espresso', name: 'Espresso', price: 100, type: 'veg', desc: 'Single-origin Arabica pulled under 9 bars with hazelnut crema' },
+      { id: 'doppio', name: 'Doppio', price: 120, type: 'veg', desc: 'Double shot espresso extracting sweet origin notes without bitterness' },
+      { id: 'americano', name: 'Americano', price: 150, type: 'veg', desc: 'Double espresso pulled over hot mineral water for a clean lingering cup' },
+      { id: 'cappuccino', name: 'Cappuccino', price: 160, type: 'veg', customisable: true, desc: 'Espresso balanced with steamed milk and dense velvety foam' },
+      { id: 'hot-latte', name: 'Hot Latte', price: 160, type: 'veg', customisable: true, desc: 'Smooth espresso poured with silky microfoam swan art' },
+      { id: 'flat-white', name: 'Flat White', price: 160, type: 'veg', desc: 'Double ristretto blended with textured steamed milk' },
+      { id: 'hot-moca', name: 'Hot Moca', price: 180, type: 'veg', customisable: true, desc: 'Rich espresso folded with molten Dutch dark chocolate ganache' },
+      { id: 'spanish-latte', name: 'Spanish Latte', price: 190, type: 'veg', desc: 'Signature espresso pulled over rich condensed milk and velvet microfoam' },
+      { id: 'tiramisu-latte', name: 'Tiramisu Latte', price: 190, type: 'veg', desc: 'Italian savoiardi essence, mascarpone cream notes and espresso' },
+      { id: 'saffron-bloom', name: 'Saffron Bloom', price: 200, type: 'veg', desc: 'Kashmiri saffron threads infused with steamed milk and golden espresso' },
+      { id: 'cristal-cappuccino', name: 'Cristal Cappuccino', price: 200, type: 'veg', desc: 'Signature clear espresso extraction crowned with silky micro-foam' },
+      { id: 'coconut-island-cap', name: 'Coconut Island Cap', price: 200, type: 'veg', desc: 'Creamy coconut cream froth layered over specialty espresso' }
     ]
   },
   {
@@ -47,14 +29,14 @@ const CAFFYO_SECTIONS_DATA = [
     title: 'Iced Coffee',
     icon: '🧊',
     items: [
-      { id: 'ice-americano', name: 'Ice Americano', price: 99, type: 'veg', desc: 'Crisp double espresso poured over sparkling iced water' },
-      { id: 'ice-latte', name: 'Ice Latte', price: 109, type: 'veg', desc: 'Chilled milk over ice rocks crowned with freshly pulled espresso' },
-      { id: 'caramel-ice-latte', name: 'Caramel Ice Latte', price: 129, type: 'veg', desc: 'Iced latte marbled with rich caramel ribbons' },
-      { id: 'hazelnut-ice-mocha', name: 'Hazelnut Ice Mocha', price: 129, type: 'veg', desc: 'Chilled cocoa and hazelnut shaken with ice and espresso' },
-      { id: 'belgium-chocolate-ice', name: 'Belgium Chocolate Ice', price: 139, type: 'veg', desc: 'Iced coffee shaken with rich Belgian chocolate ganache' },
-      { id: 'affogato-iced-latte', name: 'Affogato Iced Latte', price: 139, type: 'veg', desc: 'Artisanal vanilla bean gelato melting into hot double espresso' },
-      { id: 'creamy-ice-latte', name: 'Creamy Ice Latte', price: 139, type: 'veg', desc: 'Dense extra-creamy cold milk with double shot espresso' },
-      { id: 'spanish-ice-latte', name: 'Spanish Ice Latte', price: 139, type: 'veg', desc: 'Chilled condensed milk layered with cold milk and espresso' }
+      { id: 'iced-doppio', name: 'Iced Doppio', price: 130, type: 'veg', customisable: true, desc: 'Chilled double espresso served over crystal ice rocks' },
+      { id: 'ice-latte', name: 'Ice Latte', price: 150, type: 'veg', customisable: true, desc: 'Chilled milk over ice cubes crowned with freshly pulled espresso' },
+      { id: 'ice-americano', name: 'Ice Americano', price: 170, type: 'veg', desc: 'Crisp double espresso poured over sparkling iced water' },
+      { id: 'cristal-velvet', name: 'Cristal Velvet', price: 170, type: 'veg', desc: 'Silky smooth cold layered coffee with velvety froth' },
+      { id: 'ice-mocha', name: 'Ice Mocha', price: 190, type: 'veg', customisable: true, desc: 'Chilled dark chocolate ganache shaken with ice, milk and espresso' },
+      { id: 'iced-spanish-latte', name: 'Iced Spanish Latte', price: 190, type: 'veg', desc: 'Chilled condensed milk layered with cold milk and slow espresso' },
+      { id: 'belgium-bliss-ice', name: 'Belgium Bliss Ice', price: 190, type: 'veg', desc: 'Cold espresso shaken with melted Belgian chocolate' },
+      { id: 'coconut-breeze-iced', name: 'Coconut Breeze Iced', price: 190, type: 'veg', desc: 'Refreshing coconut water and milk infused with iced espresso' }
     ]
   },
   {
@@ -62,69 +44,86 @@ const CAFFYO_SECTIONS_DATA = [
     title: 'Cold Brew (18-Hour Steep)',
     icon: '⏳',
     items: [
-      { id: 'caffyo-on-the-rocks', name: 'Caffyo On The Rocks', price: 139, type: 'veg', desc: 'Slow-steeped Arabica cold brew served over a crystal ice rock' },
-      { id: 'vietnamese-cold-brew', name: 'Vietnamese Cold Brew', price: 139, type: 'veg', desc: 'Deep bold cold brew over a sweet condensed milk base' },
-      { id: 'tonic-water-cold-brew', name: 'Tonic Water Cold Brew', price: 139, type: 'veg', desc: 'Sparkling botanical tonic layered with cold brew and citrus' },
-      { id: 'ginger-ale-cold-brew', name: 'Ginger Ale Cold Brew', price: 139, type: 'veg', desc: 'Fizzy spicy ginger ale paired with smooth cold brew' },
-      { id: 'cranberry-cold-brew', name: 'Cranberry Cold Brew', price: 139, type: 'veg', desc: 'Tart ruby cranberry juice with cold-extracted coffee' },
-      { id: 'basil-cold-brew', name: 'Basil Cold Brew', price: 149, type: 'veg', desc: 'Fresh garden sweet basil leaves infused with cold brew' },
-      { id: 'basil-blossom-cold-brew', name: 'Basil Blossom Cold Brew', price: 149, type: 'veg', desc: 'Botanical blossom nectar with basil and smooth cold brew' },
-      { id: 'fruit-fusion-cold-brew', name: 'Fruit Fusion Cold Brew', price: 149, type: 'veg', desc: 'Muddled seasonal berry reduction shaken with cold brew' },
-      { id: 'roses-cold-brew', name: 'Roses Cold Brew', price: 149, type: 'veg', desc: 'Organic Damascus rose water essence with smooth iced coffee' },
-      { id: 'yuzu-cold-brew', name: 'Yuzu Cold Brew', price: 149, type: 'veg', desc: 'Aromatic Japanese citrus yuzu paired with signature cold brew' }
+      { id: 'straight-up-cold-brew', name: 'Straight Up', price: 150, type: 'veg', desc: 'Classic 18-hour slow-steeped Arabica cold brew, pure and smooth' },
+      { id: 'ginger-ale-tonic-cold-brew', name: 'Ginger Ale / Tonic Cold Brew', price: 160, type: 'veg', desc: 'Fizzy botanical tonic or spicy ginger ale layered with cold brew' },
+      { id: 'basil-breeze-cold-brew', name: 'Basil Breeze', price: 190, type: 'veg', desc: 'Fresh garden sweet basil leaves infused with cold brew' },
+      { id: 'sparkling-cold-brew', name: 'Sparkling Cold Brew', price: 190, type: 'veg', desc: 'Effervescent sparkling mineral water paired with cold brew' },
+      { id: 'vampire-blood-cold-brew', name: 'Vampire Blood', price: 190, type: 'veg', desc: 'Deep crimson berry reduction layered with cold brew' },
+      { id: 'c2-cold-brew', name: 'C² Cold Brew', price: 190, type: 'veg', desc: 'Double concentrated cold extraction for an intense aromatic kick' },
+      { id: 'rubby-bloom-cold-brew', name: 'Rubby Bloom', price: 190, type: 'veg', desc: 'Floral hibiscus and ruby pomegranate cordial with cold brew' },
+      { id: 'yuzu-cold-brew', name: 'Yuzu Cold Brew', price: 190, type: 'veg', desc: 'Aromatic Japanese citrus yuzu paired with signature cold brew' },
+      { id: 'basil-bloom-cold-brew', name: 'Basil Bloom', price: 190, type: 'veg', desc: 'Botanical blossom nectar with basil and smooth cold brew' },
+      { id: 'sunset-zest-cold-brew', name: 'Sunset Zest', price: 190, type: 'veg', desc: 'Sun-ripened orange citrus notes shaken with chilled coffee' },
+      { id: 'freezy-green-apple-cold-brew', name: 'Freezy Green Apple', price: 190, type: 'veg', desc: 'Crisp tart green apple cooler infused with cold brew' },
+      { id: 'sparkling-alphonso-cold-brew', name: 'Sparkling Alphonso', price: 190, type: 'veg', desc: 'Ratnagiri Alphonso mango nectar layered with sparkling cold brew' },
+      { id: 'astro-cold-brew', name: 'Astro Cold Brew', price: 190, type: 'veg', desc: 'Mystic blend of exotic floral notes and rich dark steep' },
+      { id: 'canberry-cold-brew', name: 'Canberry Cold Brew', price: 190, type: 'veg', desc: 'Tart ruby cranberry juice shaken with cold-extracted coffee' },
+      { id: 'vietnamese-cold-brew', name: 'Vietnamese Cold Brew', price: 190, type: 'veg', desc: 'Deep bold cold brew over a sweet condensed milk base' },
+      { id: 'caffyo-on-the-rocks', name: 'Caffyo On The Rocks', price: 200, type: 'veg', desc: 'Slow-steeped Arabica cold brew served over a crystal ice rock' }
     ]
   },
   {
     id: 'thik-frappe',
-    title: 'Cold Coffee / Thik Frappe',
+    title: 'Thik Frappes & Cold Coffee',
     icon: '🥤',
     items: [
-      { id: 'vanilla-frappe', name: 'Vanilla Frappe', price: 139, type: 'veg', desc: 'Chilled blended espresso with vanilla ice cream and cream' },
-      { id: 'frozen-moca-frappe', name: 'Frozen Mocha Frappe', price: 149, type: 'veg', desc: 'Thick blended cocoa and espresso with dark chocolate chips' },
-      { id: 'caramel-friz-frappe', name: 'Caramel Friz Frappe', price: 149, type: 'veg', desc: 'Blended espresso with rich salted caramel drizzle' },
-      { id: 'hazelnut-frappe', name: 'Hazelnut Frappe', price: 149, type: 'veg', desc: 'Thick hazelnut cream blended with double espresso' },
-      { id: 'choco-chips-cookies-frappe', name: 'Choco Chips Cookies Frappe', price: 149, type: 'veg', desc: 'Crushed cookies and crunchy chocolate chips in thick frappe' },
-      { id: 'oreo-crunch-frappe', name: 'Oreo Crunch Frappe', price: 159, type: 'veg', desc: 'Real Oreo cookies pulverized with chilled coffee and cream' },
-      { id: 'dark-chocolate-frappe', name: 'Dark Chocolate Frappe', price: 159, type: 'veg', desc: '70% dark cocoa blended with espresso and chocolate ice cream' },
-      { id: 'double-chocolate-frappe', name: 'Double Chocolate Frappe', price: 159, type: 'veg', desc: 'Double shot of chocolate fudge with dark chocolate pearls' },
-      { id: 'nutella-choco-frappe', name: 'Nutella Choco Frappe', price: 159, type: 'veg', desc: 'Generous spoonfuls of Italian Nutella whipped with coffee' },
-      { id: 'nutty-vanilla-frappe', name: 'Nutty Vanilla Frappe', price: 169, type: 'veg', desc: 'Roasted almonds and cashews blended with vanilla bean frappe' },
-      { id: 'ferrero-rocher-frappe', name: 'Ferrero Rocher Frappe', price: 169, type: 'veg', desc: 'Whole Ferrero Rocher crushed with hazelnut chocolate cream' },
-      { id: 'chocolate-brownie-frappe', name: 'Chocolate Brownie Frappe', price: 179, type: 'veg', desc: 'Dense baked fudge brownie blended into thick coffee frappe' },
-      { id: 'kaapi-nirvana-blast', name: 'Kaapi Nirvana Blast', price: 179, type: 'veg', desc: 'Top signature: South Indian kaapi decoction blast with cookies & cream' },
-      { id: 'caramel-cookies-frappe', name: 'Caramel Cookies Frappe', price: 179, type: 'veg', desc: 'Crunchy caramel biscoff biscuits blended with thick cream' }
+      { id: 'classic-frappe', name: 'Classic Frappe', price: 180, type: 'veg', customisable: true, desc: 'Classic thick blended espresso with vanilla ice cream and cream' },
+      { id: 'moca-frappe', name: 'Moca Frappe', price: 190, type: 'veg', customisable: true, desc: 'Thick blended cocoa and espresso with dark chocolate chips' },
+      { id: 'hazelnut-frappe', name: 'Hazelnut Frappe', price: 190, type: 'veg', customisable: true, desc: 'Thick roasted hazelnut cream blended with double espresso' },
+      { id: 'caramel-frappe', name: 'Caramel Frappe', price: 190, type: 'veg', customisable: true, desc: 'Blended espresso with rich buttery caramel drizzle' },
+      { id: 'belgium-frappe', name: 'Belgium Frappe', price: 200, type: 'veg', customisable: true, desc: 'Rich Belgian chocolate ganache whipped with coffee and cream' },
+      { id: 'nutella-frappe', name: 'Nutella Frappe', price: 200, type: 'veg', customisable: true, desc: 'Generous spoonfuls of Italian Nutella whipped with cold coffee' },
+      { id: 'oreo-frappe', name: 'Oreo Frappe', price: 200, type: 'veg', customisable: true, desc: 'Real Oreo cookies pulverized with chilled coffee and cream' },
+      { id: 'affogato', name: 'Affogato', price: 200, type: 'veg', desc: 'Artisanal vanilla bean gelato melting into hot double espresso' },
+      { id: 'brownie-frappe', name: 'Brownie Frappe', price: 210, type: 'veg', customisable: true, desc: 'Dense baked fudge brownie blended into thick coffee frappe' },
+      { id: 'tiramisu-frappe', name: 'Tiramisu', price: 220, type: 'veg', customisable: true, desc: 'Rich dessert frappe with Italian mascarpone and coffee cocoa dusting' },
+      { id: 'nutella-supreme-frappe', name: 'Nutella', price: 230, type: 'veg', customisable: true, desc: 'Double Nutella loaded thick frappe with roasted hazelnut crunch' },
+      { id: 'biscoff-frappe', name: 'Biscoff', price: 230, type: 'veg', customisable: true, desc: 'Lotus Biscoff spread and crushed caramelized biscuits frappe' }
+    ]
+  },
+  {
+    id: 'hot-chocolate',
+    title: 'Hot Chocolate',
+    icon: '🍫',
+    items: [
+      { id: 'classic-hot-chocolate', name: 'Classic Hot Chocolate', price: 150, type: 'veg', desc: 'Comforting warm cocoa whisked with steamed whole milk' },
+      { id: 'belgium-hot-chocolate', name: 'Belgium Hot Chocolate', price: 180, type: 'veg', desc: 'Silky melted Belgian dark chocolate ganache' },
+      { id: 'nutella-hot-chocolate', name: 'Nutella Hot Chocolate', price: 180, type: 'veg', desc: 'Warm whole milk whipped with rich Nutella and cocoa' }
     ]
   },
   {
     id: 'thik-shakes',
     title: 'Thik Shakes',
-    icon: '🥛',
+    icon: '🍨',
     items: [
-      { id: 'alphonso-mango', name: 'Alphonso Mango Shake', price: 139, type: 'veg', desc: 'Pure Ratnagiri Alphonso mango pulp blended with rich cream' },
-      { id: 'kit-kat-crunch', name: 'Kit Kat Crunch Shake', price: 139, type: 'veg', desc: 'Crispy Kit Kat wafers pulverized into thick vanilla shake' },
-      { id: 'oreo-crunch-shake', name: 'Oreo Crunch Shake', price: 139, type: 'veg', desc: 'Classic thick shake loaded with crunchy Oreo cookie bits' },
-      { id: 'butterscotch-crunch', name: 'Butterscotch Crunch Shake', price: 149, type: 'veg', desc: 'Golden butterscotch praline crunch in creamy ice cream shake' },
-      { id: 'very-berry', name: 'Very Berry Shake', price: 149, type: 'veg', desc: 'Muddled blueberries, strawberries, and raspberries in pink shake' },
-      { id: 'peanut-punch', name: 'Peanut Punch Shake', price: 149, type: 'veg', desc: 'Roasted peanut butter whipped with vanilla ice cream and honey' },
-      { id: 'dark-chocolate-shake', name: 'Dark Chocolate Shake', price: 149, type: 'veg', desc: 'Intense bittersweet dark chocolate thick shake' },
-      { id: 'belgium-chocolate-shake', name: 'Belgium Chocolate Shake', price: 159, type: 'veg', desc: 'Thick shake made with authentic melted Belgian chocolate' },
-      { id: 'caramel-crunch-shake', name: 'Caramel Crunch Shake', price: 159, type: 'veg', desc: 'Buttery caramel swirl with crunchy caramel brittle pearls' },
-      { id: 'nutella-choco-shake', name: 'Nutella Choco Shake', price: 169, type: 'veg', desc: 'Loaded with real Nutella hazelnut cocoa spread' },
-      { id: 'nutella-peanut-shake', name: 'Nutella Peanut Shake', price: 169, type: 'veg', desc: 'Decadent duo of creamy peanut butter and Italian Nutella' },
-      { id: 'ferrero-rocher-shake', name: 'Ferrero Rocher Shake', price: 169, type: 'veg', desc: 'Crushed Ferrero Rocher pralines in rich hazelnut shake' },
-      { id: 'choco-seduction', name: 'Choco Seduction Shake', price: 169, type: 'veg', desc: 'Triple chocolate overload with fudge, chips, and brownie bits' },
-      { id: 'nutella-dipped-oreo', name: 'Nutella Dipped Oreo Shake', price: 169, type: 'veg', desc: 'Oreo cookies submerged in warm Nutella and blended thick' }
+      { id: 'alphanso-mango-shake', name: 'Alphanso Mango', price: 180, type: 'veg', desc: 'Thick shake made with rich Ratnagiri Alphonso mango pulp' },
+      { id: 'kit-kat-crunch-shake', name: 'Kit Kat Crunch', price: 180, type: 'veg', desc: 'Crispy Kit Kat wafers crushed into thick chocolate shake' },
+      { id: 'oreo-crunch-shake', name: 'Oreo Crunch', price: 180, type: 'veg', desc: 'Real Oreo cookies pulverized with vanilla cream shake' },
+      { id: 'mix-berry-shake', name: 'Mix Berry', price: 190, type: 'veg', desc: 'Blueberry, strawberry, and raspberry compote thick shake' },
+      { id: 'peanut-punch-shake', name: 'Peanut Punch', price: 190, type: 'veg', desc: 'Roasted peanut butter whipped with vanilla dairy cream' },
+      { id: 'belgium-chocolate-shake', name: 'Belgium Chocolate', price: 200, type: 'veg', desc: 'Melted Belgian dark chocolate blended into rich dessert shake' },
+      { id: 'choco-chips-cookies-shake', name: 'Choco Chips Cookies', price: 200, type: 'veg', desc: 'Crunchy chocolate chip cookies folded into thick cream shake' },
+      { id: 'nutella-choco-shake', name: 'Nutella Choco', price: 220, type: 'veg', desc: 'Heaped Nutella swirl blended with chocolate cream' }
     ]
   },
   {
-    id: 'toasty',
-    title: 'Toasty',
+    id: 'toasts-breakfast',
+    title: 'Toasts & All-Day Breakfast',
     icon: '🍞',
     items: [
-      { id: 'cheese-chilli-toast', name: 'Cheese Chilli Toast', price: 150, type: 'veg', desc: 'Toasted sourdough loaded with melted mozzarella, cheddar & fiery green chillies' },
-      { id: 'creamy-mushroom-toast', name: 'Creamy Mushroom Toast', price: 150, type: 'veg', desc: 'Sautéed mushrooms in garlic thyme cream over crusty toast' },
-      { id: 'chicken-pastrani-toast', name: 'Chicken Pastrani Toast', price: 170, type: 'nonveg', desc: 'Spiced chicken slices with Dijon mustard and melted cheddar' },
-      { id: 'paneer-pastrani-toast', name: 'Paneer Pastrani Toast', price: 170, type: 'veg', desc: 'Smoked paneer cubes with pastrami spices, pickled onions & cheese' }
+      { id: 'cheese-chilli-toast', name: 'Cheese Chilli Toast', price: 190, type: 'veg', desc: 'Toasted artisanal bread topped with melted cheddar, mozzarella & green chillies' },
+      { id: 'creamy-mushroom-toast', name: 'Creamy Mushroom Toast', price: 200, type: 'veg', desc: 'Sautéed garlic button mushrooms folded in parmesan cream on sourdough' },
+      { id: 'paneer-pastrani-toast', name: 'Paneer Pastrani Toast', price: 220, type: 'veg', desc: 'Spiced cottage cheese pastrani slice with herb seasoning' },
+      { id: 'chicken-pastrani-toast', name: 'Chicken Pastrani Toast', price: 220, type: 'nonveg', desc: 'Smoked chicken pastrani slices with garlic herb dressing' },
+      { id: 'plain-omelette', name: 'Plain Omelette', price: 160, type: 'nonveg', outOfStock: true, desc: 'Fluffy double-egg classic omelette served with toast' },
+      { id: 'masala-omelette', name: 'Masala Omelette', price: 170, type: 'nonveg', outOfStock: true, desc: 'Farm-fresh eggs beaten with onions, tomatoes, coriander and spices' },
+      { id: 'mushrooms-pesto-cheese-omelette', name: 'Mushrooms And Pesto Cheese Omelette', price: 180, type: 'nonveg', outOfStock: true, desc: 'Pan-folded omelette with sautéed mushrooms, basil pesto and cheese' },
+      { id: 'garlic-chicken-omelette', name: 'Garlic Chicken Omelette', price: 180, type: 'nonveg', outOfStock: true, desc: 'Tender garlic chicken chunks folded in fluffy egg wrap' },
+      { id: 'french-omelette', name: 'French Omelette', price: 190, type: 'nonveg', outOfStock: true, desc: 'Velvety smooth butter-basted classic French rolled omelette' },
+      { id: 'customized-omlette', name: 'Customized Omlette', price: 210, type: 'nonveg', outOfStock: true, desc: 'Choose your toppings, cheeses and fillings' },
+      { id: 'veg-breakfast-platter', name: 'Veg Breakfast Platter', price: 300, type: 'veg', outOfStock: true, desc: 'Grilled tomatoes, baked beans, toast, hash browns and beverage' },
+      { id: 'non-veg-breakfast-platter', name: 'Non Veg Breakfast Platter', price: 350, type: 'nonveg', outOfStock: true, desc: 'Eggs your way, chicken sausages, baked beans, toast and hash brown' },
+      { id: 'platter-customize', name: 'Platter Customize', price: 360, type: 'veg', outOfStock: true, desc: 'Full custom chef platter crafted to your choice' }
     ]
   },
   {
@@ -132,98 +131,138 @@ const CAFFYO_SECTIONS_DATA = [
     title: 'Appetisers & Starters',
     icon: '🍟',
     items: [
-      { id: 'salted-fries', name: 'Salted French Fries', price: 140, type: 'veg', desc: 'Crispy golden potato fries seasoned with sea salt' },
-      { id: 'peri-peri-fries', name: 'Peri Peri Fries', price: 150, type: 'veg', desc: 'Tossed in bold, fiery African peri peri spice rub' },
-      { id: 'cheese-balls', name: 'Cheese Balls', price: 160, type: 'veg', desc: 'Crispy panko spheres with gooey molten cheese center' },
-      { id: 'honey-chilli-potato', name: 'Honey Chilli Potato', price: 170, type: 'veg', desc: 'Crisp potato fingers glazed in wild honey and sesame chilli sauce' },
-      { id: 'cheese-loaded-fries', name: 'Cheese Loaded Fries', price: 180, type: 'veg', desc: 'Smothered in hot cheddar sauce, jalapenos and salsa' },
-      { id: 'cheese-veg-nachos', name: 'Cheese Veg Nachos', price: 190, type: 'veg', desc: 'Crisp corn tortilla chips with warm cheese sauce, beans & salsa' },
-      { id: 'chicken-popcorn', name: 'Chicken Popcorn', price: 190, type: 'nonveg', desc: 'Bite-sized crunchy herb battered chicken breast nuggets' },
-      { id: 'honey-chilli-wings', name: 'Honey Chilli Wings', price: 240, type: 'nonveg', desc: 'Crispy chicken wings tossed in sweet and sticky chilli glaze' }
+      { id: 'salted-fries', name: 'Salted Fries', price: 160, type: 'veg', desc: 'Crispy golden potato fries seasoned with sea salt' },
+      { id: 'peri-peri-fries', name: 'Peri Peri Fries', price: 180, type: 'veg', customisable: true, desc: 'Crisp fries tossed in piquant African peri peri spice mix' },
+      { id: 'cheese-loaded-fries', name: 'Cheese Loaded Fries', price: 190, type: 'veg', customisable: true, desc: 'Crispy fries smothered in house warm cheese sauce and jalapeños' },
+      { id: 'honey-chilli-potato', name: 'Honey Chilli Potato', price: 200, type: 'veg', desc: 'Crispy potato fingers wok-tossed in sweet honey chilli glaze' },
+      { id: 'cheese-balls', name: 'Cheese Balls', price: 220, type: 'veg', outOfStock: true, desc: 'Golden crumbed crispy balls filled with gooey molten cheese' },
+      { id: 'cheese-nachos', name: 'Cheese Nachos', price: 240, type: 'veg', outOfStock: true, desc: 'Crunchy corn tortilla chips layered with salsa, sour cream & cheese sauce' },
+      { id: 'chicken-popcorn', name: 'Chicken Popcorn', price: 260, type: 'nonveg', outOfStock: true, desc: 'Bite-sized seasoned tender chicken nuggets fried golden' },
+      { id: 'honey-chilli-wings', name: 'Honey Chilli Wings', price: 299, type: 'nonveg', desc: 'Juicy chicken wings coated in sticky honey chilli garlic sauce' },
+      { id: 'tempura-prawns', name: 'Tempura Prawns', price: 320, type: 'nonveg', desc: 'Light, crisp Japanese tempura battered prawns with dip' },
+      { id: 'bird-eye-chilli-prawns', name: 'Bird Eye Chilli Prawns', price: 320, type: 'nonveg', desc: 'Succulent prawns tossed with spicy fiery bird eye chillies' },
+      { id: 'chilli-garlic-prawns', name: 'Chilli Garlic Prawns', price: 320, type: 'nonveg', desc: 'Pan-seared prawns tossed in fragrant garlic butter and red chilli flakes' }
     ]
   },
   {
     id: 'burgers',
-    title: 'Burgers (Veg & Chicken)',
+    title: 'Gourmet Burgers',
     icon: '🍔',
     items: [
-      { id: 'classic-veg-burger', name: 'Classic Veg Burger', price: 150, type: 'veg', desc: 'Crispy herb potato patty, iceberg lettuce, tomatoes & special sauce' },
-      { id: 'space-king-chicken-burger', name: 'Space King Chicken Burger', price: 180, type: 'nonveg', desc: 'Crunchy golden fried chicken breast with chipotle mayo & slaw' },
-      { id: 'insane-chicken-burger', name: 'Insane Chicken Burger', price: 180, type: 'nonveg', desc: 'Double battered spicy chicken patty with molten cheese slice' }
+      { id: 'classic-veg-burger', name: 'Classic Veg Burger', price: 190, type: 'veg', customisable: true, desc: 'Crispy herb vegetable patty, lettuce, tomato, cheese slice and house dressing' },
+      { id: 'space-king-chicken-burger', name: 'Space King Chicken Burger', price: 230, type: 'nonveg', customisable: true, desc: 'Juicy spiced chicken fillet, crispy lettuce, caramelized onions and spicy mayo' },
+      { id: 'insane-chicken-burger', name: 'Insane Chicken Burger', price: 230, type: 'nonveg', customisable: true, desc: 'Double-breaded crunchy chicken patty loaded with cheese and chef secret relish' }
     ]
   },
   {
-    id: 'sandwiches',
-    title: 'Sandwiches & Panini',
+    id: 'sandwiches-wraps',
+    title: 'Sandwiches & Wraps',
     icon: '🥪',
     items: [
-      { id: 'rainbow-sandwich', name: 'Rainbow Sandwich', price: 160, type: 'veg', desc: 'Triple layer of beet hummus, mint chutney, cucumber, cheddar & tomatoes' },
-      { id: 'three-cheese-sandwich', name: 'Three Cheese Sandwich', price: 160, type: 'veg', desc: 'Gooey blend of English cheddar, mozzarella and cream cheese' },
-      { id: 'bombay-sandwich', name: 'Bombay Sandwich', price: 170, type: 'veg', desc: 'Street-style spiced potato masala, beetroot, cucumber & spicy green chutney' },
-      { id: 'veg-patty-sandwich', name: 'Veg Patty Sandwich', price: 170, type: 'veg', desc: 'Grilled spiced vegetable patty, melted cheese, and garlic mayo' },
-      { id: 'creamy-mushroom-sandwich', name: 'Creamy Mushroom Sandwich', price: 170, type: 'veg', desc: 'Pan-seared button mushrooms in herb garlic cream sauce' },
-      { id: 'creamy-chicken-sandwich', name: 'Creamy Chicken Sandwich', price: 180, type: 'nonveg', desc: 'Juicy shredded chicken tossed in herb cream mayo on toasted bread' }
+      { id: 'rainbow-sandwich', name: 'Rainbow Sandwich', price: 200, type: 'veg', customisable: true, desc: 'Layered multi-veggie sandwich with vibrant beetroot, mint chutney and cheese' },
+      { id: 'three-cheese-sandwich', name: 'Three Cheese Sandwich', price: 200, type: 'veg', customisable: true, desc: 'Melted cheddar, mozzarella, and processed cheese grilled to crisp perfection' },
+      { id: 'veg-patty-sandwich', name: 'Veg Patty Sandwich', price: 210, type: 'veg', customisable: true, desc: 'Golden veggie cutlet, sliced cucumber, tomatoes and tangy mustard sauce' },
+      { id: 'bombay-sandwich', name: 'Bombay Sandwich', price: 220, type: 'veg', customisable: true, desc: 'Spiced boiled potatoes, beetroot, cucumber, green chutney and sandwich masala' },
+      { id: 'creamy-mushroom-sandwich', name: 'Creamy Mushroom Sandwich', price: 220, type: 'veg', customisable: true, desc: 'Garlic butter sautéed mushrooms folded in herb cheese spread' },
+      { id: 'creamy-chicken-sandwich', name: 'Creamy Chicken Sandwich', price: 230, type: 'nonveg', customisable: true, desc: 'Shredded roasted chicken tossed in creamy herb mayonnaise' },
+      { id: 'veg-mexican-wrap', name: 'Veg Mexican Wrap', price: 199, type: 'veg', desc: 'Tortilla wrap stuffed with corn, beans, spicy peppers, cheese and salsa' },
+      { id: 'paneer-tikka-wrap', name: 'Paneer Tikka Wrap', price: 199, type: 'veg', desc: 'Tandoori marinated cottage cheese, sliced onions and mint yogurt wrap' },
+      { id: 'chicken-tikka-wrap', name: 'Chicken Tikka Wrap', price: 199, type: 'nonveg', desc: 'Charcoal grilled chicken tikka cubes, crunchy onions and spicy mint mayo' },
+      { id: 'non-veg-mexican-wrap', name: 'Non Veg Mexican Wrap', price: 219, type: 'nonveg', desc: 'Spiced chicken chunks, salsa, jalapenos, cheese and sour cream' },
+      { id: 'indian-chicken-wrap', name: 'Indian Chicken Wrap', price: 219, type: 'nonveg', desc: 'Desi spiced shredded chicken with pickled onions in toasted wrap' },
+      { id: 'lemon-chicken-wrap', name: 'Lemon Chicken Wrap', price: 229, type: 'nonveg', desc: 'Zesty lemon herb grilled chicken strips with crisp greens' }
     ]
   },
   {
-    id: 'pasta',
-    title: 'Pasta (Veg & Non-Veg)',
-    icon: '🍝',
+    id: 'salads',
+    title: 'Fresh Gourmet Salads',
+    icon: '🥗',
     items: [
-      { id: 'alfredo-pasta-veg', name: 'Alfredo Pasta (Veg)', price: 200, type: 'veg', desc: 'Al dente penne in silky parmesan butter cream sauce' },
-      { id: 'alfredo-pasta-nonveg', name: 'Alfredo Pasta (Chicken)', price: 230, type: 'nonveg', desc: 'Silky white cream pasta with tender grilled chicken chunks' },
-      { id: 'arrabbiata-pasta-veg', name: 'Arrabbiata Pasta (Veg)', price: 200, type: 'veg', desc: 'Spicy Italian San Marzano red sauce with garlic, chilli & basil' },
-      { id: 'arrabbiata-pasta-nonveg', name: 'Arrabbiata Pasta (Chicken)', price: 230, type: 'nonveg', desc: 'Fiery red sauce pasta tossed with spiced chicken' },
-      { id: 'pink-sauce-pasta-veg', name: 'Pink Sauce Pasta (Veg)', price: 200, type: 'veg', desc: 'Creamy blend of rich tomato sauce and velvety alfredo cream' },
-      { id: 'pink-sauce-pasta-nonveg', name: 'Pink Sauce Pasta (Chicken)', price: 230, type: 'nonveg', desc: 'Pink mixed sauce penne with succulent grilled chicken' },
-      { id: 'pesto-pasta-veg', name: 'Pesto Pasta (Veg)', price: 210, type: 'veg', desc: 'Fragrant sweet basil, pine nuts, garlic & olive oil' },
-      { id: 'pesto-pasta-nonveg', name: 'Pesto Pasta (Chicken)', price: 240, type: 'nonveg', desc: 'Aromatic basil pesto pasta topped with grilled chicken' },
-      { id: 'caffyo-special-pasta-veg', name: 'Caffyo Special Pasta (Veg)', price: 220, type: 'veg', desc: 'Chef signature roasted pepper sun-dried tomato cream sauce' },
-      { id: 'caffyo-special-pasta-nonveg', name: 'Caffyo Special Pasta (Chicken)', price: 260, type: 'nonveg', desc: 'Chef signature special sauce pasta with marinated chicken breast' }
+      { id: 'veg-mexican-salad', name: 'Veg Mexican Salad', price: 200, type: 'veg', desc: 'Sweet corn, black beans, bell peppers, crispy tortilla strips & lime cilantro dressing' },
+      { id: 'veg-salad-customize', name: 'Veg Salad Customize', price: 200, type: 'veg', desc: 'Design your own fresh green salad bowl' },
+      { id: 'veg-greek-salad', name: 'Veg Greek Salad', price: 220, type: 'veg', desc: 'Crisp cucumbers, vine tomatoes, kalamata olives, red onions and oregano vinaigrette' },
+      { id: 'veg-ceasar-salad', name: 'Veg Ceasar Salad', price: 220, type: 'veg', desc: 'Romaine lettuce tossed in creamy Caesar dressing with garlic croutons and parmesan' },
+      { id: 'veg-feta-salad', name: 'Veg Feta Salad', price: 220, type: 'veg', desc: 'Crumbled Mediterranean feta cheese, mixed greens, cherry tomatoes and olive oil' },
+      { id: 'chicken-mexican-salad', name: 'Chicken Mexican Salad', price: 240, type: 'nonveg', desc: 'Grilled spiced chicken, sweet corn, black beans, peppers and jalapeño dressing' },
+      { id: 'chicken-salad-customize', name: 'Chicken Salad Customize', price: 240, type: 'nonveg', desc: 'Custom protein-packed fresh salad bowl' },
+      { id: 'chicken-greek-salad', name: 'Chicken Greek Salad', price: 260, type: 'nonveg', desc: 'Tender herb chicken breast, feta cheese, olives, cucumbers and vinaigrette' },
+      { id: 'chicken-ceasar-salad', name: 'Chicken Ceasar Salad', price: 260, type: 'nonveg', desc: 'Grilled chicken strips, crisp romaine, shaved parmesan and creamy Caesar dressing' },
+      { id: 'chicken-feta-salad', name: 'Chicken Feta Salad', price: 260, type: 'nonveg', desc: 'Diced grilled chicken, crumbled feta cheese, crisp greens and herb vinaigrette' }
     ]
   },
   {
     id: 'pizza',
-    title: 'Pizza (Veg & Non-Veg)',
+    title: 'Artisanal Thin Crust Pizza',
     icon: '🍕',
     items: [
-      { id: 'margareta-pizza', name: 'Margareta Pizza', price: 170, type: 'veg', desc: 'Thin crust with tomato passata, mozzarella cheese & sweet basil' },
-      { id: 'farm-house-pizza', name: 'Farm House Pizza', price: 230, type: 'veg', desc: 'Loaded with bell peppers, sweet corn, mushrooms & red onions' },
-      { id: 'grilled-paneer-pizza', name: 'Grilled Paneer Pizza', price: 250, type: 'veg', desc: 'Smoky tandoori paneer cubes, capsicum, onions & bubbling cheese' },
-      { id: 'grilled-chicken-pizza', name: 'Grilled Chicken Pizza', price: 260, type: 'nonveg', desc: 'Herb grilled chicken chunks with barbecue drizzle and mozzarella' },
-      { id: 'chicken-peproni-pizza', name: 'Chicken Pepperoni Pizza', price: 260, type: 'nonveg', desc: 'Crispy cured chicken pepperoni slices over rich tomato base' },
-      { id: 'veg-pesto-pizza', name: 'Veg Pesto Pizza', price: 260, type: 'veg', desc: 'Basil pesto base, cherry tomatoes, bocconcini & balsamic glaze' }
+      { id: 'margareta-pizza', name: 'Margareta Pizza', price: 220, type: 'veg', desc: 'San Marzano tomato concassé, fresh mozzarella, extra virgin olive oil and basil' },
+      { id: 'farm-house-pizza', name: 'Farm House Pizza', price: 290, type: 'veg', desc: 'Bell peppers, red onions, mushrooms, sweet corn, black olives & mozzarella' },
+      { id: 'veg-pesto-pizza', name: 'Veg Pesto Pizza', price: 310, type: 'veg', desc: 'Genovese basil pesto base, cherry tomatoes, bocconcini and mozzarella' },
+      { id: 'grilled-paneer-pizza', name: 'Grilled Paneer Pizza', price: 320, type: 'veg', desc: 'Tandoori herb marinated cottage cheese, spiced peppers and melted cheese' },
+      { id: 'chicken-peproni-pizza', name: 'Chicken Peproni Pizza', price: 330, type: 'nonveg', desc: 'Smoked chicken pepperoni rounds, rich tomato sauce and bubbling mozzarella' },
+      { id: 'grilled-chicken-pizza', name: 'Grilled Chicken Pizza', price: 340, type: 'nonveg', desc: 'BBQ and herb grilled chicken chunks, sliced onions, capsicum and cheese' }
+    ]
+  },
+  {
+    id: 'pasta',
+    title: 'Handmade Gourmet Pasta',
+    icon: '🍝',
+    items: [
+      { id: 'veg-alfredo-pasta', name: 'Veg Alfredo Pasta', price: 250, type: 'veg', customisable: true, desc: 'Penne in rich, velvety butter and parmesan cheese cream sauce with broccoli' },
+      { id: 'veg-arrabbiata-pasta', name: 'Veg Arrabbiata Pasta', price: 250, type: 'veg', customisable: true, desc: 'Spicy garlic, red chilli and Italian peeled tomato sauce' },
+      { id: 'veg-pink-sauce-pasta', name: 'Veg Pink Sauce Pasta', price: 250, type: 'veg', customisable: true, desc: 'Harmonious blend of zesty tomato pomodoro and rich cream' },
+      { id: 'veg-pesto-pasta', name: 'Veg Pesto Pasta', price: 270, type: 'veg', customisable: true, desc: 'Fragrant fresh basil, pine nuts, garlic, olive oil and parmesan' },
+      { id: 'caffyo-special-veg-pasta', name: 'Caffyo Special Veg Pasta', price: 280, type: 'veg', customisable: true, desc: 'Chef signature baked pasta with exotic vegetables, olives and triple cheese crust' },
+      { id: 'chicken-alfredo-pasta', name: 'Chicken Alfredo Pasta', price: 290, type: 'nonveg', customisable: true, desc: 'Juicy grilled chicken breast slices folded in creamy garlic parmesan alfredo' },
+      { id: 'chicken-arrabbiata-pasta', name: 'Chicken Arrabbiata Pasta', price: 290, type: 'nonveg', customisable: true, desc: 'Fiery Italian arrabbiata sauce tossed with chicken and fresh basil' },
+      { id: 'chicken-pink-sauce-pasta', name: 'Chicken Pink Sauce Pasta', price: 290, type: 'nonveg', customisable: true, desc: 'Tender chicken in a luscious pink sauce of tomato and cream' },
+      { id: 'chicken-pesto-pasta', name: 'Chicken Pesto Pasta', price: 300, type: 'nonveg', customisable: true, desc: 'Herb chicken strips tossed with green basil pesto and pine nuts' },
+      { id: 'caffyo-special-chicken-pasta', name: 'Caffyo Special Chicken Pasta', price: 330, type: 'nonveg', customisable: true, desc: 'House signature oven-baked chicken pasta with rich sauce and golden cheese layer' }
+    ]
+  },
+  {
+    id: 'mains',
+    title: 'Steaks & Mains',
+    icon: '🥩',
+    items: [
+      { id: 'mexican-steak', name: 'Mexican Steak', price: 300, type: 'veg', desc: 'Grilled spiced vegetable steak served with Mexican rice, beans and salsa' },
+      { id: 'pesto-chicken-steak', name: 'Pesto Chicken Steak', price: 320, type: 'nonveg', desc: 'Tender chicken breast seared with aromatic basil pesto sauce, sautéed veggies & mash' },
+      { id: 'melting-chicken-steak', name: 'Melting Chicken Steak', price: 340, type: 'nonveg', desc: 'Juicy chicken steak blanketed in molten cheese, served with pepper sauce and fries' },
+      { id: 'fish-and-chips', name: 'Fish & Chips', price: 350, type: 'nonveg', outOfStock: true, desc: 'Crisp golden battered fish fillet served with tartar dip and seasoned fries' }
     ]
   },
   {
     id: 'mocktails',
-    title: 'Mocktails & Ice Tea',
+    title: 'Mocktails, Coolers & Beverages',
     icon: '🍹',
     items: [
-      { id: 'sweet-salted-lemonade', name: 'Sweet & Salted Lemonade', price: 119, type: 'veg', desc: 'Classic freshly squeezed Nagpur lemon with mint and rock salt' },
-      { id: 'mojito-mint', name: 'Mojito Mint', price: 119, type: 'veg', desc: 'Crushed garden mint, fresh lime, raw sugar and sparkling soda' },
-      { id: 'blue-lagoon', name: 'Blue Lagoon', price: 119, type: 'veg', desc: 'Blue Curacao reduction shaken with lemonade and fizz' },
-      { id: 'pineapple-blue-lagoon', name: 'Pineapple Blue Lagoon', price: 129, type: 'veg', desc: 'Tropical pineapple juice blended with blue curacao fizz' },
-      { id: 'margarita-mocktail', name: 'Margarita Mocktail', price: 139, type: 'veg', desc: 'Salt-rimmed glass with lime juice, orange essence and crushed ice' },
-      { id: 'berry-beach-mojito', name: 'Berry Beach Mojito', price: 139, type: 'veg', desc: 'Mixed wild berries muddled with mint leaves and club soda' },
-      { id: 'mind-peace-mojito', name: 'Mind Peace Mojito', price: 139, type: 'veg', desc: 'Botanical cooling herbs, cucumber and mint over crushed ice' },
-      { id: 'the-beach-vibe', name: 'The Beach Vibe', price: 139, type: 'veg', desc: 'Tropical passionfruit, mango and sparkling citrus cooler' },
-      { id: 'pina-colada', name: 'Pina Colada Mocktail', price: 139, type: 'veg', desc: 'Creamy coconut cream and sweet pineapple juice blended with ice' },
-      { id: 'lemon-ice-tea', name: 'Lemon Ice Tea', price: 119, type: 'veg', desc: 'Slow-steeped black tea sweetened with lemon and ice' },
-      { id: 'peach-ice-tea', name: 'Peach Ice Tea', price: 139, type: 'veg', desc: 'Ripe peach nectar infused with crisp iced Assam tea' },
-      { id: 'mojito-mint-ice-tea', name: 'Mojito Mint Ice Tea', price: 139, type: 'veg', desc: 'Iced tea shaken with fresh bruised garden mint leaves' },
-      { id: 'virgin-long-island-ice-tea', name: 'Virgin Long Island Ice Tea', price: 139, type: 'veg', desc: 'Non-alcoholic botanical blend of cola, citrus and iced tea' }
+      { id: 'sweet-and-salted-lemonade', name: 'Sweet And Salted Lemonade', price: 150, type: 'veg', desc: 'Classic freshly squeezed Nagpur lemon cooler with mint and rock salt' },
+      { id: 'mint-mojito', name: 'Mint Mojito', price: 150, type: 'veg', desc: 'Muddled fresh garden mint, lime wedges, sugar syrup and sparkling soda' },
+      { id: 'lemon-ice-tea', name: 'Lemon Ice Tea', price: 150, type: 'veg', desc: 'Slow-steeped Assam black tea sweetened with lemon and ice' },
+      { id: 'pinapple-blue-green', name: 'Pinapple Blue Green', price: 170, type: 'veg', desc: 'Exotic blue curacao, tropical pineapple and mint cooler' },
+      { id: 'berry-beach-mojito', name: 'Berry Beach Mojito', price: 180, type: 'veg', desc: 'Mixed wild berries muddled with mint leaves and club soda' },
+      { id: 'chilli-guava', name: 'Chilli Guava', price: 180, type: 'veg', desc: 'Sweet pink guava juice with a fiery red chilli salt-rimmed kick' },
+      { id: 'pink-lady', name: 'Pink Lady', price: 180, type: 'veg', desc: 'Subtle blend of rose cordial, pomegranate and creamy citrus' },
+      { id: 'pina-colada', name: 'Pina Colada', price: 180, type: 'veg', desc: 'Creamy coconut cream and sweet pineapple juice blended with crushed ice' },
+      { id: 'peach-ice-tea', name: 'Peach Ice Tea', price: 180, type: 'veg', desc: 'Juicy peach nectar infused with crisp chilled iced tea' },
+      { id: 'passion-fruit-ice-tea', name: 'Passion Fruit Ice Tea', price: 190, type: 'veg', desc: 'Tangy tropical passionfruit syrup shaken with iced tea' },
+      { id: 'jamun-ice-tea', name: 'Jamun Ice Tea', price: 190, type: 'veg', desc: 'Rich local Indian black plum (jamun) reduction infused with iced tea' },
+      { id: 'hell-energy-drink', name: 'Hell', price: 130, type: 'veg', desc: 'Chilled Hell Energy Drink can' },
+      { id: 'red-bull', name: 'Red Bull', price: 180, type: 'veg', outOfStock: true, desc: 'Chilled Red Bull Energy Drink can' },
+      { id: 'water-bottle', name: 'Water Bottle', price: 10, type: 'veg', desc: 'Packaged mineral water bottle' }
     ]
   },
   {
-    id: 'addons',
-    title: 'Add Ons',
-    icon: '✨',
+    id: 'desserts',
+    title: 'Pancakes, Kulfi & Desserts',
+    icon: '🥞',
     items: [
-      { id: 'addon-espresso-shot', name: 'Extra Espresso Shot', price: 79, type: 'veg', desc: 'Single-origin extra espresso extraction' },
-      { id: 'addon-vanilla-ice-cream', name: 'Vanilla Ice Cream Scoop', price: 39, type: 'veg', desc: 'Creamy vanilla bean scoop' },
-      { id: 'addon-chocolate-ice-cream', name: 'Chocolate Ice Cream Scoop', price: 49, type: 'veg', desc: 'Rich chocolate scoop' },
-      { id: 'addon-chocolate-sauce', name: 'Chocolate Sauce Drizzle', price: 39, type: 'veg', desc: 'Warm Dutch chocolate fudge drizzle' }
+      { id: 'tiranga-kulfi', name: 'Tiranga Kulfi', price: 79, type: 'veg', outOfStock: true, desc: 'Traditional tri-flavored Indian frozen dessert on stick' },
+      { id: 'brownie', name: 'Brownie', price: 170, type: 'veg', desc: 'Warm fudgy Belgian dark chocolate brownie' },
+      { id: 'pastry', name: 'Pastry', price: 200, type: 'veg', desc: 'Fresh daily pastry slice from our bakery counter' },
+      { id: 'pancakes-with-maple-syrup', name: 'Pancakes With Maple Syrup', price: 220, type: 'veg', desc: 'Stack of fluffy golden pancakes drizzled with warm maple syrup and butter' },
+      { id: 'nutella-pancakes-with-almond', name: 'Nutella Pancakes With Almond', price: 240, type: 'veg', desc: 'Golden pancakes smothered with warm Nutella and toasted almond flakes' },
+      { id: 'biscoff-pancakes', name: 'Biscoff Pancakes', price: 240, type: 'veg', desc: 'Fluffy pancake stack layered with Lotus Biscoff spread and biscuit crumble' }
     ]
   }
 ];
@@ -270,17 +309,21 @@ class DedicatedMenuController {
           </div>
           <div class="section-items-grid">
             ${filteredItems.map(item => `
-              <div class="menu-item-row-card" data-item-id="${item.id}">
+              <div class="menu-item-row-card ${item.outOfStock ? 'out-of-stock' : ''}" data-item-id="${item.id}">
                 <div class="item-left-info">
                   <div class="item-name-row">
                     <span class="diet-symbol ${item.type === 'veg' ? 'veg' : 'nonveg'}" title="${item.type === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}"></span>
                     <h3 class="item-name-text">${item.name}</h3>
+                    <div class="item-badges-wrap">
+                      ${item.customisable ? '<span class="badge-customisable">Customisable</span>' : ''}
+                      ${item.outOfStock ? '<span class="badge-sold-out">Sold Out</span>' : ''}
+                    </div>
                   </div>
                   <p class="item-desc-text">${item.desc}</p>
                   <div class="item-price-tag">₹${item.price}</div>
                 </div>
-                <button class="btn-add-menu-item" data-add="${item.id}" aria-label="Add ${item.name} to tray">
-                  <span>+</span> Add
+                <button class="btn-add-menu-item" data-add="${item.id}" ${item.outOfStock ? 'disabled aria-disabled="true"' : ''} aria-label="Add ${item.name} to tray">
+                  <span>+</span> ${item.outOfStock ? 'Sold Out' : 'Add'}
                 </button>
               </div>
             `).join('')}
@@ -302,7 +345,7 @@ class DedicatedMenuController {
     }
 
     // Bind Add Buttons
-    container.querySelectorAll('[data-add]').forEach(btn => {
+    container.querySelectorAll('[data-add]:not([disabled])').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-add');
         this.addItemById(id);
@@ -320,7 +363,7 @@ class DedicatedMenuController {
 
   addItemById(id) {
     const item = this.findItemById(id);
-    if (!item) return;
+    if (!item || item.outOfStock) return;
 
     const existing = this.cart.find(i => i.id === id);
     if (existing) {
@@ -418,22 +461,17 @@ class DedicatedMenuController {
   }
 
   openDrawer() {
-    const overlay = document.getElementById('cart-overlay');
     const drawer = document.getElementById('cart-drawer');
-    if (overlay && drawer) {
-      overlay.classList.add('open');
-      drawer.classList.add('open');
-      this.renderCartDrawer();
-    }
+    const overlay = document.getElementById('cart-overlay');
+    if (drawer) drawer.classList.add('open');
+    if (overlay) overlay.classList.add('open');
   }
 
   closeDrawer() {
-    const overlay = document.getElementById('cart-overlay');
     const drawer = document.getElementById('cart-drawer');
-    if (overlay && drawer) {
-      overlay.classList.remove('open');
-      drawer.classList.remove('open');
-    }
+    const overlay = document.getElementById('cart-overlay');
+    if (drawer) drawer.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
   }
 
   setupScrollSpy() {

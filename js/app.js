@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    CAFFYO by Zauq - Main Application Controller
    Glues 3D Physics, Living Cup Assembly, Testimonial Slider,
    Mobile Drawer, Bottom Dock, and Table Booking
@@ -61,33 +61,33 @@ function initHeroSlider() {
   const slides = [
     {
       word: 'ESPRESSO',
-      name: 'Caffyo Signature Swan Latte',
-      price: '₹119',
-      desc: 'Experience the rich and bold flavors of our exquisite specialty coffee blends, crafted at Prestige Hospital Chowk to awaken your senses and start your day right.'
+      name: 'Hot Latte with Swan Crema',
+      price: '₹160',
+      desc: 'Smooth espresso extraction poured with silky microfoam swan art at Prestige Hospital Chowk.'
     },
     {
       word: 'SPANISH',
-      name: 'Spanish Ice Latte with Velvet Cream',
-      price: '₹139',
-      desc: 'Chilled condensed milk base poured with double-shot Arabica espresso, cold whole milk, and crowned with silky chilled microfoam.'
+      name: 'Iced Spanish Latte',
+      price: '₹190',
+      desc: 'Chilled condensed milk base poured with double-shot Arabica espresso, cold milk, and smooth crema.'
     },
     {
-      word: 'NIRVANA',
-      name: 'Kaapi Nirvana Blast Frappe',
-      price: '₹179',
-      desc: 'Our celebrated South Indian kaapi decoction blast whipped with crushed butter cookies, Belgian cocoa pearls, and rich vanilla cream.'
+      word: 'FRAPPE',
+      name: 'Belgium Frappe',
+      price: '₹200',
+      desc: 'Rich melted Belgian dark chocolate blended with chilled espresso and thick fresh dairy.'
     },
     {
       word: 'COLD BREW',
-      name: 'Caffyo On The Rocks (18-Hr Steep)',
-      price: '₹139',
-      desc: 'Slow-steeped high-altitude Arabica cold brew poured over a crystal rock ice. Zero bitterness, pure botanical sweetness.'
+      name: 'Caffyo On The Rocks',
+      price: '₹200',
+      desc: 'Slow-steeped high-altitude Arabica cold brew poured over crystal rock ice. Velvety smooth with zero harshness.'
     },
     {
       word: 'DARK ROAST',
-      name: 'Single-Origin Italian Ristretto',
-      price: '₹79',
-      desc: 'Intense short extraction under 9 bars pressure, extracting sweet origin notes with dense hazelnut crema.'
+      name: 'Double Espresso Doppio',
+      price: '₹120',
+      desc: 'Intense double extraction under 9 bars pressure, extracting sweet origin notes with dense hazelnut crema.'
     }
   ];
 
@@ -476,7 +476,7 @@ function initPreloader() {
     if (current < 45) {
       if (statusText) statusText.textContent = 'BREWING AMBIENCE';
     } else if (current < 85) {
-      if (statusText) statusText.textContent = 'CALIBRATING 3D CRAFT';
+      if (statusText) statusText.textContent = 'PREPARING YOUR BREW';
     } else {
       if (statusText) statusText.textContent = 'WELCOME TO CAFFYO';
     }
