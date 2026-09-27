@@ -112,38 +112,38 @@ class Caffyo3DExperience {
     let targetY = 0.40;
 
     if (width <= 480) {
-      // Small Phones (e.g. iPhone SE / 360-480px)
-      scale = Math.min(0.66, Math.max(0.55, (width / 390) * 0.60));
+      // Small Phones (e.g. 360-480px)
+      scale = Math.min(0.40, Math.max(0.32, (width / 390) * 0.36));
       restX = 0;
-      restY = 0.18; // Lifted above hero text pill
+      restY = 1.25; // Raised high to eliminate empty space above cup in mobile view
       camX = 0;
-      camY = 2.0;
-      camZ = 5.6;
+      camY = 1.9;
+      camZ = 5.4;
       targetX = 0;
-      targetY = 0.35;
+      targetY = 0.18;
     } else if (width <= 768) {
       // Standard & Large Phones (481-768px)
-      scale = Math.min(0.72, Math.max(0.60, (width / 500) * 0.66));
+      scale = Math.min(0.46, Math.max(0.38, (width / 500) * 0.42));
       restX = 0;
-      restY = 0.15;
+      restY = 1.15;
       camX = 0;
-      camY = 2.0;
-      camZ = 5.5;
+      camY = 1.9;
+      camZ = 5.4;
       targetX = 0;
-      targetY = 0.35;
+      targetY = 0.18;
     } else if (width <= 1024) {
       // Tablets (769-1024px)
-      scale = 0.70;
-      restX = 1.45;
-      restY = -0.22;
+      scale = 0.65;
+      restX = 1.35;
+      restY = -0.15;
       camX = 0.35;
-      camY = 2.2;
-      camZ = 5.4;
+      camY = 2.1;
+      camZ = 5.3;
       targetX = 0.35;
-      targetY = 0.40;
+      targetY = 0.35;
     } else if (width <= 1280) {
       // Compact Laptops (1025-1280px)
-      scale = 0.78;
+      scale = 0.74;
       restX = 1.85;
       restY = -0.26;
       camX = 0.45;
@@ -154,7 +154,7 @@ class Caffyo3DExperience {
     } else if (width <= 1536) {
       // Standard Laptops & 1080p displays (e.g. 1366x768, 1440x900, 1536x776)
       // Shifted comfortably right for generous breathing room alongside hero typography
-      scale = 0.86;
+      scale = 0.84;
       restX = 2.25;
       restY = -0.28;
       camX = 0.55;
@@ -174,9 +174,9 @@ class Caffyo3DExperience {
       targetY = 0.40;
     }
 
-    // Height-based compensation if viewport height is compact
-    if (height < 680 && width > 768) {
-      const heightRatio = Math.max(0.68, height / 740);
+    // Height-based compensation if viewport height is compact (all screens)
+    if (height < 750) {
+      const heightRatio = Math.max(0.65, height / 760);
       scale *= heightRatio;
     }
 
@@ -370,8 +370,8 @@ class Caffyo3DExperience {
     // Position & Scale: Positioned comfortably to the right on desktop, centered on mobile
     const isMobile = window.innerWidth <= 768;
     const initX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
-    const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.16 : -0.28);
-    const initScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.68 : 0.86);
+    const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.22 : -0.28);
+    const initScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.52 : 0.86);
     this.cupGroup.position.set(initX, initY, 0);
     this.cupGroup.scale.setScalar(initScale);
     this.cupGroup.rotation.set(0.28, 0.30, 0);
@@ -425,7 +425,9 @@ class Caffyo3DExperience {
       const radius = 2.4 + Math.random() * 2.6;
       const isMobile = window.innerWidth <= 768;
       const cupX = isMobile ? 0 : 2.9;
-      const y = -0.5 + Math.random() * 2.4;
+      const cupY = isMobile ? 1.25 : -0.28;
+      const yOffset = (Math.random() - 0.5) * 1.6;
+      const y = cupY + yOffset;
       const x = cupX + Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
 
@@ -444,6 +446,7 @@ class Caffyo3DExperience {
       this.beans.push({
         mesh: mesh,
         originalPos: new THREE.Vector3(x, y, z),
+        baseOffsetY: yOffset,
         baseRadius: radius,
         angle: angle,
         orbitSpeed: (0.12 + Math.random() * 0.18) * (i % 2 === 0 ? 1 : -1),
@@ -774,7 +777,7 @@ class Caffyo3DExperience {
       if (this.cupGroup) {
         const isMobile = window.innerWidth <= 768;
         const targetX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
-        const targetY = (this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.15 : -0.28)) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const targetY = (this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 1.25 : -0.28)) + Math.sin(elapsedTime * 0.8) * 0.02;
         const restZ = 0;
 
         // Ideal aesthetic presentation angle:
@@ -885,9 +888,10 @@ class Caffyo3DExperience {
         } else {
           bean.angle += bean.orbitSpeed * dt * 0.35;
           const cupX = this.cupGroup ? this.cupGroup.position.x : 0;
+          const cupY = this.cupGroup ? this.cupGroup.position.y : 0;
           const targetX = cupX + Math.cos(bean.angle) * bean.baseRadius;
           const targetZ = Math.sin(bean.angle) * bean.baseRadius;
-          const targetY = bean.originalPos.y + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
+          const targetY = cupY + (bean.baseOffsetY !== undefined ? bean.baseOffsetY : 0) + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
 
           bean.originalPos.x = targetX;
           bean.originalPos.z = targetZ;

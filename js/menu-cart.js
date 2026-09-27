@@ -981,7 +981,7 @@ class CaffyoCartManager {
       window.caffyoAudio.playChime(1046.5, 0.3);
     }
 
-    alert(`Order Placed at CAFFYO by Zauq, Nagpur!\n\nOrder Mode: ${this.orderType === 'dinein' ? 'Dine-In Table' : 'Doorstep Delivery'}\nTotal Items: ${totalCount}\nPayable Amount: ₹${total}\n\nOur baristas at Prestige Hospital Chowk have received your ticket! Anushka and our kitchen team are crafting it right now.`);
+    alert(`Order Placed at CAFFYO, Sadar, Nagpur!\n\nOrder Mode: ${this.orderType === 'dinein' ? 'Dine-In Table' : 'Doorstep Delivery'}\nTotal Items: ${totalCount}\nPayable Amount: ₹${total}\n\nOur team at CAFFYO (Opposite Haldirams, Sadar) has received your ticket! Anushka and our kitchen team are crafting it right now.`);
 
     this.cart = [];
     this.updateCartBadge();

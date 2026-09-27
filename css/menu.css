@@ -186,12 +186,25 @@ body {
   gap: 10px;
   overflow-x: auto;
   white-space: nowrap;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-accent) rgba(255, 255, 255, 0.08);
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
 }
 
 .category-scroll-wrapper::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+  display: block !important;
+}
+
+.category-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+}
+
+.category-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gold-accent);
+  border-radius: 4px;
 }
 
 .cat-pill {

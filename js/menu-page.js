@@ -1,7 +1,6 @@
 /* ============================================================
-   CAFFYO by Zauq - Dedicated Menu Website Logic
-   Full categorization & official pricing from Petpooja live menu
-   Prestige Hospital Chowk, Koradi Colony, Nagpur
+   CAFFYO - Dedicated Menu Logic
+   Official menu data & pricing (Opposite Haldirams, Sadar, Nagpur)
    ============================================================ */
 
 const CAFFYO_SECTIONS_DATA = [

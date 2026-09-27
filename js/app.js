@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBrewLabControls();
   initMobileDrawer();
   initTestimonialSlider();
+  initBestSellersTabs();
   initReservationForm();
   initBottomDock();
 });
@@ -60,34 +61,34 @@ function initSmoothScroll() {
 function initHeroSlider() {
   const slides = [
     {
-      word: 'ESPRESSO',
-      name: 'Hot Latte with Swan Crema',
-      price: '₹160',
-      desc: 'Smooth espresso extraction poured with silky microfoam swan art at Prestige Hospital Chowk.'
+      word: 'INSANE',
+      name: 'Customer Favorite: Insane Burger',
+      tag: 'House Special',
+      desc: 'Double-breaded crispy chicken, molten cheddar, and house relish on toasted brioche.'
     },
     {
       word: 'SPANISH',
-      name: 'Iced Spanish Latte',
-      price: '₹190',
-      desc: 'Chilled condensed milk base poured with double-shot Arabica espresso, cold milk, and smooth crema.'
+      name: 'Signature Iced Spanish Latte',
+      tag: 'Handcrafted',
+      desc: 'Chilled condensed milk layered with bold Arabica espresso and velvety crema.'
     },
     {
-      word: 'FRAPPE',
-      name: 'Belgium Frappe',
-      price: '₹200',
-      desc: 'Rich melted Belgian dark chocolate blended with chilled espresso and thick fresh dairy.'
+      word: 'PIZZA',
+      name: 'Stone-Baked Margherita Pizza',
+      tag: 'Stone-Baked',
+      desc: 'San Marzano tomato concassé, bubbly mozzarella, and sweet garden basil.'
+    },
+    {
+      word: 'ALFREDO',
+      name: 'Creamy Garlic Parmesan Alfredo',
+      tag: 'Comfort Classic',
+      desc: 'Silky butter, garlic cream, and aged parmesan folded over al dente penne.'
     },
     {
       word: 'COLD BREW',
-      name: 'Caffyo On The Rocks',
-      price: '₹200',
-      desc: 'Slow-steeped high-altitude Arabica cold brew poured over crystal rock ice. Velvety smooth with zero harshness.'
-    },
-    {
-      word: 'DARK ROAST',
-      name: 'Double Espresso Doppio',
-      price: '₹120',
-      desc: 'Intense double extraction under 9 bars pressure, extracting sweet origin notes with dense hazelnut crema.'
+      name: '18-Hr Caffyo On The Rocks',
+      tag: '18-Hr Steep',
+      desc: 'Slow-steeped Arabica cold brew poured over a crystal rock with lingering sweetness.'
     }
   ];
 
@@ -119,7 +120,7 @@ function initHeroSlider() {
     }
 
     if (brewName) brewName.textContent = slide.name;
-    if (brewPrice) brewPrice.textContent = slide.price;
+    if (brewPrice) brewPrice.textContent = slide.tag;
     if (heroDesc) heroDesc.textContent = slide.desc;
 
     // Trigger gentle liquid surface ripple in 3D cup
@@ -369,22 +370,52 @@ function initBrewLabControls() {
 function initTestimonialSlider() {
   const reviews = [
     {
-      author: 'Hello',
-      avatar: 'H',
-      sub: 'Verified Dine-in • 2 Reviews',
-      quote: '“A cozy little cafe with such a warm and welcoming atmosphere. This was my second visit, and I had another lovely experience. A special thank you to Anushka, who welcomed me both times with such kindness and a genuine smile. It makes the coffee taste even better!”'
+      author: 'Sana Kousar',
+      avatar: 'S',
+      sub: 'Verified Dine-in • 5/5 Food, Service & Atmosphere',
+      quote: '“A cozy little café with such a warm and welcoming atmosphere. This was my second visit, and I had another lovely experience. A special thank you to <strong>Anushka</strong>, who welcomed me both times with such kindness and a genuine smile. It may seem like a small gesture, but it really made me feel valued as a customer. The staff is friendly, the service is great, and the café has a comfortable vibe that makes you want to come back. Definitely looking forward to visiting again!”'
     },
     {
-      author: 'Pawan Choudhary',
+      author: 'Yumna Syed',
+      avatar: 'Y',
+      sub: 'Local Foodie • Insane Burger Fan',
+      quote: '“I tried their <strong>Insane Chicken Burger</strong> and it was totally insane! The quantity and the concept of the burger was awesome. The price is very reasonable but the quality and quantity is great. Special appreciation to the staff — they are very friendly and cooperative 🫶”'
+    },
+    {
+      author: 'MasterNotOpYT',
+      avatar: 'M',
+      sub: 'Verified Reviewer • 7 Google Reviews',
+      quote: '“Burger is a solid <strong>10/10</strong> and the food is so tasty! I’ve tried the <strong>Cranberry Cold Brew</strong> and <strong>Ginger Ale Cold Brew</strong> — both were awesome and budget friendly. Must visit in Nagpur!”'
+    },
+    {
+      author: 'Aryan Dhomne',
+      avatar: 'A',
+      sub: 'Verified Dine-in • Pizza Connoisseur',
+      quote: '“We tried their <strong>Margherita Pizza</strong> and it was the bomb! Had a great time with friends. Amazing taste, great vibes, and lovely seating.”'
+    },
+    {
+      author: 'Ayushi Dhengula',
+      avatar: 'A',
+      sub: 'Google Local Guide • 24 Reviews',
+      quote: '“Very yum food! I tried the <strong>Alfredo Pasta</strong>, <strong>Caramel Salt</strong>, and <strong>Caffyo On The Rocks</strong> — all highly recommended! The staff is very friendly and the ambiance is super cozy.”'
+    },
+    {
+      author: 'Samreen Khan',
+      avatar: 'S',
+      sub: 'Verified Foodie • Wholesome Sandwiches',
+      quote: '“Loved the healthier twist! The multigrain bread and generous amount of seeds made the sandwich delicious and wholesome. Perfect crunch and fresh herbs. Highly recommend! ❤️”'
+    },
+    {
+      author: 'Pawan Choudhari',
       avatar: 'P',
       sub: 'Local Guide • 3 Reviews',
       quote: '“Our overall experience was very pleasant. The staff members were exceptionally kind and welcoming throughout our visit. We found the flavors of the food to be quite delightful. It was a truly enjoyable occasion. We appreciate the positive atmosphere and excellent service.”'
     },
     {
-      author: 'Vikram Khurana',
-      avatar: 'V',
-      sub: 'Verified Guest • 5 Reviews',
-      quote: '“One of the best cafes I\'ve been to in Nagpur! The atmosphere is incredibly warm and inviting. I ordered the coffee and it was absolutely refreshing. The staff provided top-notch service. A perfect spot to relax or catch up with friends. Highly recommend!”'
+      author: 'Rahil Khan',
+      avatar: 'R',
+      sub: 'Verified Guest • Late Night Cravings',
+      quote: '“Perfect place for late night cravings. Cozy place, delicious mocktails and specialty coffee with very helpful staff. The vibe here is unbeatable.”'
     }
   ];
 
@@ -395,11 +426,16 @@ function initTestimonialSlider() {
   const avatarEl = document.getElementById('testimonial-avatar');
 
   function updateTestimonial(idx) {
-    const rev = reviews[idx];
-    if (quoteEl) quoteEl.innerHTML = rev.quote;
-    if (authorEl) authorEl.textContent = rev.author;
-    if (subEl) subEl.textContent = rev.sub;
-    if (avatarEl) avatarEl.innerHTML = `<span>${rev.avatar}</span>`;
+    const card = document.querySelector('.testimonial-card');
+    if (card) card.style.opacity = '0.35';
+    setTimeout(() => {
+      const rev = reviews[idx];
+      if (quoteEl) quoteEl.innerHTML = rev.quote;
+      if (authorEl) authorEl.textContent = rev.author;
+      if (subEl) subEl.textContent = rev.sub;
+      if (avatarEl) avatarEl.innerHTML = `<span>${rev.avatar}</span>`;
+      if (card) card.style.opacity = '1';
+    }, 120);
   }
 
   const prevBtn = document.getElementById('btn-prev-testimonial');
@@ -420,6 +456,31 @@ function initTestimonialSlider() {
   }
 }
 
+/* Best Sellers Category Filter Tabs */
+function initBestSellersTabs() {
+  const tabs = document.querySelectorAll('.editorial-tab-btn');
+  const cards = document.querySelectorAll('.reference-card');
+  if (!tabs.length || !cards.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.getAttribute('data-filter');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
 /* Table Booking Form Handler */
 function initReservationForm() {
   const form = document.getElementById('table-booking-form');
@@ -438,7 +499,7 @@ function initReservationForm() {
       window.caffyoAudio.playChime(987.77, 0.25);
     }
 
-    alert(`Table Reserved at CAFFYO by Zauq, Nagpur!\n\nGuest: ${name}\nDate & Time: ${date} at ${time}\nParty: ${guests} Guests (${seating})\n\nWe look forward to hosting you at Prestige Hospital Chowk! Anushka and our team will have your table ready.`);
+    alert(`Table Reserved at CAFFYO, Sadar, Nagpur!\n\nGuest: ${name}\nDate & Time: ${date} at ${time}\nParty: ${guests} Guests (${seating})\n\nWe look forward to hosting you at CAFFYO (Opposite Haldirams, Sadar)! Anushka and our team will have your table ready.`);
 
     form.reset();
     if (window.caffyoCart) {
