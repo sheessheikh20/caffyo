@@ -1674,36 +1674,9 @@ body {
 }
 
 @media (max-width: 640px) {
+  /* Keep spotlight strip hidden on small screens too (overrides 768px rule is needed again here) */
   .spotlight-categories-strip {
-    padding: 0 12px;
-    margin: 12px auto 8px;
-  }
-  .spotlight-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .spotlight-card {
-    padding: 10px 12px;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  }
-  .spotlight-tag {
-    font-size: 0.58rem;
-    padding: 1px 5px;
-    margin-bottom: 3px;
-  }
-  .spotlight-info h3 {
-    font-size: 0.84rem;
-    margin-bottom: 1px;
-    line-height: 1.2;
-  }
-  .spotlight-info p {
-    font-size: 0.68rem;
-    opacity: 0.85;
-  }
-  .spotlight-icon-art svg {
-    width: 22px;
-    height: 22px;
+    display: none !important;
   }
   .store-status-badge {
     display: none !important;
