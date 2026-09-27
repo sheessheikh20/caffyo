@@ -8,25 +8,25 @@
   --bg-dark: #0e0a07;
   --bg-espresso: #140e0a;
   --bg-espresso-card: #1c140e;
-  --text-light: #f7f1eb;
-  --text-muted-dark: #b8a89a;
+  --text-light: #f5f0e6;
+  --text-muted-dark: #9a826b;
 
-  /* Cream / Latte Palette (Reference Section 2 & 4) */
-  --bg-cream: #efe5d8;
-  --bg-cream-light: #f7f1ea;
-  --text-dark: #1b130e;
-  --text-dark-muted: #6b5a4e;
-  --border-cream: rgba(27, 19, 14, 0.15);
+  /* Espresso Cream Palette (minimal, for overlays) */
+  --bg-cream: #1a0f0a;
+  --bg-cream-light: #140e0a;
+  --text-dark: #f5f0e6;
+  --text-dark-muted: #8a7560;
+  --border-cream: rgba(229, 152, 102, 0.15);
 
-  /* Warm Ochre / Caramel Palette (Reference Section 3 & 5) */
-  --bg-caramel: #cf9d69;
-  --bg-caramel-light: #dcb383;
-  --bg-caramel-dark: #b88552;
+  /* Warm Gold/Amber Palette (minimal brown) */
+  --bg-caramel: var(--bg-espresso-card);
+  --bg-caramel-light: #e59866;
+  --bg-caramel-dark: #2a1e11;
 
   /* Accent & Gold Highlights */
   --gold-accent: #e59866;
-  --gold-bright: #f39c12;
-  --crema-white: #fffcf8;
+  --gold-bright: #f2c497;
+  --gold-crema: #f5e9da;
   --border-gold: rgba(229, 152, 102, 0.28);
   --shadow-card: 0 15px 35px rgba(0, 0, 0, 0.35);
 
@@ -127,7 +127,7 @@ img {
   letter-spacing: 2px;
   line-height: 1;
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .brand-text span {
@@ -159,7 +159,7 @@ img {
 
 .desktop-nav .nav-links a:hover,
 .desktop-nav .nav-links a.active {
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .desktop-nav .nav-links a::after {
@@ -188,7 +188,7 @@ img {
 .btn-sound {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-gold);
-  color: #fff;
+  color: var(--gold-crema);
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -220,7 +220,7 @@ img {
   position: relative;
   background: rgba(229, 152, 102, 0.12);
   border: 1px solid var(--border-gold);
-  color: #fff;
+  color: var(--gold-crema);
   padding: 8px 16px;
   border-radius: var(--radius-full);
   display: flex;
@@ -234,12 +234,12 @@ img {
 
 .btn-cart-nav:hover {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
 }
 
 .cart-count-badge {
-  background: #ff4757;
-  color: #fff;
+  background: var(--nonveg-red);
+  color: var(--gold-crema);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 2px 7px;
@@ -250,7 +250,7 @@ img {
 
 /* Buttons */
 .btn-primary {
-  background: #fff;
+  background: var(--gold-crema);
   color: #100b07;
   font-weight: 700;
   border: none;
@@ -269,7 +269,7 @@ img {
 
 .btn-primary:hover {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(229, 152, 102, 0.4);
 }
@@ -277,7 +277,7 @@ img {
 .btn-secondary {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
+  color: var(--gold-crema);
   font-weight: 600;
   padding: 12px 24px;
   border-radius: var(--radius-full);
@@ -291,7 +291,7 @@ img {
 }
 
 .btn-secondary:hover {
-  border-color: #fff;
+  border-color: var(--gold-crema);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -313,7 +313,7 @@ img {
 .btn-hamburger .bar {
   width: 22px;
   height: 2px;
-  background: #fff;
+  background: var(--gold-crema);
   border-radius: 2px;
   transition: var(--transition);
 }
@@ -379,12 +379,12 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(46, 204, 113, 0.12);
-  border: 1px solid rgba(46, 204, 113, 0.3);
+  background: rgba(229, 152, 102, 0.12);
+  border: 1px solid rgba(229, 152, 102, 0.3);
   padding: 8px 12px;
   border-radius: var(--radius-sm);
   font-size: 0.78rem;
-  color: #2ed573;
+  color: var(--gold-accent);
   font-weight: 600;
   margin: 18px 0;
 }
@@ -393,8 +393,8 @@ img {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #2ed573;
-  box-shadow: 0 0 8px #2ed573;
+  background: var(--gold-accent);
+  box-shadow: 0 0 8px var(--gold-accent);
   animation: pulse-ring 1.5s infinite;
 }
 
@@ -536,7 +536,7 @@ img {
   line-height: 1.12;
   font-weight: 800;
   margin-bottom: 20px;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .hero-title .glow-text {
@@ -565,7 +565,7 @@ img {
   margin-bottom: 24px;
   backdrop-filter: blur(10px);
   font-size: 0.88rem;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .hero-active-brew-pill strong {
@@ -582,7 +582,7 @@ img {
 
 .btn-explode {
   background: linear-gradient(135deg, #e59866, #c0392b);
-  color: #fff;
+  color: var(--gold-crema);
   font-weight: 700;
   font-size: 0.95rem;
   padding: 13px 26px;
@@ -645,8 +645,8 @@ img {
 
 .hud-btn.active,
 .hud-btn:hover {
-  background: #fff;
-  color: #000;
+  background: var(--gold-crema);
+  color: var(--bg-dark);
 }
 
 .mouse-indicator {
@@ -739,7 +739,7 @@ img {
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--gold-crema);
   line-height: 1.1;
 }
 
@@ -850,7 +850,7 @@ img {
 
 .btn-dark-pill {
   background: var(--text-dark);
-  color: #fff;
+  color: var(--gold-crema);
   padding: 12px 26px;
   border-radius: var(--radius-full);
   font-size: 0.88rem;
@@ -865,7 +865,7 @@ img {
 }
 
 .btn-dark-pill:hover {
-  background: #3d2c20;
+  background: rgba(229, 152, 102, 0.12);
   transform: translateX(4px);
 }
 
@@ -900,7 +900,7 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .section-desc {
@@ -955,7 +955,7 @@ img {
   border-radius: var(--radius-full);
   font-size: 0.72rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--gold-crema);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1006,13 +1006,13 @@ img {
 
 .option-btn:hover {
   background: rgba(229, 152, 102, 0.15);
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .option-btn.selected {
-  background: #fff;
-  border-color: #fff;
-  color: #000;
+  background: var(--gold-crema);
+  border-color: var(--gold-crema);
+  color: var(--bg-dark);
   font-weight: 700;
 }
 
@@ -1161,7 +1161,7 @@ img {
 .ref-card-title {
   font-family: var(--font-serif);
   font-size: 1.35rem;
-  color: #fff;
+  color: var(--gold-crema);
   font-weight: 700;
   margin-bottom: 6px;
 }
@@ -1192,7 +1192,7 @@ img {
 }
 
 .ref-order-btn:hover {
-  background: #fff;
+  background: var(--gold-crema);
 }
 
 /* ============================================================
@@ -1246,7 +1246,7 @@ img {
 
 .testimonial-card {
   background: #140d09;
-  color: #fff;
+  color: var(--gold-crema);
   border-radius: var(--radius-sm);
   padding: 56px 40px 36px;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
@@ -1273,7 +1273,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .testimonial-sub {
@@ -1306,7 +1306,7 @@ img {
 
 .btn-arrow:hover {
   background: var(--text-dark);
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 /* ============================================================
@@ -1355,7 +1355,7 @@ img {
 .newsletter-input-box {
   display: flex;
   width: 100%;
-  background: #fff;
+  background: var(--gold-crema);
   border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -1368,12 +1368,12 @@ img {
   font-size: 0.92rem;
   font-family: var(--font-sans);
   outline: none;
-  color: #000;
+  color: var(--bg-dark);
 }
 
 .newsletter-input-box button {
   background: var(--text-dark);
-  color: #fff;
+  color: var(--gold-crema);
   border: none;
   padding: 0 24px;
   font-size: 1.2rem;
@@ -1382,7 +1382,7 @@ img {
 }
 
 .newsletter-input-box button:hover {
-  background: #3d2c20;
+  background: rgba(229, 152, 102, 0.12);
 }
 
 /* ============================================================
@@ -1439,7 +1439,7 @@ img {
   border: 1px solid rgba(229, 152, 102, 0.25);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
-  color: #fff;
+  color: var(--gold-crema);
   font-family: var(--font-sans);
   font-size: 16px;
   outline: none;
@@ -1448,7 +1448,7 @@ img {
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #fff;
+  border-color: var(--gold-crema);
 }
 
 .location-info-card {
@@ -1481,7 +1481,7 @@ img {
 
 .info-item-content h4 {
   font-size: 0.95rem;
-  color: #fff;
+  color: var(--gold-crema);
   font-weight: 700;
   margin-bottom: 4px;
 }
@@ -1563,7 +1563,7 @@ img {
 }
 
 .dock-item.active {
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .dock-item.active::before {
@@ -1625,7 +1625,7 @@ img {
   border-radius: 50%;
   background: linear-gradient(135deg, #e59866, #c0392b);
   border: 3px solid #0e0a07;
-  color: #fff;
+  color: var(--gold-crema);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1688,7 +1688,7 @@ img {
 .footer-col h4 {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  color: #fff;
+  color: var(--gold-crema);
   margin-bottom: 16px;
   font-weight: 700;
 }
@@ -1729,7 +1729,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--gold-crema);
   text-decoration: none;
   font-size: 14px;
   transition: var(--transition);
@@ -1737,7 +1737,7 @@ img {
 
 .footer-social-btn:hover {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
 }
 
 .footer-bottom {
@@ -2339,7 +2339,7 @@ img {
 }
 
 .roasting-card {
-  background: #fff;
+  background: var(--gold-crema);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(27, 19, 14, 0.08);
@@ -2367,7 +2367,7 @@ img {
   left: 14px;
   z-index: 5;
   background: rgba(14, 10, 7, 0.85);
-  color: #fff;
+  color: var(--gold-crema);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 4px 10px;
@@ -2378,12 +2378,12 @@ img {
 
 .roast-badge.gold {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
 }
 
 .roast-badge.blue {
   background: #1e3799;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .roast-img-wrap {
@@ -2421,7 +2421,7 @@ img {
 .roast-notes {
   font-size: 0.84rem;
   font-weight: 600;
-  color: #a0522d;
+  color: var(--gold-accent);
   margin-bottom: 6px;
   line-height: 1.4;
 }
@@ -2535,7 +2535,7 @@ img {
 
 .btn-timeline-toggle {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
   border: none;
   font-family: var(--font-sans);
   font-weight: 700;
@@ -2548,7 +2548,7 @@ img {
 }
 
 .btn-timeline-toggle:hover {
-  background: #fff;
+  background: var(--gold-crema);
 }
 
 .craft-scrubber-slider {
@@ -2590,7 +2590,7 @@ img {
 .btn-phase-step:hover,
 .btn-phase-step.active {
   background: rgba(229, 152, 102, 0.15);
-  color: #fff;
+  color: var(--gold-crema);
   border-color: var(--gold-accent);
 }
 
@@ -2616,7 +2616,7 @@ img {
 .customize-head h3 {
   font-family: var(--font-serif);
   font-size: 1.8rem;
-  color: #fff;
+  color: var(--gold-crema);
   margin-bottom: 6px;
 }
 
@@ -2662,7 +2662,7 @@ img {
 .custom-opt-btn:hover,
 .custom-opt-btn.selected {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-dark);
   border-color: var(--gold-accent);
   font-weight: 700;
 }
@@ -2689,7 +2689,7 @@ img {
   font-family: var(--font-display);
   font-size: 2.2rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--gold-crema);
   line-height: 1.1;
 }
 
@@ -2875,15 +2875,15 @@ img {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #22c55e;
-  box-shadow: 0 0 10px #22c55e;
+  background-color: var(--gold-accent);
+  box-shadow: 0 0 10px var(--gold-accent);
   animation: live-pulse-anim 1.8s infinite ease-in-out;
   flex-shrink: 0;
 }
 
 .live-pulse-dot.closed {
-  background-color: #f59e0b;
-  box-shadow: 0 0 10px #f59e0b;
+  background-color: var(--gold-bright);
+  box-shadow: 0 0 10px var(--gold-bright);
 }
 
 @keyframes live-pulse-anim {
@@ -2895,12 +2895,12 @@ img {
 .live-status-text {
   font-weight: 700;
   font-size: 0.92rem;
-  color: #22c55e;
+  color: var(--gold-accent);
   letter-spacing: 0.3px;
 }
 
 .live-status-text.closed {
-  color: #f59e0b;
+  color: var(--gold-bright);
 }
 
 .live-status-sub {
@@ -2916,7 +2916,7 @@ img {
 }
 
 .google-rating-sync .star-rating {
-  color: #f59e0b;
+  color: var(--gold-bright);
   font-weight: 800;
   font-size: 0.85rem;
 }
@@ -3001,7 +3001,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.85rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
   margin-bottom: 8px;
 }
 

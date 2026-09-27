@@ -1,32 +1,29 @@
 /* ============================================================
    CAFFYO by Zauq - Dedicated Menu Website Stylesheet
-   Forest Green & Dark Roast Luxury Palette matching official menu
+   Dark Espresso + Gold/Amber Luxury Palette (matches barista.css)
    ============================================================ */
 
 :root {
   --bg-menu-dark: #0e0a07;
-  --bg-menu-section: #140e0a;
-  --bg-menu-card: #1c140e;
-  --bg-menu-card-hover: #261b13;
+  --bg-menu-section: #0e0a07;
+  --bg-menu-card: #1c1309;
+  --bg-menu-card-hover: #2a1e11;
 
-  /* Authentic menu forest green accent */
-  --menu-green: #1d3324;
-  --menu-green-light: #2c4d36;
-  --menu-green-glow: #2ed573;
-
+  /* Gold/amber accents (minimal brown) */
   --gold-accent: #e59866;
-  --gold-bright: #f39c12;
-  --gold-crema: #edd5be;
+  --gold-bright: #f2c497;
+  --gold-crema: #f5f0e6;
 
-  --text-main: #f7f1ea;
-  --text-muted: #a89a8c;
-  --text-dim: #706356;
+  --cream-text: #f5f0e6;
+  --text-main: #f5f0e6;
+  --text-muted: #9a826b;
+  --text-dim: #6b5d4f;
 
   --veg-green: #2ed573;
   --nonveg-red: #eb4d4b;
 
   --border-gold: rgba(229, 152, 102, 0.2);
-  --border-dim: rgba(255, 255, 255, 0.08);
+  --border-dim: rgba(229, 152, 102, 0.1);
 
   --font-serif: 'Playfair Display', 'Cinzel', Georgia, serif;
   --font-display: 'Outfit', sans-serif;
@@ -65,7 +62,7 @@ body {
   background: var(--bg-menu-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3a271c;
+  background: rgba(229, 152, 102, 0.3);
   border-radius: 999px;
 }
 
@@ -121,7 +118,7 @@ body {
   font-family: var(--font-serif);
   font-size: 1.4rem;
   letter-spacing: 2px;
-  color: #fff;
+  color: var(--gold-crema);
   line-height: 1;
 }
 
@@ -138,8 +135,8 @@ body {
 /* Cart Trigger */
 .btn-menu-cart {
   position: relative;
-  background: #fff;
-  color: #000;
+  background: var(--gold-crema);
+  color: var(--bg-menu-dark);
   border: none;
   font-family: var(--font-sans);
   font-weight: 700;
@@ -155,12 +152,12 @@ body {
 
 .btn-menu-cart:hover {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-menu-dark);
 }
 
 .menu-cart-count {
-  background: #ff4757;
-  color: #fff;
+  background: var(--nonveg-red);
+  color: var(--gold-crema);
   font-size: 0.72rem;
   padding: 2px 7px;
   border-radius: 3px;
@@ -173,8 +170,8 @@ body {
   position: sticky;
   top: 61px;
   z-index: 990;
-  background: #120c08;
-  border-bottom: 1px solid var(--border-dim);
+  background: rgba(14, 10, 7, 0.92);
+  border-bottom: 1px solid var(--border-gold);
   padding: 10px 24px;
 }
 
@@ -210,7 +207,7 @@ body {
 .cat-pill:hover,
 .cat-pill.active {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-menu-dark);
   border-color: var(--gold-accent);
   font-weight: 700;
 }
@@ -249,8 +246,8 @@ body {
 }
 
 .btn-diet-filter.active {
-  background: #fff;
-  color: #000;
+  background: var(--gold-crema);
+  color: var(--bg-menu-dark);
 }
 
 .menu-search-input-box {
@@ -330,7 +327,7 @@ body {
 /* Menu Item Card */
 .menu-item-row-card {
   background: var(--bg-menu-card);
-  border: 1px solid var(--border-dim);
+  border: 1px solid var(--border-gold);
   border-radius: 12px;
   padding: 16px 18px;
   display: flex;
@@ -342,7 +339,7 @@ body {
 
 .menu-item-row-card:hover {
   background: var(--bg-menu-card-hover);
-  border-color: var(--gold-accent);
+  border-color: var(--gold-bright);
   transform: translateY(-2px);
 }
 
@@ -394,7 +391,7 @@ body {
   font-family: var(--font-serif);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
 }
 
 .item-desc-text {
@@ -413,9 +410,9 @@ body {
 
 /* Add Item Button */
 .btn-add-menu-item {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(229, 152, 102, 0.12);
   border: 1px solid var(--border-gold);
-  color: #fff;
+  color: var(--gold-crema);
   padding: 8px 18px;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -430,7 +427,7 @@ body {
 
 .btn-add-menu-item:hover {
   background: var(--gold-accent);
-  color: #000;
+  color: var(--bg-menu-dark);
   border-color: var(--gold-accent);
   transform: scale(1.05);
 }
@@ -445,7 +442,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(14, 10, 7, 0.96);
+  background: rgba(14, 10, 7, 0.98);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid var(--border-gold);
@@ -517,7 +514,7 @@ body {
   width: 420px;
   max-width: 90vw;
   height: 100vh;
-  background: #140d09;
+  background: var(--bg-menu-card);
   border-left: 1px solid var(--border-gold);
   z-index: 2001;
   display: flex;
@@ -532,16 +529,16 @@ body {
 
 .cart-drawer-head {
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(229, 152, 102, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .btn-close-drawer {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(229, 152, 102, 0.12);
   border: none;
-  color: #fff;
+  color: var(--cream-text);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -580,8 +577,8 @@ body {
 }
 
 .btn-order-type {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(229, 152, 102, 0.08);
+  border: 1px solid var(--border-gold);
   color: var(--text-muted);
   padding: 8px;
   border-radius: 6px;
@@ -591,8 +588,8 @@ body {
 }
 
 .btn-order-type.active {
-  background: #fff;
-  color: #000;
+  background: var(--gold-accent);
+  color: var(--bg-menu-dark);
 }
 
 .price-breakdown {
@@ -612,15 +609,15 @@ body {
 .price-row.total {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #fff;
-  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  color: var(--gold-crema);
+  border-top: 1px dashed var(--border-gold);
   padding-top: 6px;
 }
 
 .btn-checkout-submit {
   width: 100%;
-  background: #fff;
-  color: #000;
+  background: var(--gold-crema);
+  color: var(--bg-menu-dark);
   font-weight: 800;
   border: none;
   padding: 14px;
@@ -691,9 +688,9 @@ body {
   gap: 7px;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #2ed573;
-  background: rgba(46, 213, 115, 0.1);
-  border: 1px solid rgba(46, 213, 115, 0.25);
+  color: var(--gold-accent);
+  background: rgba(229, 152, 102, 0.1);
+  border: 1px solid rgba(229, 152, 102, 0.25);
   padding: 5px 12px;
   border-radius: 4px;
 }
@@ -702,15 +699,15 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #2ed573;
-  box-shadow: 0 0 8px #2ed573;
+  background: var(--gold-accent);
+  box-shadow: 0 0 8px var(--gold-accent);
   animation: pulse-dot 1.6s infinite;
 }
 
 @keyframes pulse-dot {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(46, 213, 115, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 213, 115, 0); }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 152, 102, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(229, 152, 102, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 152, 102, 0); }
 }
 
 .spotlight-categories-strip {
@@ -747,23 +744,23 @@ body {
 }
 
 .spotlight-card.coffee-card {
-  background: linear-gradient(135deg, #163622 0%, #0d2114 100%);
-  border-color: rgba(46, 213, 115, 0.3);
+  background: linear-gradient(135deg, #1a0f0a 0%, #0e0a07 100%);
+  border-color: rgba(229, 152, 102, 0.25);
 }
 
 .spotlight-card.cold-card {
-  background: linear-gradient(135deg, #142f3d 0%, #0a1b24 100%);
-  border-color: rgba(52, 152, 219, 0.3);
+  background: linear-gradient(135deg, #12100d 0%, #0e0a07 100%);
+  border-color: rgba(229, 152, 102, 0.2);
 }
 
 .spotlight-card.frappe-card {
-  background: linear-gradient(135deg, #3d211a 0%, #26130e 100%);
-  border-color: rgba(230, 126, 34, 0.3);
+  background: linear-gradient(135deg, #1c130a 0%, #0e0a07 100%);
+  border-color: rgba(229, 152, 102, 0.25);
 }
 
 .spotlight-card.bistro-card {
-  background: linear-gradient(135deg, #382c16 0%, #21190a 100%);
-  border-color: rgba(241, 196, 15, 0.3);
+  background: linear-gradient(135deg, #1a160f 0%, #0e0a07 100%);
+  border-color: rgba(229, 152, 102, 0.25);
 }
 
 .spotlight-info {
@@ -786,13 +783,13 @@ body {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--gold-crema);
   margin-bottom: 4px;
 }
 
 .spotlight-info p {
   font-size: 0.78rem;
-  color: var(--gold-crema);
+  color: var(--text-muted);
 }
 
 .spotlight-icon-art {
@@ -860,9 +857,9 @@ body {
 .pos-input-group input,
 .pos-input-group select {
   width: 100%;
-  background: #1c130d;
+  background: rgba(229, 152, 102, 0.05);
   border: 1px solid var(--border-gold);
-  color: #fff;
+  color: var(--cream-text);
   font-family: var(--font-sans);
   font-size: 0.8rem;
   padding: 8px 10px;
@@ -953,7 +950,7 @@ body {
 .tracker-header h3 {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  color: #fff;
+  color: var(--gold-crema);
   margin-bottom: 2px;
 }
 
@@ -988,7 +985,7 @@ body {
   left: 0;
   height: 100%;
   width: 45%;
-  background: linear-gradient(90deg, #2ed573, var(--gold-bright));
+  background: linear-gradient(90deg, var(--gold-accent), var(--gold-bright));
   border-radius: 3px;
   animation: progress-pulse 2s ease-in-out infinite alternate;
 }
@@ -1024,11 +1021,11 @@ body {
 }
 
 .tracker-step.done {
-  color: #2ed573;
+  color: var(--gold-accent);
 }
 
 .tracker-step.done .step-dot {
-  background: #2ed573;
+  background: var(--gold-accent);
   color: #000;
   font-weight: 800;
 }
@@ -1044,8 +1041,8 @@ body {
 }
 
 .tracker-eta-box {
-  background: rgba(46, 213, 115, 0.08);
-  border: 1px solid rgba(46, 213, 115, 0.25);
+  background: rgba(229, 152, 102, 0.08);
+  border: 1px solid rgba(229, 152, 102, 0.25);
   border-radius: 12px;
   padding: 14px 18px;
   display: flex;
@@ -1064,13 +1061,13 @@ body {
 .eta-left h4 {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  color: #2ed573;
+  color: var(--gold-accent);
   margin-top: 2px;
 }
 
 .eta-pulse {
   font-size: 0.75rem;
-  color: #2ed573;
+  color: var(--gold-accent);
   font-weight: 700;
   animation: pulse-dot 1.5s infinite;
 }

@@ -5,15 +5,22 @@
 
 :root {
   --bg-menu-dark: #0e0a07;
+  --bg-menu-section: #0e0a07;
   --bg-menu-card: #1c1309;
+  --bg-menu-card-hover: #2a1e11;
   --gold-accent: #e59866;
   --gold-light: #f2c497;
-  --cream-text: #f5ead7;
+  --gold-bright: #f2c497;
+  --gold-crema: #f5f0e6;
+  --cream-text: #f5f0e6;
+  --text-main: #f5f0e6;
   --text-muted: #8a7560;
+  --text-dim: #6b5d4f;
   --border-gold: rgba(229,152,102,0.2);
+  --border-dim: rgba(229,152,102,0.1);
   --status-new: #e59866;
   --status-preparing: #f2c497;
-  --status-ready: #4ade80;
+  --status-ready: #f2c497;
   --status-completed: #8a7560;
 }
 
@@ -206,7 +213,7 @@ body {
   color: var(--bg-menu-dark);
   font-weight: 600;
 }
-.status-btn.ready { background: #16a34a; color: #fff; }
+.status-btn.ready { background: var(--status-ready); color: var(--bg-menu-dark); }
 .status-btn.completed { background: var(--text-muted); color: #fff; }
 
 .order-time {

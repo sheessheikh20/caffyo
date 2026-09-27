@@ -1,1 +1,8 @@
 .vercel
+node_modules
+*.log
+caffyo_orders.patch
+*.tmp
+.env
+.DS_Store
+.freebuff/

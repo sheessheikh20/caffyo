@@ -807,9 +807,9 @@ class CaffyoCartManager {
 
     if (this.cart.length === 0) {
       list.innerHTML = `
-        <div class="cart-empty-state" style="text-align:center; padding: 40px 10px; color: var(--text-muted-dark);">
+        <div class="cart-empty-state" style="text-align:center; padding: 40px 10px; color: var(--text-muted);">
           <span style="font-size: 42px; display: block; margin-bottom: 10px;">☕</span>
-          <h4 style="color: #fff; margin-bottom: 4px;">Your Tray is Empty</h4>
+          <h4 style="color: var(--gold-crema); margin-bottom: 4px;">Your Tray is Empty</h4>
           <p style="font-size: 0.85rem;">Add some freshly pulled Spanish Lattes, Cheese Chilli Toast, or Pasta!</p>
         </div>
       `;
@@ -822,12 +822,12 @@ class CaffyoCartManager {
     list.innerHTML = this.cart.map(item => `
       <div class="cart-item-row">
         <div class="cart-item-info">
-          <h4 style="font-size: 0.92rem; color: #fff; margin-bottom: 2px;">${item.name}</h4>
+          <h4 style="font-size: 0.92rem; color: var(--gold-crema); margin-bottom: 2px;">${item.name}</h4>
           <p style="font-size: 0.8rem; color: var(--gold-accent);">₹${item.price} each</p>
         </div>
         <div class="cart-item-qty">
           <button class="btn-qty" data-dec="${item.id}">-</button>
-          <span style="font-weight:700; min-width:20px; text-align:center; color:#fff;">${item.qty}</span>
+          <span style="font-weight:700; min-width:20px; text-align:center; color: var(--gold-crema);">${item.qty}</span>
           <button class="btn-qty" data-inc="${item.id}">+</button>
         </div>
       </div>
