@@ -65,17 +65,6 @@ class Caffyo3DExperience {
     const aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
 
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      this.cameraDefaultPos.set(0, 1.9, 5.3);
-      this.cameraTarget.set(0, 0.25, 0);
-    } else {
-      this.cameraDefaultPos.set(0.9, 2.6, 4.4);
-      this.cameraTarget.set(0.9, 0.55, 0);
-    }
-    this.camera.position.copy(this.cameraDefaultPos);
-    this.camera.lookAt(this.cameraTarget);
-
     this.renderer = new THREE.WebGLRenderer({
       canvas: document.getElementById('three-canvas'),
       antialias: true,
@@ -88,6 +77,121 @@ class Caffyo3DExperience {
     this.renderer.toneMappingExposure = 1.3;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    this.updateResponsiveLayout();
+    this.camera.position.copy(this.cameraDefaultPos);
+    this.camera.lookAt(this.cameraTarget);
+  }
+
+  /*
+   * Fluid Aesthetic Responsive Layout:
+   * Dynamically calculates scale, camera framing, and 3D position offset
+   * so the coffee cup scales and shifts smoothly across all display sizes
+   * (large monitors, standard laptops, tablets, mobile) with safe aesthetic margins.
+   */
+  updateResponsiveLayout() {
+    if (!this.container || !this.camera || !this.renderer) return;
+
+    const width = this.container.clientWidth;
+    const height = this.container.clientHeight;
+    if (!width || !height) return;
+
+    const aspect = width / height;
+    this.camera.aspect = aspect;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    let scale = 0.92;
+    let restX = 2.4;
+    let restY = -0.28;
+    let camX = 0.6;
+    let camY = 2.2;
+    let camZ = 5.0;
+    let targetX = 0.6;
+    let targetY = 0.40;
+
+    if (width <= 480) {
+      // Small Phones (e.g. iPhone SE / 360-480px)
+      scale = Math.min(0.66, Math.max(0.55, (width / 390) * 0.60));
+      restX = 0;
+      restY = 0.18; // Lifted above hero text pill
+      camX = 0;
+      camY = 2.0;
+      camZ = 5.6;
+      targetX = 0;
+      targetY = 0.35;
+    } else if (width <= 768) {
+      // Standard & Large Phones (481-768px)
+      scale = Math.min(0.72, Math.max(0.60, (width / 500) * 0.66));
+      restX = 0;
+      restY = 0.15;
+      camX = 0;
+      camY = 2.0;
+      camZ = 5.5;
+      targetX = 0;
+      targetY = 0.35;
+    } else if (width <= 1024) {
+      // Tablets (769-1024px)
+      scale = 0.70;
+      restX = 1.45;
+      restY = -0.22;
+      camX = 0.35;
+      camY = 2.2;
+      camZ = 5.4;
+      targetX = 0.35;
+      targetY = 0.40;
+    } else if (width <= 1280) {
+      // Compact Laptops (1025-1280px)
+      scale = 0.78;
+      restX = 1.85;
+      restY = -0.26;
+      camX = 0.45;
+      camY = 2.2;
+      camZ = 5.2;
+      targetX = 0.45;
+      targetY = 0.40;
+    } else if (width <= 1536) {
+      // Standard Laptops & 1080p displays (e.g. 1366x768, 1440x900, 1536x776)
+      // Shifted comfortably right for generous breathing room alongside hero typography
+      scale = 0.86;
+      restX = 2.25;
+      restY = -0.28;
+      camX = 0.55;
+      camY = 2.2;
+      camZ = 5.0;
+      targetX = 0.55;
+      targetY = 0.40;
+    } else {
+      // Large Desktop Monitors (1920x1080 and above)
+      scale = 0.94;
+      restX = 2.45;
+      restY = -0.30;
+      camX = 0.60;
+      camY = 2.2;
+      camZ = 4.8;
+      targetX = 0.60;
+      targetY = 0.40;
+    }
+
+    // Height-based compensation if viewport height is compact
+    if (height < 680 && width > 768) {
+      const heightRatio = Math.max(0.68, height / 740);
+      scale *= heightRatio;
+    }
+
+    this.targetScale = scale;
+    this.targetRestX = restX;
+    this.targetRestY = restY;
+
+    if (this.cupGroup && !this.hasInitializedScale) {
+      this.cupGroup.scale.setScalar(scale);
+      this.cupGroup.position.set(restX, restY, 0);
+      this.hasInitializedScale = true;
+    }
+
+    this.cameraDefaultPos.set(camX, camY, camZ);
+    this.cameraTarget.set(targetX, targetY, 0);
   }
 
   createLights() {
@@ -263,13 +367,14 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position: Centered-right for cinematic hero view matching user preference
+    // Position & Scale: Positioned comfortably to the right on desktop, centered on mobile
     const isMobile = window.innerWidth <= 768;
-    this.cupGroup.position.set(isMobile ? 0 : 1.5, isMobile ? -0.22 : -0.30, 0);
+    const initX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
+    const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.16 : -0.28);
+    const initScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.68 : 0.86);
+    this.cupGroup.position.set(initX, initY, 0);
+    this.cupGroup.scale.setScalar(initScale);
     this.cupGroup.rotation.set(0.28, 0.30, 0);
-    if (isMobile) {
-      this.cupGroup.scale.setScalar(0.92);
-    }
     this.scene.add(this.cupGroup);
   }
 
@@ -544,27 +649,9 @@ class Caffyo3DExperience {
   }
 
   setupEventListeners() {
-    // Window Resize
+    // Window Resize - recalibrate camera, scale and responsive margins dynamically
     window.addEventListener('resize', () => {
-      if (!this.container) return;
-      const width = this.container.clientWidth;
-      const height = this.container.clientHeight;
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(width, height);
-
-      const isMobile = window.innerWidth <= 768;
-      if (this.cupGroup) {
-        this.cupGroup.position.set(isMobile ? 0 : 2.9, isMobile ? -0.22 : -0.45, 0);
-        this.cupGroup.scale.setScalar(isMobile ? 0.92 : 1.0);
-      }
-      if (isMobile) {
-        this.cameraDefaultPos.set(0, 1.9, 5.3);
-        this.cameraTarget.set(0, 0.25, 0);
-      } else {
-        this.cameraDefaultPos.set(1.45, 2.2, 5.5);
-        this.cameraTarget.set(1.45, 0.38, 0);
-      }
+      this.updateResponsiveLayout();
     });
 
     // Mouse Movement & Drag Momentum
@@ -685,8 +772,9 @@ class Caffyo3DExperience {
       // Aesthetic resting position & orientation auto-return
       // When user releases finger or cursor, smoothly spring back to the perfect showcase angle
       if (this.cupGroup) {
-        const restX = isMobile ? 0 : 1.5;
-        const restY = (isMobile ? -0.22 : -0.30) + Math.sin(elapsedTime * 0.8) * 0.02;
+        const isMobile = window.innerWidth <= 768;
+        const targetX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
+        const targetY = (this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.15 : -0.28)) + Math.sin(elapsedTime * 0.8) * 0.02;
         const restZ = 0;
 
         // Ideal aesthetic presentation angle:
@@ -697,9 +785,16 @@ class Caffyo3DExperience {
         const restRotZ = 0;
 
         const returnSpeed = 0.055; // Silky smooth damped spring back
-        this.cupGroup.position.x += (restX - this.cupGroup.position.x) * returnSpeed;
-        this.cupGroup.position.y += (restY - this.cupGroup.position.y) * returnSpeed;
+        this.cupGroup.position.x += (targetX - this.cupGroup.position.x) * returnSpeed;
+        this.cupGroup.position.y += (targetY - this.cupGroup.position.y) * returnSpeed;
         this.cupGroup.position.z += (restZ - this.cupGroup.position.z) * returnSpeed;
+
+        // Smooth responsive scale transition
+        if (this.targetScale !== undefined) {
+          const curScale = this.cupGroup.scale.x;
+          const nextScale = curScale + (this.targetScale - curScale) * returnSpeed;
+          this.cupGroup.scale.setScalar(nextScale);
+        }
 
         this.cupGroup.rotation.x += (restRotX - this.cupGroup.rotation.x) * returnSpeed;
         this.cupGroup.rotation.y += (restRotY - this.cupGroup.rotation.y) * returnSpeed;

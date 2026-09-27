@@ -439,12 +439,13 @@ img {
    ============================================================ */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  height: calc(100vh - 46px);
+  min-height: 520px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 130px 60px 80px;
+  padding: 85px 6vw 20px;
   overflow: hidden;
   background: radial-gradient(circle at 50% 50%, #22140c 0%, #0e0a07 75%);
   transition: background 0.8s ease;
@@ -1756,7 +1757,9 @@ img {
     padding: 16px 24px;
   }
   .hero-section {
-    padding: 120px 24px 60px;
+    height: calc(100vh - 46px);
+    min-height: 500px;
+    padding: 85px 24px 20px;
   }
   .editorial-row {
     gap: 40px;
@@ -1821,13 +1824,22 @@ img {
 
   /* ---- HERO SECTION ---- */
   .hero-section {
-    padding: 80px 16px 36px;
+    padding: 70px 16px 20px;
     flex-direction: column;
     text-align: center;
-    min-height: 100svh;
-    min-height: 100vh;
-    align-items: flex-start;
+    height: calc(100svh - 42px);
+    height: calc(100vh - 42px);
+    min-height: 480px;
+    align-items: center;
     justify-content: flex-end;
+  }
+  .marquee-ticker-wrap {
+    height: 42px;
+    padding: 8px 0;
+  }
+  .marquee-ticker-track {
+    font-size: 0.82rem;
+    gap: 20px;
   }
   /* Canvas is full-screen behind hero — keep it but reduce hero text overlap */
   .hero-content {
@@ -2245,7 +2257,11 @@ img {
   background: #1b120c;
   border-top: 1px solid rgba(229, 152, 102, 0.22);
   border-bottom: 1px solid rgba(229, 152, 102, 0.22);
-  padding: 14px 0;
+  padding: 11px 0;
+  height: 46px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   position: relative;
   z-index: 15;
   user-select: none;
