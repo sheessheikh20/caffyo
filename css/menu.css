@@ -4,27 +4,39 @@
    ============================================================ */
 
 :root {
-  --bg-menu-dark: #1a2113;
-  --bg-menu-section: #222b17;
-  --bg-menu-card: #354024;
-  --bg-menu-card-hover: #435030;
+  /* ============================================================
+     Pistachio Cream palette (active)
+       Deep Sage      #4A6741 - panels, cards, surfaces
+       Sage Green     #7A9E6E - primary accent (buttons, active states)
+       Pistachio      #9DC08B - accent light / hover
+       Pale Pistachio #C5DFB0 - secondary text, prices, secondary buttons
+       Cream          #F0EDD0 - primary text
+       (#2E4029 = deepened Deep Sage, the deliberately rare dark accent)
+     Legacy variable names (--kombu, --moss-*, --bone, --tan, --cafe-noir)
+     map onto the roles above - keep using them.
+     ============================================================ */
+
+  --bg-menu-dark: #1e2a1a;
+  --bg-menu-section: #263320;
+  --bg-menu-card: #4a6741;
+  --bg-menu-card-hover: #56744a;
 
   /* Gold/amber accents (minimal brown) */
-  --moss-accent: #889063;
-  --moss-light: #a3ab7d;
-  --bone: #e5d7c4;
-  --tan: #cfbb99;
+  --moss-accent: #7a9e6e;
+  --moss-light: #9dc08b;
+  --bone: #f0edd0;
+  --tan: #c5dfb0;
 
-  --bone-text: #e5d7c4;
-  --text-main: #e5d7c4;
-  --text-muted: #cfbb99;
-  --text-dim: #b3a68c;
+  --bone-text: #f0edd0;
+  --text-main: #f0edd0;
+  --text-muted: #c5dfb0;
+  --text-dim: #aec59c;
 
   --veg-green: #2ed573;
   --nonveg-red: #eb4d4b;
 
-  --border-moss: rgba(136, 144, 99, 0.2);
-  --border-dim: rgba(207, 187, 153, 0.14);
+  --border-moss: rgba(122, 158, 110, 0.2);
+  --border-dim: rgba(197, 223, 176, 0.14);
 
   --font-serif: 'Playfair Display', 'Cinzel', Georgia, serif;
   --font-display: 'Outfit', sans-serif;
@@ -63,7 +75,7 @@ body {
   background: var(--bg-menu-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(136, 144, 99, 0.3);
+  background: rgba(122, 158, 110, 0.3);
   border-radius: 999px;
 }
 
@@ -76,7 +88,7 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(20, 26, 16, 0.95);
+  background: rgba(30, 42, 26, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-moss);
@@ -100,7 +112,7 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 8px 14px;
-  background: rgba(136, 144, 99, 0.1);
+  background: rgba(122, 158, 110, 0.1);
   border: 1px solid var(--border-moss);
   border-radius: 4px;
   transition: var(--transition);
@@ -108,7 +120,7 @@ body {
 
 .btn-back-home:hover {
   background: var(--moss-accent);
-  color: #1a2113;
+  color: #1e2a1a;
 }
 
 .brand-center-block {
@@ -171,7 +183,7 @@ body {
   position: sticky;
   top: 61px;
   z-index: 990;
-  background: rgba(20, 26, 16, 0.92);
+  background: rgba(30, 42, 26, 0.92);
   border-bottom: 1px solid var(--border-moss);
   padding: 10px 24px;
 }
@@ -193,8 +205,8 @@ body {
 }
 
 .cat-pill {
-  background: rgba(229, 215, 196, 0.05);
-  border: 1px solid rgba(229, 215, 196, 0.12);
+  background: rgba(240, 237, 208, 0.05);
+  border: 1px solid rgba(240, 237, 208, 0.12);
   color: var(--text-muted);
   font-size: 0.82rem;
   font-weight: 600;
@@ -227,7 +239,7 @@ body {
 
 .diet-filter-group {
   display: flex;
-  background: rgba(229, 215, 196, 0.04);
+  background: rgba(240, 237, 208, 0.04);
   padding: 4px;
   border-radius: 4px;
   border: 1px solid var(--border-dim);
@@ -254,7 +266,7 @@ body {
 .menu-search-input-box {
   display: flex;
   align-items: center;
-  background: rgba(13, 17, 8, 0.5);
+  background: rgba(16, 23, 13, 0.5);
   border: 1px solid var(--border-moss);
   border-radius: 4px;
   padding: 8px 18px;
@@ -265,7 +277,7 @@ body {
 .menu-search-input-box input {
   background: transparent;
   border: none;
-  color: #e5d7c4;
+  color: #f0edd0;
   font-size: 0.9rem;
   outline: none;
   width: 100%;
@@ -304,7 +316,7 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(136, 144, 99, 0.15);
+  background: rgba(122, 158, 110, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,7 +326,7 @@ body {
 .section-banner-title h2 {
   font-family: var(--font-serif);
   font-size: 1.55rem;
-  color: #e5d7c4;
+  color: #f0edd0;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -411,7 +423,7 @@ body {
 
 /* Add Item Button */
 .btn-add-menu-item {
-  background: rgba(136, 144, 99, 0.12);
+  background: rgba(122, 158, 110, 0.12);
   border: 1px solid var(--border-moss);
   color: var(--bone);
   padding: 8px 18px;
@@ -443,14 +455,14 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(20, 26, 16, 0.98);
+  background: rgba(30, 42, 26, 0.98);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid var(--border-moss);
   padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 -8px 30px rgba(13, 17, 8, 0.7);
+  box-shadow: 0 -8px 30px rgba(16, 23, 13, 0.7);
 }
 
 .mobile-tray-left {
@@ -470,13 +482,13 @@ body {
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 800;
-  color: #e5d7c4;
+  color: #f0edd0;
   line-height: 1.1;
 }
 
 .btn-open-mobile-tray {
-  background: linear-gradient(135deg, var(--moss-accent), #4c3d19);
-  color: #e5d7c4;
+  background: linear-gradient(135deg, var(--moss-accent), #2e4029);
+  color: #f0edd0;
   border: none;
   font-family: var(--font-sans);
   font-size: 0.9rem;
@@ -495,7 +507,7 @@ body {
 .cart-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(13, 17, 8, 0.8);
+  background: rgba(16, 23, 13, 0.8);
   backdrop-filter: blur(10px);
   z-index: 2000;
   opacity: 0;
@@ -521,7 +533,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: -10px 0 40px rgba(13, 17, 8, 0.8);
+  box-shadow: -10px 0 40px rgba(16, 23, 13, 0.8);
 }
 
 .cart-drawer.open {
@@ -530,14 +542,14 @@ body {
 
 .cart-drawer-head {
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(136, 144, 99, 0.15);
+  border-bottom: 1px solid rgba(122, 158, 110, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .btn-close-drawer {
-  background: rgba(136, 144, 99, 0.12);
+  background: rgba(122, 158, 110, 0.12);
   border: none;
   color: var(--bone-text);
   width: 32px;
@@ -559,15 +571,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(229, 215, 196, 0.03);
+  background: rgba(240, 237, 208, 0.03);
   padding: 12px;
   border-radius: 8px;
 }
 
 .cart-drawer-footer {
   padding: 20px 24px;
-  border-top: 1px solid rgba(229, 215, 196, 0.08);
-  background: #161c11;
+  border-top: 1px solid rgba(240, 237, 208, 0.08);
+  background: #1b2418;
 }
 
 .order-type-toggle {
@@ -578,7 +590,7 @@ body {
 }
 
 .btn-order-type {
-  background: rgba(136, 144, 99, 0.08);
+  background: rgba(122, 158, 110, 0.08);
   border: 1px solid var(--border-moss);
   color: var(--text-muted);
   padding: 8px;
@@ -690,8 +702,8 @@ body {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--moss-accent);
-  background: rgba(136, 144, 99, 0.1);
-  border: 1px solid rgba(136, 144, 99, 0.25);
+  background: rgba(122, 158, 110, 0.1);
+  border: 1px solid rgba(122, 158, 110, 0.25);
   padding: 5px 12px;
   border-radius: 4px;
 }
@@ -706,9 +718,9 @@ body {
 }
 
 @keyframes pulse-dot {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(136, 144, 99, 0.7); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(136, 144, 99, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(136, 144, 99, 0); }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(122, 158, 110, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(122, 158, 110, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(122, 158, 110, 0); }
 }
 
 .spotlight-categories-strip {
@@ -729,40 +741,40 @@ body {
   padding: 20px;
   border-radius: 16px;
   text-decoration: none;
-  color: #e5d7c4;
+  color: #f0edd0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(229, 215, 196, 0.1);
+  border: 1px solid rgba(240, 237, 208, 0.1);
   transition: var(--transition);
-  box-shadow: 0 8px 24px rgba(13, 17, 8, 0.35);
+  box-shadow: 0 8px 24px rgba(16, 23, 13, 0.35);
 }
 
 .spotlight-card:hover {
   transform: translateY(-4px);
   border-color: var(--moss-accent);
-  box-shadow: 0 12px 30px rgba(13, 17, 8, 0.5);
+  box-shadow: 0 12px 30px rgba(16, 23, 13, 0.5);
 }
 
 .spotlight-card.coffee-card {
-  background: linear-gradient(135deg, #161c11 0%, #1a2113 100%);
-  border-color: rgba(136, 144, 99, 0.25);
+  background: linear-gradient(135deg, #1b2418 0%, #1e2a1a 100%);
+  border-color: rgba(122, 158, 110, 0.25);
 }
 
 .spotlight-card.cold-card {
-  background: linear-gradient(135deg, #141810 0%, #1a2113 100%);
-  border-color: rgba(136, 144, 99, 0.2);
+  background: linear-gradient(135deg, #1e2a1a 0%, #1e2a1a 100%);
+  border-color: rgba(122, 158, 110, 0.2);
 }
 
 .spotlight-card.frappe-card {
-  background: linear-gradient(135deg, #222b17 0%, #1a2113 100%);
-  border-color: rgba(136, 144, 99, 0.25);
+  background: linear-gradient(135deg, #263320 0%, #1e2a1a 100%);
+  border-color: rgba(122, 158, 110, 0.25);
 }
 
 .spotlight-card.bistro-card {
   /* Cafe Noir signature card - the rarest of the palette, mirrors the Kyoto roast badge */
-  background: linear-gradient(135deg, #4c3d19 0%, #3a2f13 100%);
-  border-color: rgba(207, 187, 153, 0.35);
+  background: linear-gradient(135deg, #2e4029 0%, #253420 100%);
+  border-color: rgba(197, 223, 176, 0.35);
 }
 
 .spotlight-info {
@@ -777,7 +789,7 @@ body {
   letter-spacing: 0.5px;
   padding: 2px 8px;
   border-radius: 3px;
-  background: rgba(229, 215, 196, 0.15);
+  background: rgba(240, 237, 208, 0.15);
   margin-bottom: 8px;
 }
 
@@ -808,7 +820,7 @@ body {
 .receipt-id-tag {
   font-size: 0.75rem;
   font-family: monospace;
-  color: var(--moss-accent);
+  color: var(--tan);
 }
 
 .pos-order-mode-tabs {
@@ -816,13 +828,13 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   padding: 12px 20px;
-  background: rgba(229, 215, 196, 0.02);
-  border-bottom: 1px solid rgba(229, 215, 196, 0.06);
+  background: rgba(240, 237, 208, 0.02);
+  border-bottom: 1px solid rgba(240, 237, 208, 0.06);
 }
 
 .pos-order-mode-tabs .btn-order-type {
-  background: rgba(229, 215, 196, 0.05);
-  border: 1px solid rgba(229, 215, 196, 0.1);
+  background: rgba(240, 237, 208, 0.05);
+  border: 1px solid rgba(240, 237, 208, 0.1);
   color: var(--text-muted);
   padding: 8px 4px;
   border-radius: 6px;
@@ -834,7 +846,7 @@ body {
 
 .pos-order-mode-tabs .btn-order-type.active {
   background: var(--moss-accent);
-  color: #1a2113;
+  color: #1e2a1a;
   border-color: var(--moss-accent);
 }
 
@@ -843,8 +855,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  background: rgba(13, 17, 8, 0.25);
-  border-bottom: 1px solid rgba(229, 215, 196, 0.06);
+  background: rgba(16, 23, 13, 0.25);
+  border-bottom: 1px solid rgba(240, 237, 208, 0.06);
 }
 
 .pos-input-group label {
@@ -859,7 +871,7 @@ body {
 .pos-input-group input,
 .pos-input-group select {
   width: 100%;
-  background: rgba(136, 144, 99, 0.05);
+  background: rgba(122, 158, 110, 0.05);
   border: 1px solid var(--border-moss);
   color: var(--bone-text);
   font-family: var(--font-sans);
@@ -880,8 +892,8 @@ body {
 
 .pos-special-note-box input {
   width: 100%;
-  background: rgba(229, 215, 196, 0.03);
-  border: 1px solid rgba(229, 215, 196, 0.1);
+  background: rgba(240, 237, 208, 0.03);
+  border: 1px solid rgba(240, 237, 208, 0.1);
   color: var(--text-main);
   padding: 8px 12px;
   border-radius: 6px;
@@ -899,7 +911,7 @@ body {
 .order-tracker-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(13, 17, 8, 0.85);
+  background: rgba(16, 23, 13, 0.85);
   backdrop-filter: blur(12px);
   z-index: 3000;
   display: none;
@@ -913,13 +925,13 @@ body {
 }
 
 .order-tracker-card {
-  background: #161c11;
+  background: #1b2418;
   border: 1px solid var(--moss-accent);
   border-radius: 20px;
   width: 100%;
   max-width: 480px;
   padding: 28px 24px;
-  box-shadow: 0 20px 50px rgba(13, 17, 8, 0.8);
+  box-shadow: 0 20px 50px rgba(16, 23, 13, 0.8);
   animation: modal-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -933,7 +945,7 @@ body {
   align-items: center;
   gap: 14px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(229, 215, 196, 0.1);
+  border-bottom: 1px solid rgba(240, 237, 208, 0.1);
   position: relative;
 }
 
@@ -941,7 +953,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(136, 144, 99, 0.15);
+  background: rgba(122, 158, 110, 0.15);
   border: 1px solid var(--moss-accent);
   display: flex;
   align-items: center;
@@ -974,7 +986,7 @@ body {
 
 .tracker-progress-bar {
   height: 6px;
-  background: rgba(229, 215, 196, 0.1);
+  background: rgba(240, 237, 208, 0.1);
   border-radius: 3px;
   position: relative;
   overflow: hidden;
@@ -1015,7 +1027,7 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: rgba(229, 215, 196, 0.08);
+  background: rgba(240, 237, 208, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1028,7 +1040,7 @@ body {
 
 .tracker-step.done .step-dot {
   background: var(--moss-accent);
-  color: #1a2113;
+  color: #1e2a1a;
   font-weight: 800;
 }
 
@@ -1038,13 +1050,13 @@ body {
 
 .tracker-step.active .step-dot {
   background: var(--moss-light);
-  color: #1a2113;
+  color: #1e2a1a;
   box-shadow: 0 0 10px var(--moss-light);
 }
 
 .tracker-eta-box {
-  background: rgba(136, 144, 99, 0.08);
-  border: 1px solid rgba(136, 144, 99, 0.25);
+  background: rgba(122, 158, 110, 0.08);
+  border: 1px solid rgba(122, 158, 110, 0.25);
   border-radius: 12px;
   padding: 14px 18px;
   display: flex;
@@ -1078,7 +1090,7 @@ body {
   max-height: 140px;
   overflow-y: auto;
   padding: 10px;
-  background: rgba(13, 17, 8, 0.2);
+  background: rgba(16, 23, 13, 0.2);
   border-radius: 8px;
   margin-bottom: 20px;
   font-size: 0.82rem;
@@ -1115,3 +1127,17 @@ body {
   }
 }
 
+
+
+/* Secondary button - keep it on the Pistachio Cream palette
+   (it previously fell back to the browser's default grey) */
+.btn-secondary {
+  background: rgba(240, 237, 208, 0.08);
+  border: 1px solid rgba(240, 237, 208, 0.22);
+  color: var(--bone);
+}
+
+.btn-secondary:hover {
+  background: rgba(240, 237, 208, 0.16);
+  border-color: var(--moss-accent);
+}

@@ -60,7 +60,7 @@ class Caffyo3DExperience {
 
   init() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x0f140b, 0.08);
+    this.scene.fog = new THREE.FogExp2(0x141f12, 0.08);
 
     const aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
@@ -388,9 +388,9 @@ class Caffyo3DExperience {
     canvas.height = 64;
     const ctx = canvas.getContext('2d');
     const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
-    grad.addColorStop(0.5, 'rgba(240, 230, 220, 0.12)');
-    grad.addColorStop(1, 'rgba(240, 230, 220, 0)');
+    grad.addColorStop(0, 'rgba(240, 237, 208, 0.35)');
+    grad.addColorStop(0.5, 'rgba(240, 237, 208, 0.12)');
+    grad.addColorStop(1, 'rgba(240, 237, 208, 0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 64, 64);
 

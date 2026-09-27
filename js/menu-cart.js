@@ -704,7 +704,7 @@ class CaffyoCartManager {
       grid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted-dark);">
           <div style="font-size: 40px; margin-bottom: 12px;">☕</div>
-          <h3 style="color: #e5d7c4; margin-bottom: 8px;">No Items Found</h3>
+          <h3 style="color: #f0edd0; margin-bottom: 8px;">No Items Found</h3>
           <p>Try searching for "Spanish Latte", "Fries", "Pasta", or "Frappe".</p>
         </div>
       `;
@@ -1043,7 +1043,7 @@ class CaffyoCartManager {
 
   showReceipt(order) {
     const itemsHtml = order.items.map(item =>
-      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(136, 144, 99,0.1);color:#e5d7c4;font-size:0.85rem;">
+      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(122, 158, 110,0.1);color:#f0edd0;font-size:0.85rem;">
         <span>${item.name} x${item.qty}</span>
         <span>₹${(item.price * item.qty)}</span>
       </div>`
@@ -1054,36 +1054,36 @@ class CaffyoCartManager {
     const html = `
       <div style="
         position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-        background:#1a2113;border:1px solid rgba(136, 144, 99,0.3);
+        background:#1e2a1a;border:1px solid rgba(122, 158, 110,0.3);
         border-radius:16px;max-width:420px;width:90%;max-height:80vh;overflow-y:auto;
-        padding:28px;z-index:9999;color:#e5d7c4;font-family:'Inter',sans-serif;
+        padding:28px;z-index:9999;color:#f0edd0;font-family:'Inter',sans-serif;
       ">
         <div style="text-align:center;margin-bottom:20px;">
-          <h3 style="font-family:'Playfair Display',serif;color:#889063;font-size:1.4rem;margin:0;">Order Confirmed!</h3>
-          <p style="color:#97907b;font-size:0.85rem;margin:6px 0 0;">#CZ-${order.orderNum}</p>
+          <h3 style="font-family:'Playfair Display',serif;color:#7a9e6e;font-size:1.4rem;margin:0;">Order Confirmed!</h3>
+          <p style="color:#a5bb93;font-size:0.85rem;margin:6px 0 0;">#CZ-${order.orderNum}</p>
         </div>
-        <div style="background:rgba(136, 144, 99,0.08);border-radius:10px;padding:14px;margin-bottom:18px;font-size:0.82rem;color:#b7ab8e;line-height:1.6;">
-          <div><strong style="color:#e5d7c4;">Mode:</strong> ${modeText}</div>
-          <div><strong style="color:#e5d7c4;">Customer:</strong> ${order.customerDetails}</div>
+        <div style="background:rgba(122, 158, 110,0.08);border-radius:10px;padding:14px;margin-bottom:18px;font-size:0.82rem;color:#b6cba3;line-height:1.6;">
+          <div><strong style="color:#f0edd0;">Mode:</strong> ${modeText}</div>
+          <div><strong style="color:#f0edd0;">Customer:</strong> ${order.customerDetails}</div>
         </div>
-        <div style="border-top:1px solid rgba(136, 144, 99,0.2);padding:8px 0;font-size:0.78rem;color:#97907b;">Items</div>
+        <div style="border-top:1px solid rgba(122, 158, 110,0.2);padding:8px 0;font-size:0.78rem;color:#a5bb93;">Items</div>
         ${itemsHtml}
-        <div style="border-top:2px solid rgba(136, 144, 99,0.3);margin-top:14px;padding-top:12px;">
-          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:0.9rem;color:#e5d7c4;">
+        <div style="border-top:2px solid rgba(122, 158, 110,0.3);margin-top:14px;padding-top:12px;">
+          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:0.9rem;color:#f0edd0;">
             <span>Subtotal</span><span>₹${order.subtotal}</span>
           </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#b7ab8e;">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#b6cba3;">
             <span>GST (5%)</span><span>₹${order.tax}</span>
           </div>
-          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:#889063;margin-top:6px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:#7a9e6e;margin-top:6px;">
             <span>Total</span><span>₹${order.total}</span>
           </div>
         </div>
         <div style="text-align:center;margin-top:22px;">
-          <div style="font-size:0.75rem;color:#97907b;">Barista will begin crafting shortly</div>
+          <div style="font-size:0.75rem;color:#a5bb93;">Barista will begin crafting shortly</div>
           <button onclick="this.closest('div').parentElement.remove();document.getElementById('receipt-backdrop')?.remove()"
             style="
-              margin-top:14px;background:#889063;color:#1a2113;border:none;
+              margin-top:14px;background:#7a9e6e;color:#1e2a1a;border:none;
               padding:8px 28px;border-radius:8px;font-weight:600;
               cursor:pointer;font-size:0.85rem;
             ">Done</button>
@@ -1094,7 +1094,7 @@ class CaffyoCartManager {
     document.body.insertAdjacentHTML('beforeend', `
       <div id="receipt-backdrop" style="
         position:fixed;top:0;left:0;right:0;bottom:0;
-        background:rgba(13, 17, 8,0.7);z-index:9998;
+        background:rgba(16, 23, 13,0.7);z-index:9998;
       "></div>
       ${html}
     `);

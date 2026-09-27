@@ -4,24 +4,36 @@
    ============================================================ */
 
 :root {
-  --bg-menu-dark: #1a2113;
-  --bg-menu-section: #222b17;
-  --bg-menu-card: #354024;
-  --bg-menu-card-hover: #435030;
-  --moss-accent: #889063;
-  --moss-light: #a3ab7d;
-  --bone: #e5d7c4;
-  --tan: #cfbb99;
-  --bone-text: #e5d7c4;
-  --text-main: #e5d7c4;
-  --text-muted: #cfbb99;
-  --text-dim: #b3a68c;
-  --border-moss: rgba(136, 144, 99,0.2);
-  --border-dim: rgba(207, 187, 153, 0.14);
-  --status-new: #889063;
-  --status-preparing: #a3ab7d;
-  --status-ready: #354024;
-  --status-completed: #b3a68c;
+  /* ============================================================
+     Pistachio Cream palette (active)
+       Deep Sage      #4A6741 - panels, cards, surfaces
+       Sage Green     #7A9E6E - primary accent (buttons, active states)
+       Pistachio      #9DC08B - accent light / hover
+       Pale Pistachio #C5DFB0 - secondary text, prices, secondary buttons
+       Cream          #F0EDD0 - primary text
+       (#2E4029 = deepened Deep Sage, the deliberately rare dark accent)
+     Legacy variable names (--kombu, --moss-*, --bone, --tan, --cafe-noir)
+     map onto the roles above - keep using them.
+     ============================================================ */
+
+  --bg-menu-dark: #1e2a1a;
+  --bg-menu-section: #263320;
+  --bg-menu-card: #4a6741;
+  --bg-menu-card-hover: #56744a;
+  --moss-accent: #7a9e6e;
+  --moss-light: #9dc08b;
+  --bone: #f0edd0;
+  --tan: #c5dfb0;
+  --bone-text: #f0edd0;
+  --text-main: #f0edd0;
+  --text-muted: #c5dfb0;
+  --text-dim: #aec59c;
+  --border-moss: rgba(122, 158, 110,0.2);
+  --border-dim: rgba(197, 223, 176, 0.14);
+  --status-new: #7a9e6e;
+  --status-preparing: #9dc08b;
+  --status-ready: #4a6741;
+  --status-completed: #aec59c;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,9 +72,9 @@ body {
   align-items: center;
   padding: 18px 28px;
   /* Cafe Noir counter bar - the palette's rare accent, marks the barista station */
-  background: linear-gradient(180deg, rgba(76, 61, 25, 0.55) 0%, rgba(26, 33, 19, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(46, 64, 41, 0.55) 0%, rgba(30, 42, 26, 0.9) 100%);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(207, 187, 153, 0.22);
+  border-bottom: 1px solid rgba(197, 223, 176, 0.22);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -123,7 +135,7 @@ body {
   overflow: hidden;
 }
 .order-card:hover {
-  box-shadow: 0 0 20px rgba(136, 144, 99, 0.25);
+  box-shadow: 0 0 20px rgba(122, 158, 110, 0.25);
   transform: translateY(-2px);
 }
 .order-card::before {
@@ -152,7 +164,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 600;
-  background: var(--status-bg, rgba(136, 144, 99,0.15));
+  background: var(--status-bg, rgba(122, 158, 110,0.15));
   color: var(--status-color, var(--moss-accent));
 }
 .order-meta {
@@ -170,7 +182,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(136, 144, 99,0.1);
+  border-bottom: 1px solid rgba(122, 158, 110,0.1);
   font-size: 0.85rem;
 }
 .item-row:last-child { border-bottom: none; }
@@ -239,7 +251,7 @@ body {
 .detail-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(13, 17, 8, 0.75);
+  background: rgba(16, 23, 13, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
