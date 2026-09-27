@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barista Dashboard — Caffyo by Zauq</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/barista.css">
+</head>
+<body>
+  <div id="preloader"><div class="cup-preloader"><div class="steam"></div></div></div>
+
+  <header class="barista-header">
+    <div class="header-left">
+      <h1>CAFFYO</h1>
+      <span class="subtitle">Barista Counter</span>
+    </div>
+    <div class="header-right">
+      <div class="status-filters">
+        <button class="filter-btn active" data-filter="new">New Orders</button>
+        <button class="filter-btn" data-filter="preparing">Preparing</button>
+        <button class="filter-btn" data-filter="ready">Ready</button>
+        <button class="filter-btn" data-filter="all">All Orders</button>
+      </div>
+      <div class="last-updated">Updated: <span id="last-updated">…</span></div>
+    </div>
+  </header>
+
+  <main class="barista-main">
+    <div id="orders-container" class="orders-grid">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">☕</div>
+        <h3>No orders yet</h3>
+        <p>Waiting for orders from the counter…</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="order-detail-overlay" class="detail-overlay" style="display:none;">
+    <div class="detail-card">
+      <button class="btn-close-detail">&times;</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <script src="js/barista.js"></script>
+</body>
+</html>

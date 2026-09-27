@@ -1,0 +1,8 @@
+{
+  "name": "caffyo",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "better-sqlite3": "10.1.0"
+  }
+}

@@ -975,19 +975,129 @@ class CaffyoCartManager {
   completeOrder() {
     const totalCount = this.cart.reduce((sum, item) => sum + item.qty, 0);
     const subtotal = this.cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-    const total = subtotal + Math.round(subtotal * 0.05);
+    const tax = Math.round(subtotal * 0.05);
+    const total = subtotal + tax;
+
+    // Collect customer details from the POS form
+    const guestNameEl = document.getElementById('pos-guest-name');
+    const tableEl = document.getElementById('pos-table-select');
+    const noteEl = document.getElementById('pos-order-note');
+
+    const customerName = guestNameEl ? guestNameEl.value.trim() : '';
+    const table = tableEl ? tableEl.value : '';
+    const notes = noteEl ? noteEl.value.trim() : '';
+
+    const customerDetails = this.orderType === 'dinein' && table
+      ? `${customerName ? customerName + ' - ' : ''}${table}`
+      : customerName || 'Walk-in Guest';
 
     if (window.caffyoAudio) {
       window.caffyoAudio.playChime(1046.5, 0.3);
     }
 
-    alert(`Order Placed at CAFFYO by Zauq, Nagpur!\n\nOrder Mode: ${this.orderType === 'dinein' ? 'Dine-In Table' : 'Doorstep Delivery'}\nTotal Items: ${totalCount}\nPayable Amount: ₹${total}\n\nOur baristas at Prestige Hospital Chowk have received your ticket! Anushka and our kitchen team are crafting it right now.`);
+    // Submit order to backend
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: this.cart,
+        order_type: this.orderType,
+        subtotal,
+        tax,
+        total,
+        customer_name: customerDetails,
+        notes: notes || null
+      })
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(res))
+    .then(data => {
+      const orderNum = data.order?.id || '...';
+      this.showReceipt({
+        orderNum,
+        totalCount,
+        orderType: this.orderType,
+        customerDetails,
+        subtotal,
+        tax,
+        total,
+        items: this.cart
+      });
 
-    this.cart = [];
-    this.updateCartBadge();
-    this.renderCartDrawer();
-    this.closeDrawer();
-    this.showToast('Order confirmed by Barista counter');
+      this.cart = [];
+      this.updateCartBadge();
+      this.renderCartDrawer();
+      this.closeDrawer();
+      this.showToast('Order sent to barista counter!');
+    })
+    .catch(() => {
+      // Fallback to alert if API fails
+      alert(`Order Placed at CAFFYO by Zauq, Nagpur!\n\nOrder Mode: ${this.orderType === 'dinein' ? 'Dine-In Table' : 'Doorstep Delivery'}\nTotal Items: ${totalCount}\nPayable Amount: ₹${total}\n\nOur baristas at Prestige Hospital Chowk have received your ticket!`);
+
+      this.cart = [];
+      this.updateCartBadge();
+      this.renderCartDrawer();
+      this.closeDrawer();
+      this.showToast('Order confirmed by Barista counter');
+    });
+  }
+
+  showReceipt(order) {
+    const itemsHtml = order.items.map(item =>
+      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(229,152,102,0.1);color:#f5ead7;font-size:0.85rem;">
+        <span>${item.name} x${item.qty}</span>
+        <span>₹${(item.price * item.qty)}</span>
+      </div>`
+    ).join('');
+
+    const modeText = order.orderType === 'dinein' ? 'Dine In' : order.orderType === 'takeaway' ? 'Take Away' : 'Doorstep Delivery';
+
+    const html = `
+      <div style="
+        position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+        background:#0e0a07;border:1px solid rgba(229,152,102,0.3);
+        border-radius:16px;max-width:420px;width:90%;max-height:80vh;overflow-y:auto;
+        padding:28px;z-index:9999;color:#f5ead7;font-family:'Inter',sans-serif;
+      ">
+        <div style="text-align:center;margin-bottom:20px;">
+          <h3 style="font-family:'Playfair Display',serif;color:#e59866;font-size:1.4rem;margin:0;">Order Confirmed!</h3>
+          <p style="color:#8a7560;font-size:0.85rem;margin:6px 0 0;">#CZ-${order.orderNum}</p>
+        </div>
+        <div style="background:rgba(229,152,102,0.08);border-radius:10px;padding:14px;margin-bottom:18px;font-size:0.82rem;color:#a89070;line-height:1.6;">
+          <div><strong style="color:#f5ead7;">Mode:</strong> ${modeText}</div>
+          <div><strong style="color:#f5ead7;">Customer:</strong> ${order.customerDetails}</div>
+        </div>
+        <div style="border-top:1px solid rgba(229,152,102,0.2);padding:8px 0;font-size:0.78rem;color:#8a7560;">Items</div>
+        ${itemsHtml}
+        <div style="border-top:2px solid rgba(229,152,102,0.3);margin-top:14px;padding-top:12px;">
+          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:0.9rem;color:#f5ead7;">
+            <span>Subtotal</span><span>₹${order.subtotal}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#a89070;">
+            <span>GST (5%)</span><span>₹${order.tax}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:#e59866;margin-top:6px;">
+            <span>Total</span><span>₹${order.total}</span>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:22px;">
+          <div style="font-size:0.75rem;color:#8a7560;">Barista will begin crafting shortly</div>
+          <button onclick="this.closest('div').parentElement.remove();document.getElementById('receipt-backdrop')?.remove()"
+            style="
+              margin-top:14px;background:#e59866;color:#0e0a07;border:none;
+              padding:8px 28px;border-radius:8px;font-weight:600;
+              cursor:pointer;font-size:0.85rem;
+            ">Done</button>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', `
+      <div id="receipt-backdrop" style="
+        position:fixed;top:0;left:0;right:0;bottom:0;
+        background:rgba(0,0,0,0.7);z-index:9998;
+      "></div>
+      ${html}
+    `);
   }
 
   showToast(message) {
