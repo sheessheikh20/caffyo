@@ -554,6 +554,12 @@ function initPreloader() {
     } else {
       setTimeout(() => {
         preloader.classList.add('loaded');
+
+        // 🎬 Fire cup entry animation as soon as preloader starts fading
+        if (window.caffyo3D && window.caffyo3D.triggerCupEntry) {
+          window.caffyo3D.triggerCupEntry();
+        }
+
         setTimeout(() => {
           preloader.style.display = 'none';
         }, 850);

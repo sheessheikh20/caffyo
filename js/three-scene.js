@@ -31,10 +31,11 @@ class Caffyo3DExperience {
     this.shockwaves = [];
     this.pointLight = null;
 
-    // Sweet Cinematic Entry Animation
+    // Cinematic Entry Animation (triggered AFTER preloader hides)
     this.entryProgress = 0;
-    this.entryDuration = 1.6;
+    this.entryDuration = 1.8;      // Total animation length in seconds
     this.hasCompletedEntry = false;
+    this.entryStarted = false;     // Frozen until triggerCupEntry() is called
 
     // Fluid Slosh Physics & Interactive Surface Simulator
     this.fluid = {
@@ -396,13 +397,14 @@ class Caffyo3DExperience {
     this.liquidGroup.add(this.liquidMesh);
     this.cupGroup.add(this.liquidGroup);
 
-    // Position & Scale: Starts slightly lower and scaled down for sweet entry animation
+    // Start cup completely hidden above screen — entry fires after preloader
     const isMobile = window.innerWidth <= 768;
     const initX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
     const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.22 : -0.28);
-    this.cupGroup.position.set(initX - (isMobile ? 0 : 0.6), initY - 2.0, -0.6);
-    this.cupGroup.scale.setScalar(0.04);
-    this.cupGroup.rotation.set(0.65, -0.90, 0.20);
+    // Park far above and scaled to zero — invisible until triggerCupEntry() is called
+    this.cupGroup.position.set(initX, initY + 9.0, 0);
+    this.cupGroup.scale.setScalar(0.001);
+    this.cupGroup.rotation.set(-0.4, 1.2, 0.15);
     this.scene.add(this.cupGroup);
   }
 
@@ -708,6 +710,15 @@ class Caffyo3DExperience {
     }
   }
 
+  /* Called by app.js once the preloader fades out — starts cinematic drop */
+  triggerCupEntry() {
+    if (this.entryStarted) return; // prevent double-fire
+    this.entryStarted = true;
+    this.entryProgress = 0;
+    this.hasCompletedEntry = false;
+    this.clock.getDelta(); // flush accumulated delta so dt starts fresh
+  }
+
   setupEventListeners() {
     // Window Resize - recalibrate camera, scale and responsive margins dynamically
     window.addEventListener('resize', () => {
@@ -843,31 +854,65 @@ class Caffyo3DExperience {
         const restRotY = 0.30 + Math.sin(elapsedTime * 0.3) * 0.05;
         const restRotZ = 0;
 
-        if (!this.hasCompletedEntry) {
+        if (!this.entryStarted) {
+          // Cup frozen off-screen — waiting for triggerCupEntry() call
+          // Keep it parked high above, invisible
+          this.cupGroup.scale.setScalar(0.001);
+        } else if (!this.hasCompletedEntry) {
+          // ─────────────────────────────────────────────────────────
+          // CINEMATIC DROP-IN  (3 phases driven by entryProgress 0→1)
+          //  Phase 1 [0.0 → 0.55]: Cup drops from sky, spins & grows
+          //  Phase 2 [0.55 → 0.78]: Overshoot — slight over-drop
+          //  Phase 3 [0.78 → 1.0]:  Spring back to rest with bounce
+          // ─────────────────────────────────────────────────────────
           this.entryProgress += dt / this.entryDuration;
           if (this.entryProgress >= 1.0) {
             this.entryProgress = 1.0;
             this.hasCompletedEntry = true;
-            this.fluid.waveEnergy = 0.65; // subtle welcoming ripple upon arrival
+            this.fluid.waveEnergy = 1.2; // big ripple on landing!
           }
 
           const t = this.entryProgress;
-          // Smooth quartic ease-out
-          const ease = 1 - Math.pow(1 - t, 4);
-          const scaleEase = 1 - Math.pow(1 - t, 3.2);
 
-          const startX = targetX - (isMobile ? 0 : 0.6);
-          const startY = targetY - 2.0;
+          // --- Position Y: custom spring-bounce curve ---
+          let posY;
+          const dropFrom = targetY + 8.5;   // Start high above
+          if (t < 0.60) {
+            // Fast drop — ease-in-quad for gravity feel
+            const p = t / 0.60;
+            const gravity = p * p;
+            posY = THREE.MathUtils.lerp(dropFrom, targetY - 0.38, gravity);
+          } else if (t < 0.80) {
+            // Overshoot bounce back up
+            const p = (t - 0.60) / 0.20;
+            const bounce = Math.sin(p * Math.PI);
+            posY = (targetY - 0.38) + bounce * 0.52;
+          } else {
+            // Settle to rest with damped wobble
+            const p = (t - 0.80) / 0.20;
+            const settle = 1 - Math.pow(1 - p, 3);
+            const wobble = Math.sin(p * Math.PI * 2.5) * (1 - p) * 0.12;
+            posY = THREE.MathUtils.lerp(targetY - 0.38, targetY, settle) + wobble;
+          }
 
-          this.cupGroup.position.x = THREE.MathUtils.lerp(startX, targetX, ease);
-          this.cupGroup.position.y = THREE.MathUtils.lerp(startY, targetY, ease) + Math.sin(t * Math.PI) * 0.08;
-          this.cupGroup.position.z = THREE.MathUtils.lerp(-0.6, restZ, ease);
+          // --- Position X: drift in from slight offset ---
+          const startX = targetX + (isMobile ? 0 : 1.2);
+          const xEase = 1 - Math.pow(1 - Math.min(t / 0.75, 1.0), 3);
+          this.cupGroup.position.x = THREE.MathUtils.lerp(startX, targetX, xEase);
+          this.cupGroup.position.y = posY;
+          this.cupGroup.position.z = THREE.MathUtils.lerp(1.5, restZ, 1 - Math.pow(1 - Math.min(t, 1), 2));
 
-          this.cupGroup.scale.setScalar(THREE.MathUtils.lerp(0.04, targetScale, scaleEase));
+          // --- Scale: grow from 0 → full in first 65% ---
+          const scaleT = Math.min(t / 0.65, 1.0);
+          const scalePow = 1 - Math.pow(1 - scaleT, 2.8);
+          this.cupGroup.scale.setScalar(THREE.MathUtils.lerp(0.05, targetScale, scalePow));
 
-          this.cupGroup.rotation.x = THREE.MathUtils.lerp(0.65, restRotX, ease);
-          this.cupGroup.rotation.y = THREE.MathUtils.lerp(-0.90, restRotY, ease);
-          this.cupGroup.rotation.z = THREE.MathUtils.lerp(0.20, restRotZ, ease);
+          // --- Rotation: spin down and settle ---
+          const rotEase = 1 - Math.pow(1 - Math.min(t / 0.85, 1), 3);
+          this.cupGroup.rotation.x = THREE.MathUtils.lerp(-0.4, restRotX, rotEase);
+          this.cupGroup.rotation.y = THREE.MathUtils.lerp(1.2 + t * 1.8, restRotY, rotEase);
+          this.cupGroup.rotation.z = THREE.MathUtils.lerp(0.15, restRotZ, rotEase);
+
         } else {
           const returnSpeed = 0.055; // Silky smooth damped spring back
           this.cupGroup.position.x += (targetX - this.cupGroup.position.x) * returnSpeed;
