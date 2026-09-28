@@ -590,19 +590,7 @@ function initLiveCafeStatus() {
 
     const currentHour = istTime.getHours();
     const currentMin = istTime.getMinutes();
-    const currentSec = istTime.getSeconds();
     const timeInMins = currentHour * 60 + currentMin;
-
-    // Format 12-hour digital clock with seconds
-    const hh12 = currentHour % 12 || 12;
-    const ampm = currentHour >= 12 ? 'PM' : 'AM';
-    const pad = (n) => String(n).padStart(2, '0');
-    const clockStr = `${pad(hh12)}:${pad(currentMin)}:${pad(currentSec)} ${ampm} IST`;
-
-    const atelierClock = document.getElementById('atelier-clock');
-    if (atelierClock) {
-      atelierClock.textContent = clockStr;
-    }
 
     // CAFFYO Google Maps Hours: 10:00 AM to 11:30 PM (600 mins to 1410 mins)
     const openTimeMins = 10 * 60;        // 10:00 AM = 600
@@ -612,10 +600,8 @@ function initLiveCafeStatus() {
 
     const statusBadge = document.getElementById('live-status-badge');
     const statusCountdown = document.getElementById('live-time-countdown');
-    const pulseDots = document.querySelectorAll('.live-pulse-dot');
+    const pulseDot = document.querySelector('.live-pulse-dot');
     const mobileStatus = document.getElementById('mobile-live-status');
-    const atelierBadge = document.getElementById('atelier-status-badge');
-    const atelierCountdown = document.getElementById('atelier-countdown');
 
     if (isOpen) {
       const remainingMins = closeTimeMins - timeInMins;
@@ -627,17 +613,10 @@ function initLiveCafeStatus() {
         statusBadge.textContent = 'Open Now';
         statusBadge.classList.remove('closed');
       }
-      if (atelierBadge) {
-        atelierBadge.textContent = 'Doors Open & Brewing';
-        atelierBadge.classList.remove('closed');
-      }
       if (statusCountdown) {
         statusCountdown.textContent = `Closes at 11:30 PM IST (in ${countdownStr}) • Mon–Sun 10:00 AM – 11:30 PM`;
       }
-      if (atelierCountdown) {
-        atelierCountdown.textContent = `Closes at 11:30 PM (in ${countdownStr}) • Daily 10:00 AM – 11:30 PM`;
-      }
-      pulseDots.forEach(dot => dot.classList.remove('closed'));
+      if (pulseDot) pulseDot.classList.remove('closed');
       if (mobileStatus) {
         mobileStatus.textContent = `Open Now • Closes 11:30 PM (in ${countdownStr})`;
       }
@@ -656,17 +635,10 @@ function initLiveCafeStatus() {
         statusBadge.textContent = 'Closed Now';
         statusBadge.classList.add('closed');
       }
-      if (atelierBadge) {
-        atelierBadge.textContent = 'Roastery Resting';
-        atelierBadge.classList.add('closed');
-      }
       if (statusCountdown) {
         statusCountdown.textContent = `Opens at 10:00 AM IST (in ${countdownStr}) • Daily 10:00 AM – 11:30 PM`;
       }
-      if (atelierCountdown) {
-        atelierCountdown.textContent = `Opens at 10:00 AM (in ${countdownStr}) • Daily 10:00 AM – 11:30 PM`;
-      }
-      pulseDots.forEach(dot => dot.classList.add('closed'));
+      if (pulseDot) pulseDot.classList.add('closed');
       if (mobileStatus) {
         mobileStatus.textContent = `Closed Now • Opens 10:00 AM (in ${countdownStr})`;
       }
@@ -674,7 +646,8 @@ function initLiveCafeStatus() {
   }
 
   update();
-  setInterval(update, 1000); // 1-second interval for real-time digital clock
+  setInterval(update, 30000); // Live sync every 30 seconds
+
 }
 
 /* ============================================================
@@ -688,11 +661,10 @@ function initBottomDock() {
   // Map section IDs to dock data-dock keys
   const sectionToDock = {
     'hero': 'hero',
-    'editorial-story': 'lab',
-    'roasting-spectrum': 'lab',
-    'live-atelier': 'today',
-    'best-sellers': 'today',
-    'reviews': 'today',
+    'interactive-assembly': 'craft',
+    'editorial-story': 'story',
+    'roasting-spectrum': 'story',
+    'best-sellers': 'story',
     'visit': 'visit'
   };
 

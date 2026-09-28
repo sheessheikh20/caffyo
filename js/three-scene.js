@@ -202,14 +202,30 @@ class Caffyo3DExperience {
     // Responsive adaptation of floating bean trajectories on resize
     if (this.beans && this.beans.length > 0) {
       const isMobile = width <= 768;
+      const vFOV = (this.camera.fov * Math.PI) / 180;
+      const visibleHeight = 2 * Math.tan(vFOV / 2) * this.cameraDefaultPos.z;
+      const visibleWidth = visibleHeight * aspect;
+      const halfW = visibleWidth / 2;
+
       this.beans.forEach((bean, i) => {
         const isLowerBean = isMobile && (i % 2 === 1);
         bean.isLowerBean = isLowerBean;
         if (isMobile) {
           const cupY = 0.80;
           if (isLowerBean) {
-            bean.homeX = (Math.sin(i * 3.7) * 0.5) * 2.8;
-            bean.homeY = -1.5 + ((i % 8) / 8) * 1.8;
+            // Symmetrically cover both left window edge AND right window edge
+            const sidePattern = i % 4;
+            if (sidePattern === 1) {
+              // Left window boundary
+              bean.homeX = -halfW * (0.82 + ((i % 3) / 3) * 0.14);
+            } else if (sidePattern === 3) {
+              // Right window boundary - reaches right window edge!
+              bean.homeX = halfW * (0.82 + ((i % 3) / 3) * 0.14);
+            } else {
+              // Centered drift across text
+              bean.homeX = (Math.sin(i * 3.7) * 0.45) * halfW;
+            }
+            bean.homeY = -1.6 + ((i % 8) / 8) * 2.0;
             bean.homeZ = -0.5 + Math.sin(i * 2.1) * 0.9;
           } else {
             bean.baseRadius = 1.05 + ((i % 6) / 6) * 1.25;
@@ -461,8 +477,15 @@ class Caffyo3DExperience {
         const cupX = 0;
         const cupY = 0.85;
         if (isLowerBean) {
-          // Lower beans drifting directly BEHIND text
-          x = (Math.random() - 0.5) * 3.2;
+          // Lower beans drifting directly BEHIND text and spanning both window boundaries
+          const sidePattern = i % 4;
+          if (sidePattern === 1) {
+            x = -1.15 * (0.82 + Math.random() * 0.14);
+          } else if (sidePattern === 3) {
+            x = 1.15 * (0.82 + Math.random() * 0.14);
+          } else {
+            x = (Math.random() - 0.5) * 1.6;
+          }
           y = -1.5 + Math.random() * 1.8; // Behind headline, desc & buttons
           z = -0.6 + Math.random() * 1.6;
           radius = Math.hypot(x, y - cupY);
@@ -1014,9 +1037,10 @@ class Caffyo3DExperience {
           const toHome = new THREE.Vector3().subVectors(bean.originalPos, bean.mesh.position);
           bean.velocity.addScaledVector(toHome, 4.0 * dt);
         } else {
-          const cupX = this.cupGroup ? this.cupGroup.position.x : 0;
-          const cupY = this.cupGroup ? this.cupGroup.position.y : 0;
           const isMobile = window.innerWidth <= 768;
+          // Floating beans remain at rest position immediately on load (they do NOT drop with the cup)
+          const restCupX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
+          const restCupY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.80 : -0.28);
           let targetX, targetY, targetZ;
 
           if (isMobile && bean.isLowerBean) {
@@ -1025,11 +1049,11 @@ class Caffyo3DExperience {
             targetY = bean.homeY + Math.cos(elapsedTime * bean.bobFreq * 0.7 + bean.phase) * 0.18;
             targetZ = bean.homeZ + Math.sin(elapsedTime * 0.5 + bean.phase) * 0.22;
           } else {
-            // Upper beans orbiting around the cup
+            // Orbiting beans drift around the cup's resting position
             bean.angle += bean.orbitSpeed * dt * 0.35;
-            targetX = cupX + Math.cos(bean.angle) * bean.baseRadius;
+            targetX = restCupX + Math.cos(bean.angle) * bean.baseRadius;
             targetZ = Math.sin(bean.angle) * bean.baseRadius;
-            targetY = cupY + (bean.baseOffsetY !== undefined ? bean.baseOffsetY : 0) + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
+            targetY = restCupY + (bean.baseOffsetY !== undefined ? bean.baseOffsetY : 0) + Math.sin(elapsedTime * bean.bobFreq + bean.phase) * bean.bobAmp;
           }
 
           bean.originalPos.x = targetX;

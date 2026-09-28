@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Italiana&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2.5" />
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -62,11 +62,11 @@
     <nav class="desktop-nav">
       <ul class="nav-links">
         <li><a href="#hero" class="active">Home</a></li>
-        <li><a href="#editorial-story">Kitchen Story</a></li>
-        <li><a href="#roasting-spectrum">Coffee Lab</a></li>
-        <li><a href="#live-atelier">Today at CAFFYO</a></li>
+        <li><a href="#why-caffyo">Why CAFFYO</a></li>
+        <li><a href="#interactive-assembly">Craft</a></li>
+        <li><a href="#roasting-spectrum">Roasts</a></li>
+        <li><a href="#brew-guide">Brew Guide</a></li>
         <li><a href="#best-sellers">Favorites</a></li>
-        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#visit">Visit Us</a></li>
       </ul>
     </nav>
@@ -109,26 +109,26 @@
       <a href="#hero" class="mobile-nav-link">
         <span>Home</span>
       </a>
-      <a href="#editorial-story" class="mobile-nav-link">
-        <span>Gourmet Kitchen Story</span>
+      <a href="#interactive-assembly" class="mobile-nav-link">
+        <span>Brew Craft &amp; Kitchen</span>
+      </a>
+      <a href="menu.html" class="mobile-nav-link" style="color: var(--gold-accent);">
+        <span>Explore Menu &rarr;</span>
+      </a>
+      <a href="#why-caffyo" class="mobile-nav-link">
+        <span>Why CAFFYO</span>
       </a>
       <a href="#roasting-spectrum" class="mobile-nav-link">
-        <span>Specialty Coffee Lab</span>
+        <span>Coffee Lab &amp; Roasts</span>
       </a>
-      <a href="#live-atelier" class="mobile-nav-link">
-        <span>Today at CAFFYO (Live)</span>
+      <a href="#brew-guide" class="mobile-nav-link">
+        <span>Barista Brew Guide</span>
       </a>
       <a href="#best-sellers" class="mobile-nav-link">
         <span>Customer Favorites</span>
       </a>
-      <a href="#reviews" class="mobile-nav-link">
-        <span>Guest Reviews</span>
-      </a>
       <a href="#visit" class="mobile-nav-link">
         <span>Visit &amp; Location</span>
-      </a>
-      <a href="menu.html" class="mobile-nav-link" style="color: var(--gold-accent); margin-top: 6px;">
-        <span>Explore Full Menu &rarr;</span>
       </a>
     </nav>
 
@@ -241,7 +241,52 @@
   </div>
 
   <!-- ============================================================
-       EDITORIAL STORY (Warm Human Stories & Artisanal Kitchen)
+       WHY CAFFYO / WHAT SETS US APART (Bean & Brew Reference)
+       ============================================================ -->
+  <section id="why-caffyo" class="why-caffyo-section">
+    <div class="why-caffyo-inner">
+      <div class="section-head text-center" style="text-align: center;">
+        <span class="section-label">Why CAFFYO</span>
+        <h2 style="font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 2.7rem); color: #fff;">What Sets Us Apart</h2>
+        <div class="dots-separator"><span class="dot-diamond">✦</span></div>
+        <p style="color: var(--text-muted-dark); max-width: 620px; margin: 0 auto; font-size: 0.95rem;">
+          From ethical direct-trade farm partnerships to small-batch precision roasting and generous scratch-cooked bistro comfort in Sadar.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-num">01.</span>
+          <div class="feature-icon">🌱</div>
+          <h4>Highland Terroirs</h4>
+          <p>Directly sourced high-altitude Arabica from single-origin estates in Chikmagalur and Coorg. Ethically grown, sustainably harvested.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">02.</span>
+          <div class="feature-icon">🔥</div>
+          <h4>Small-Batch Roasting</h4>
+          <p>Every profile is roasted in precision small lots to order, unlocking vibrant jasmine florals, sweet caramel, and velvety body.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">03.</span>
+          <div class="feature-icon">🍕</div>
+          <h4>From-Scratch Kitchen</h4>
+          <p>Hand-stretched stone-baked pizzas, freshly simmered San Marzano concassé, and crispy double-breaded Insane Burgers made fresh daily.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">04.</span>
+          <div class="feature-icon">☕</div>
+          <h4>Heartfelt Hospitality</h4>
+          <p>Welcomed like family by Anushka, Diksha and our team. Comfortable AC seating, high-speed WiFi, open daily till 11:30 PM in Sadar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+
+  <!-- ============================================================
+       EDITORIAL STORY (Warm Human Stories & Hospitality)
        ============================================================ -->
   <section id="editorial-story" class="editorial-story-section">
     <div class="editorial-story-container">
@@ -257,14 +302,38 @@
         <div class="editorial-text-col">
           <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 700;">Gourmet Kitchen &amp; Coffee Bar</span>
           <h2 class="editorial-headline">More Than a Cafe.<br />A Place to Feel at Home.</h2>
-          <p style="font-family: var(--font-serif); font-style: italic; color: var(--gold-accent); font-size: 1.05rem; line-height: 1.5; margin-bottom: 4px;">
+          <p style="font-family: var(--font-serif); font-style: italic; color: #7a543e; font-size: 1.05rem; line-height: 1.5; margin-bottom: 4px;">
             “One cannot think well, love well, sleep well, if one has not dined well.” &mdash; Virginia Woolf
           </p>
           <p class="editorial-desc">
-            At CAFFYO, good food and great coffee are all about bringing people together. Beyond our specialty coffee bar, our kitchen cooks up generous, crave-worthy comfort food &mdash; crisp double-breaded Insane Burgers, stone-baked thin crust pizzas with bubbly mozzarella, creamy garlic parmesan pastas, and golden toasted paninis. Honest ingredients, cooked fresh when you order.
+            At CAFFYO, good food and great coffee are all about bringing people together. Beyond our specialty coffee bar, our kitchen cooks up generous, crave-worthy comfort food &mdash; crisp double-breaded Insane Burgers, stone-baked thin crust pizzas with bubbly cheese, creamy garlic parmesan pastas, and grilled multigrain toasties. Honest ingredients, cooked fresh when you order.
           </p>
           <a href="menu.html" class="btn-dark-pill">
-            Explore Full Kitchen Menu <span>&rarr;</span>
+            Explore Full Kitchen Menu <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 2: CAFFYO Hospitality / Ambiance (Reversed Layout) -->
+      <div class="editorial-row reversed">
+        <div class="editorial-image-frame">
+          <div class="editorial-wireframe"></div>
+          <div class="editorial-photo-box">
+            <img src="assets/images/caffyo_real_interior.jpg" alt="CAFFYO Lounge Interior - Sadar, Nagpur" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="editorial-text-col">
+          <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-accent); font-weight: 700;">Heartfelt Ambiance</span>
+          <h2 class="editorial-headline">The Warmth of<br />CAFFYO Hospitality.</h2>
+          <p style="font-family: var(--font-serif); font-style: italic; color: #7a543e; font-size: 1.05rem; line-height: 1.5; margin-bottom: 4px;">
+            “People will never forget how you made them feel.” &mdash; Maya Angelou
+          </p>
+          <p class="editorial-desc">
+            What guests love most about Caffyo isn't just the food &mdash; it's the feeling of being genuinely welcomed. Anushka, Diksha, and our entire team make sure you always feel cared for from the moment you step through our doors. Whether you're dropping in for a quick morning latte, working peacefully with an iced cold brew, or hanging out late into the evening with family and friends, you're always welcome here.
+          </p>
+          <a href="#visit" class="btn-dark-pill">
+            Visit Our Cafe <span>→</span>
           </a>
         </div>
       </div>
@@ -272,8 +341,11 @@
   </section>
 
   <!-- ============================================================
-       OUR ROASTING SPECTRUM & HIGHLAND TERROIRS (Specialty Coffee Lab)
-       Consolidated Single-Origin Profiles + Barista Extraction Parameters
+       OUR CULINARY SPECTRUM (Brews, Burgers, Pizzas, Pastas & Shakes)
+       4 Distinct Craft Pillars Celebrated in Google Reviews
+       ============================================================ -->
+  <!-- ============================================================
+       OUR ROASTING SPECTRUM & HIGHLAND TERROIRS (Bean & Brew Origins)
        ============================================================ -->
   <section id="roasting-spectrum" class="roasting-spectrum-section">
     <div class="section-head text-center" style="text-align: center;">
@@ -300,11 +372,7 @@
             <span class="note-chip">Citrus Zest</span>
             <span class="note-chip">Wild Honey</span>
           </div>
-          <div class="roast-brew-spec">
-            <span class="spec-label">Barista Method:</span>
-            <span class="spec-value">V60 Pour-over &bull; 93&deg;C &bull; 1:16 Ratio</span>
-          </div>
-          <p class="roast-meta">High elevation floral bouquet with crisp citric acidity. Delicate extraction unlocking sweet tea-like clarity and aromatic jasmine notes.</p>
+          <p class="roast-meta">High elevation floral bouquet with crisp citric acidity. Delicate extraction ideal for manual V60 pour-overs.</p>
           <a href="menu.html#hot-coffee" class="btn-roast-link">
             Explore Pour-Overs <span>&rarr;</span>
           </a>
@@ -325,11 +393,7 @@
             <span class="note-chip">Brown Sugar</span>
             <span class="note-chip">Golden Crema</span>
           </div>
-          <div class="roast-brew-spec">
-            <span class="spec-label">Barista Method:</span>
-            <span class="spec-value">9-Bar Espresso &bull; 28s Double Shot &bull; 93&deg;C</span>
-          </div>
-          <p class="roast-meta">Sweet caramel balance, syrupy body, and thick golden crema. The foundation of our lattes, flat whites, and signature iced Spanish coffees.</p>
+          <p class="roast-meta">Sweet caramel balance, syrupy body, and thick crema. The foundation of our lattes, flat whites, and Spanish coffees.</p>
           <a href="menu.html#hot-coffee" class="btn-roast-link">
             Taste House Blend <span>&rarr;</span>
           </a>
@@ -350,11 +414,7 @@
             <span class="note-chip">Molasses</span>
             <span class="note-chip">Toasted Oak</span>
           </div>
-          <div class="roast-brew-spec">
-            <span class="spec-label">Barista Method:</span>
-            <span class="spec-value">French Press &bull; 95&deg;C &bull; 4-Min Immersion</span>
-          </div>
-          <p class="roast-meta">Heavy velvet body, zero acidity, intense bittersweet chocolate finish. Outstanding for French press, rich mochas, and bold Americanos.</p>
+          <p class="roast-meta">Heavy velvet body, zero acidity, intense bittersweet chocolate finish. Outstanding for French press and rich mochas.</p>
           <a href="menu.html#hot-coffee" class="btn-roast-link">
             Explore Dark Roasts <span>&rarr;</span>
           </a>
@@ -375,11 +435,7 @@
             <span class="note-chip">Bourbon Vanilla</span>
             <span class="note-chip">Velvet Silk</span>
           </div>
-          <div class="roast-brew-spec">
-            <span class="spec-label">Barista Method:</span>
-            <span class="spec-value">1 Drop / 1.5s &bull; Purified Ice Rock &bull; Neat</span>
-          </div>
-          <p class="roast-meta">Drop-by-drop ice extraction over 18 hours. Ultra-clean, winey sweetness poured neat over artisanal crystal ice rocks with zero bitterness.</p>
+          <p class="roast-meta">Drop-by-drop ice extraction over 18 hours. Ultra-clean, winey sweetness poured neat over artisanal crystal ice rocks.</p>
           <a href="menu.html#cold-brew" class="btn-roast-link">
             Taste Kyoto Cold Drip <span>&rarr;</span>
           </a>
@@ -389,107 +445,186 @@
   </section>
 
   <!-- ============================================================
-       LIVE AT CAFFYO • THE SADAR DAILY BOARD
-       Unique Real-Time Atelier: Nagpur Live Clock, Roaster's Daily Cut,
-       Cafe Atmosphere & Instant Direct Concierge (Zero Generic Bloat)
+       BARISTA BREW GUIDE (Interactive Bean & Brew Guide)
        ============================================================ -->
-  <section id="live-atelier" class="live-atelier-section">
-    <div class="live-atelier-inner">
+  <section id="brew-guide" class="brew-guide-section">
+    <div class="brew-guide-inner">
       <div class="section-head text-center" style="text-align: center;">
-        <span class="section-label">Live From Sadar &bull; Nagpur</span>
-        <h2 style="font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 2.7rem); color: #fff;">The CAFFYO Daily Board</h2>
+        <span class="section-label">Brew Better</span>
+        <h2 style="font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 2.7rem); color: #fff;">The Perfect Cup, Every Time</h2>
         <div class="dots-separator"><span class="dot-diamond">✦</span></div>
         <p style="color: var(--text-muted-dark); max-width: 620px; margin: 0 auto; font-size: 0.95rem;">
-          Real-time roastery status, chef's daily pairing, and ambient lounge vibes opposite Haldirams, Sadar.
+          Follow our master barista extraction guides to unlock the full potential of your single-origin beans at home and at CAFFYO.
         </p>
       </div>
 
-      <div class="atelier-grid">
-        <!-- Panel 1: Live Status & Nagpur IST Clock -->
-        <div class="atelier-card status-panel">
-          <div class="atelier-card-header">
-            <div class="status-indicator-wrap">
-              <span class="live-pulse-dot"></span>
-              <span id="atelier-status-badge" class="atelier-badge-text">Open Now</span>
-            </div>
-            <span class="atelier-tag">IST &bull; Sadar, Nagpur</span>
-          </div>
-          
-          <div class="atelier-clock-wrap">
-            <span class="atelier-clock-label">Nagpur Local Time</span>
-            <div id="atelier-clock" class="atelier-clock-digits">--:--:--</div>
-          </div>
+      <div class="brew-tabs">
+        <button class="brew-tab-btn active" data-tab="espresso">Espresso</button>
+        <button class="brew-tab-btn" data-tab="pourover">Pour-over (V60)</button>
+        <button class="brew-tab-btn" data-tab="frenchpress">French Press</button>
+        <button class="brew-tab-btn" data-tab="coldbrew">Cold Drip</button>
+      </div>
 
-          <div class="atelier-status-info">
-            <p id="atelier-countdown" class="atelier-countdown-text">Hours: 10:00 AM &ndash; 11:30 PM (All 7 Days)</p>
-            <div class="atelier-amenities">
-              <span class="amenity-chip">✓ Chilled AC Lounge</span>
-              <span class="amenity-chip">✓ High-Speed Wi-Fi</span>
-              <span class="amenity-chip">✓ Walk-Ins Welcome</span>
+      <!-- Tab 1: Espresso -->
+      <div id="tab-espresso" class="brew-tab-pane active">
+        <div class="brew-steps-list">
+          <div class="brew-step-item">
+            <div class="brew-step-index">1</div>
+            <div class="brew-step-info">
+              <strong>Grind Fine &amp; Precise</strong>
+              <p>Use a fine grind with table salt consistency. Freshly ground single-origin Arabica is essential.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">2</div>
+            <div class="brew-step-info">
+              <strong>Dose &amp; Tamp Firmly</strong>
+              <p>Dose 18–20g of ground coffee into a clean portafilter. Tamp evenly with 30 lbs of level pressure.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">3</div>
+            <div class="brew-step-info">
+              <strong>9-Bar Precision Extraction</strong>
+              <p>Target 25–28 seconds for a rich 36–40ml double shot at 93°C with dense golden crema.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">4</div>
+            <div class="brew-step-info">
+              <strong>Savor Promptly</strong>
+              <p>Espresso is alive &mdash; enjoy within 60 seconds or fold into microfoam for silky swan latte art.</p>
             </div>
           </div>
         </div>
-
-        <!-- Panel 2: Chef's & Roaster's Daily Pairing -->
-        <div class="atelier-card pairing-panel">
-          <div class="atelier-card-header">
-            <span class="atelier-badge-gold">✦ Today's Signature Pairing</span>
-            <span class="atelier-tag">Batch #42</span>
-          </div>
-
-          <div class="pairing-content">
-            <div class="pairing-item">
-              <span class="pairing-role">From The Roastery Bar</span>
-              <h4>Chikmagalur Estate Blonde (V60)</h4>
-              <p>Jasmine floral aroma with bright citrus zest and wild honey sweetness.</p>
-            </div>
-            <div class="pairing-divider">
-              <span>paired with</span>
-            </div>
-            <div class="pairing-item">
-              <span class="pairing-role">From The Kitchen</span>
-              <h4>Crispy Double Insane Burger</h4>
-              <p>Crispy golden crunch, molten aged cheddar on toasted buttered brioche.</p>
-            </div>
-          </div>
-
-          <div class="pairing-footer">
-            <a href="menu.html" class="btn-atelier-pairing">
-              Taste Today's Pairing <span>&rarr;</span>
-            </a>
+        <div class="brew-visual-box">
+          <img src="assets/images/caffyo_medium_roast.jpg" alt="Manual 9-Bar Espresso Extraction" loading="lazy" />
+          <div class="brew-visual-badge">
+            <span>METHOD: 9-BAR MANUAL</span>
+            <strong>TIME: 25–30 SEC</strong>
           </div>
         </div>
+      </div>
 
-        <!-- Panel 3: Atmosphere, Sound & Concierge -->
-        <div class="atelier-card vibe-panel">
-          <div class="atelier-card-header">
-            <span class="atelier-tag-accent">Cafe Acoustics &amp; Care</span>
-            <span class="atelier-tag">Warm Hospitality</span>
-          </div>
-
-          <div class="vibe-content">
-            <div class="vibe-item">
-              <span class="vibe-label">Now Spinning:</span>
-              <p class="vibe-value">Analog Lo-Fi, Mellow Soul &amp; Warm Jazz</p>
-            </div>
-            <div class="vibe-item">
-              <span class="vibe-label">Hosts on Duty:</span>
-              <p class="vibe-value">Anushka, Diksha &amp; The CAFFYO Team</p>
-            </div>
-            <div class="vibe-item">
-              <span class="vibe-label">Location Landmark:</span>
-              <p class="vibe-value">Directly Opposite Haldirams, Sadar, Nagpur</p>
+      <!-- Tab 2: Pour-over -->
+      <div id="tab-pourover" class="brew-tab-pane">
+        <div class="brew-steps-list">
+          <div class="brew-step-item">
+            <div class="brew-step-index">1</div>
+            <div class="brew-step-info">
+              <strong>Medium-Fine Grind</strong>
+              <p>Coarse beach sand consistency. 22g of Estate Blonde roast per 350ml of 93°C mineral water.</p>
             </div>
           </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">2</div>
+            <div class="brew-step-info">
+              <strong>The 45-Second Bloom</strong>
+              <p>Pour 50ml hot water gently over grounds and wait 45 seconds for carbon dioxide degassing.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">3</div>
+            <div class="brew-step-info">
+              <strong>Slow Spiral Pouring</strong>
+              <p>Pour remaining water in gentle outward spirals without washing down the filter paper walls.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">4</div>
+            <div class="brew-step-info">
+              <strong>Total Drawdown: 3:15</strong>
+              <p>Swirl server gently before pouring into pre-warmed ceramic cup. Note delicate jasmine &amp; citrus aromatics.</p>
+            </div>
+          </div>
+        </div>
+        <div class="brew-visual-box">
+          <img src="assets/images/caffyo_blonde_roast.jpg" alt="V60 Pour-over Extraction" loading="lazy" />
+          <div class="brew-visual-badge">
+            <span>METHOD: V60 DRIPPER</span>
+            <strong>TIME: 3 MIN 15 SEC</strong>
+          </div>
+        </div>
+      </div>
 
-          <div class="vibe-actions">
-            <a href="https://wa.me/917122894400?text=Hi%20CAFFYO%20Team,%20I%20would%20like%20to%20reserve%20a%20table%20at%20Sadar" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-concierge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              <span>Instant Table Concierge</span>
-            </a>
-            <a href="#visit" class="btn-atelier-map">
-              <span>Directions &amp; Map &darr;</span>
-            </a>
+      <!-- Tab 3: French Press -->
+      <div id="tab-frenchpress" class="brew-tab-pane">
+        <div class="brew-steps-list">
+          <div class="brew-step-item">
+            <div class="brew-step-index">1</div>
+            <div class="brew-step-info">
+              <strong>Coarse Sea Salt Grind</strong>
+              <p>Coarse grind prevents fine sediment and avoids over-extraction bitterness. 30g coffee to 500ml water.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">2</div>
+            <div class="brew-step-info">
+              <strong>Pour &amp; 4-Minute Immersion</strong>
+              <p>Saturate grounds completely with 95°C water. Stir once gently, replace lid, and steep undisturbed for 4 minutes.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">3</div>
+            <div class="brew-step-info">
+              <strong>Break &amp; Skim Crust</strong>
+              <p>Gently break the surface crust with a spoon and skim away top foam for an ultra-clean mouthfeel.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">4</div>
+            <div class="brew-step-info">
+              <strong>Gentle Even Plunge</strong>
+              <p>Press the mesh filter down with steady, gentle resistance. Decant immediately into mugs.</p>
+            </div>
+          </div>
+        </div>
+        <div class="brew-visual-box">
+          <img src="assets/images/caffyo_dark_roast.jpg" alt="French Press Coffee Infusion" loading="lazy" />
+          <div class="brew-visual-badge">
+            <span>METHOD: FULL IMMERSION</span>
+            <strong>TIME: 4 MINUTES</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Cold Drip -->
+      <div id="tab-coldbrew" class="brew-tab-pane">
+        <div class="brew-steps-list">
+          <div class="brew-step-item">
+            <div class="brew-step-index">1</div>
+            <div class="brew-step-info">
+              <strong>Dutch Tower Grind</strong>
+              <p>Consistent medium-coarse grind placed in glass extraction chamber with ceramic dispersion disc.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">2</div>
+            <div class="brew-step-info">
+              <strong>Purified Ice Water Chamber</strong>
+              <p>Fill top glass chamber with mineral ice and purified chilled water at 3°C.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">3</div>
+            <div class="brew-step-info">
+              <strong>18-Hour Drop-By-Drop</strong>
+              <p>Calibrate brass valve to precisely 1 drop every 1.5 seconds. Zero heat preserves volatile floral esters.</p>
+            </div>
+          </div>
+          <div class="brew-step-item">
+            <div class="brew-step-index">4</div>
+            <div class="brew-step-info">
+              <strong>Poured Over Crystal Rock</strong>
+              <p>Serve neat over crystal-clear artisan ice rock for an extraordinarily smooth, winey, low-acid nectar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="brew-visual-box">
+          <img src="assets/images/caffyo_kyoto_cold_drip.jpg" alt="Kyoto Cold Drip Tower and Cold Brew on the Rocks" loading="lazy" />
+          <div class="brew-visual-badge">
+            <span>METHOD: 18-HR KYOTO DRIP</span>
+            <strong>TIME: 18 HOURS</strong>
           </div>
         </div>
       </div>
@@ -510,26 +645,20 @@
         </p>
       </div>
 
-      <!-- Reference Underline Tabs: All / Gourmet Kitchen / Brews / Sweet -->
-      <div class="editorial-category-tabs">
-        <button class="editorial-tab-btn active" data-filter="all">All Highlights</button>
-        <button class="editorial-tab-btn" data-filter="bites">Burgers &amp; Bites</button>
-        <button class="editorial-tab-btn" data-filter="brews">Artisan Brews</button>
-        <button class="editorial-tab-btn" data-filter="desserts">Desserts &amp; Shakes</button>
-      </div>
 
-      <!-- 3-Card Grid Showcasing Review Champions (Reduced to 3 per User Request) -->
+
+      <!-- 3-Card Grid Showcasing Review Champions (Harmonious & Unified Layout) -->
       <div class="reference-cards-grid">
         <!-- Card 1: Insane Chicken Burger -->
         <div class="reference-card" data-category="bites">
           <div class="ref-card-img-box">
             <span class="ref-item-num">01.</span>
-            <img src="assets/images/gourmet_bites.jpg" alt="The Insane Chicken Burger" loading="lazy" />
+            <img src="assets/images/caffyo_insane_burger.jpg" alt="The Insane Chicken Burger" loading="lazy" />
           </div>
-          <span class="note-chip" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border-color: rgba(245, 158, 11, 0.4); margin-bottom: 8px;">★ Bestseller &bull; Rated 10/10</span>
+          <span class="note-chip" style="background: rgba(229, 152, 102, 0.18); color: var(--gold-accent); border: 1px solid rgba(229, 152, 102, 0.35); margin-bottom: 8px;">★ Bestseller &bull; Rated 10/10</span>
           <h3 class="ref-card-title">Insane Chicken Burger</h3>
           <div class="card-notes" style="justify-content: center; margin: 8px 0 10px;">
-            <span class="note-chip">Double Crunch</span>
+            <span class="note-chip">Crispy Fillet</span>
             <span class="note-chip">Molten Cheddar</span>
             <span class="note-chip">Toasted Brioche</span>
           </div>
@@ -545,7 +674,7 @@
             <span class="ref-item-num">02.</span>
             <img src="assets/images/spanish_latte.jpg" alt="Iced Spanish Latte" loading="lazy" />
           </div>
-          <span class="note-chip" style="background: rgba(229, 152, 102, 0.2); color: var(--gold-accent); border-color: rgba(229, 152, 102, 0.4); margin-bottom: 8px;">★ Barista Signature</span>
+          <span class="note-chip" style="background: rgba(229, 152, 102, 0.18); color: var(--gold-accent); border: 1px solid rgba(229, 152, 102, 0.35); margin-bottom: 8px;">★ Barista Signature</span>
           <h3 class="ref-card-title">Iced Spanish Latte</h3>
           <div class="card-notes" style="justify-content: center; margin: 8px 0 10px;">
             <span class="note-chip">Condensed Milk</span>
@@ -564,7 +693,7 @@
             <span class="ref-item-num">03.</span>
             <img src="assets/images/caffyo_artisan_pizza.jpg" alt="Artisanal Margherita Pizza" loading="lazy" />
           </div>
-          <span class="note-chip" style="background: rgba(34, 197, 94, 0.2); color: #22c55e; border-color: rgba(34, 197, 94, 0.4); margin-bottom: 8px;">★ Stone-Baked Fresh</span>
+          <span class="note-chip" style="background: rgba(229, 152, 102, 0.18); color: var(--gold-accent); border: 1px solid rgba(229, 152, 102, 0.35); margin-bottom: 8px;">★ Stone-Baked Fresh</span>
           <h3 class="ref-card-title">Margherita Pizza</h3>
           <div class="card-notes" style="justify-content: center; margin: 8px 0 10px;">
             <span class="note-chip">San Marzano</span>
@@ -615,6 +744,25 @@
       <div class="testimonial-arrows">
         <button id="btn-prev-testimonial" class="btn-arrow" aria-label="Previous review">←</button>
         <button id="btn-next-testimonial" class="btn-arrow" aria-label="Next review">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NEWSLETTER & SPECIAL OFFERS (Reference Section 5: Caramel Band)
+       ============================================================ -->
+  <section class="newsletter-band">
+    <div class="newsletter-container">
+      <h3 class="newsletter-headline">
+        Stay Up To Date On All News And Offers.
+      </h3>
+
+      <div class="newsletter-form-col">
+        <p>Be the first to know about new seasonal roasts, chef's specials, and events at Caffyo.</p>
+        <form id="newsletter-form" class="newsletter-input-box" onsubmit="event.preventDefault(); alert('Welcome to the Caffyo by Zauq Inner Circle!'); this.reset();">
+          <input type="email" required placeholder="Enter Your Email Address" aria-label="Email Address" />
+          <button type="submit" aria-label="Subscribe">&rarr;</button>
+        </form>
       </div>
     </div>
   </section>
@@ -767,11 +915,11 @@
       </span>
       <span class="dock-label">Home</span>
     </a>
-    <a href="#roasting-spectrum" class="dock-item" data-dock="lab">
+    <a href="#interactive-assembly" class="dock-item" data-dock="craft">
       <span class="dock-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
       </span>
-      <span class="dock-label">Lab</span>
+      <span class="dock-label">Craft</span>
     </a>
     <a href="menu.html" class="dock-item dock-item--accent" aria-label="Go to Menu" data-dock="menu">
       <span class="dock-icon">
@@ -779,11 +927,11 @@
       </span>
       <span class="dock-label">Menu</span>
     </a>
-    <a href="#live-atelier" class="dock-item" data-dock="today">
+    <a href="#editorial-story" class="dock-item" data-dock="story">
       <span class="dock-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       </span>
-      <span class="dock-label">Today</span>
+      <span class="dock-label">Story</span>
     </a>
     <a href="#visit" class="dock-item" aria-label="Visit Us" data-dock="visit">
       <span class="dock-icon">
@@ -842,7 +990,7 @@
 
   <!-- Scripts -->
   <script src="js/audio.js"></script>
-  <script src="js/three-scene.js?v=2.3"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/three-scene.js?v=2.5"></script>
+  <script src="js/app.js?v=2.5"></script>
 </body>
 </html>
