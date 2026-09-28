@@ -986,9 +986,11 @@ img {
 .editorial-story-section {
   position: relative;
   z-index: 20;
-  background-color: var(--bg-cream);
-  color: var(--text-dark);
+  background: linear-gradient(180deg, #0e0a07 0%, #150f0b 50%, #0e0a07 100%);
+  color: var(--text-light);
   padding: 100px 48px;
+  border-top: 1px solid rgba(229, 152, 102, 0.12);
+  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
 }
 
 .editorial-story-container {
@@ -1026,10 +1028,11 @@ img {
   left: -14px;
   width: 100%;
   height: 100%;
-  border: 1.5px solid var(--text-dark);
+  border: 1.5px solid rgba(229, 152, 102, 0.35);
   transform: rotate(-3deg);
   pointer-events: none;
   z-index: 1;
+  border-radius: var(--radius-sm);
 }
 
 .editorial-row.reversed .editorial-wireframe {
@@ -1043,13 +1046,15 @@ img {
   z-index: 2;
   overflow: hidden;
   border-radius: var(--radius-sm);
-  box-shadow: 0 16px 36px rgba(27, 19, 14, 0.18);
+  border: 1px solid rgba(229, 152, 102, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(229, 152, 102, 0.08);
   transform: rotate(1deg);
   transition: var(--transition);
 }
 
 .editorial-photo-box:hover {
   transform: rotate(0deg) scale(1.02);
+  border-color: var(--gold-accent);
 }
 
 .editorial-photo-box img {
@@ -1068,21 +1073,22 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   font-weight: 700;
-  color: var(--text-dark);
+  color: #fff;
   line-height: 1.2;
 }
 
 .editorial-desc {
   font-size: 1rem;
-  color: var(--text-dark-muted);
+  color: var(--text-muted-dark);
   line-height: 1.75;
 }
 
 .btn-dark-pill {
-  background: var(--text-dark);
+  background: rgba(229, 152, 102, 0.12);
+  border: 1px solid var(--gold-accent);
   color: #fff;
   padding: 12px 26px;
-  border-radius: var(--radius-full);
+  border-radius: 30px;
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
@@ -1095,8 +1101,10 @@ img {
 }
 
 .btn-dark-pill:hover {
-  background: #3d2c20;
+  background: var(--gold-accent);
+  color: #0e0a07;
   transform: translateX(4px);
+  box-shadow: 0 4px 18px rgba(229, 152, 102, 0.35);
 }
 
 /* ============================================================
@@ -1273,14 +1281,16 @@ img {
 }
 
 /* ============================================================
-   BEST SELLING ITEM (Warm Caramel / Ochre Section)
+   BEST SELLING ITEM (Dark Luxury Roastery Edition)
    ============================================================ */
 .best-sellers-section {
   position: relative;
   z-index: 20;
-  background-color: var(--bg-caramel);
-  color: var(--text-dark);
+  background: linear-gradient(180deg, #0e0a07 0%, #150f0b 50%, #0e0a07 100%);
+  color: var(--text-light);
   padding: 100px 48px;
+  border-top: 1px solid rgba(229, 152, 102, 0.12);
+  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
 }
 
 .best-sellers-container {
@@ -1290,7 +1300,7 @@ img {
 
 .best-sellers-head {
   text-align: center;
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto 36px;
 }
 
@@ -1298,13 +1308,13 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(2.2rem, 3.8vw, 3rem);
   font-weight: 700;
-  color: var(--text-dark);
+  color: #fff;
   margin-bottom: 10px;
 }
 
 .best-sellers-head p {
   font-size: 0.95rem;
-  color: rgba(27, 19, 14, 0.75);
+  color: var(--text-muted-dark);
 }
 
 .editorial-category-tabs {
@@ -1320,7 +1330,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.05rem;
   font-weight: 600;
-  color: rgba(27, 19, 14, 0.7);
+  color: var(--text-muted-dark);
   cursor: pointer;
   padding: 4px 2px;
   position: relative;
@@ -1329,7 +1339,7 @@ img {
 
 .editorial-tab-btn.active,
 .editorial-tab-btn:hover {
-  color: var(--text-dark);
+  color: #fff;
   font-weight: 700;
 }
 
@@ -1340,7 +1350,7 @@ img {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--text-dark);
+  background: var(--gold-accent);
 }
 
 /* 3-Card Grid Matching Reference */
@@ -1351,20 +1361,23 @@ img {
 }
 
 .reference-card {
-  background: #140d09;
+  background: rgba(22, 15, 10, 0.85);
+  border: 1px solid rgba(229, 152, 102, 0.2);
   border-radius: var(--radius-sm);
   padding: 18px 18px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
   transition: var(--transition);
+  backdrop-filter: blur(8px);
 }
 
 .reference-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  border-color: rgba(229, 152, 102, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(229, 152, 102, 0.1);
 }
 
 .ref-card-img-box {
@@ -1422,35 +1435,39 @@ img {
 
 .ref-order-btn {
   width: 100%;
-  background: var(--bg-caramel-light);
-  border: 1px solid rgba(27, 19, 14, 0.3);
-  color: var(--text-dark);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  padding: 10px;
+  background: linear-gradient(135deg, #e59866 0%, #cf824e 100%);
+  border: none;
+  color: #0e0a07;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.92rem;
+  padding: 11px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: var(--transition);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   display: inline-block;
+  box-shadow: 0 4px 14px rgba(229, 152, 102, 0.25);
   text-align: center;
 }
 
 .ref-order-btn:hover {
-  background: #fff;
+  background: linear-gradient(135deg, #f0ab7d 0%, #df915b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 152, 102, 0.4);
 }
 
 /* ============================================================
-   TESTIMONIALS (Cream + Dark Overlapping Card)
+   TESTIMONIALS (Dark Luxury Guestbook)
    ============================================================ */
 .testimonial-section {
   position: relative;
   z-index: 20;
-  background-color: var(--bg-cream);
-  color: var(--text-dark);
+  background: linear-gradient(180deg, #0e0a07 0%, #160e0a 50%, #0e0a07 100%);
+  color: var(--text-light);
   padding: 100px 48px;
+  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
 }
 
 .testimonial-container {
@@ -1463,7 +1480,7 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(2.2rem, 3.8vw, 3rem);
   font-weight: 700;
-  color: var(--text-dark);
+  color: #fff;
   margin-bottom: 50px;
 }
 
@@ -1482,22 +1499,26 @@ img {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  border: 4px solid var(--bg-cream);
-  background: #140d09;
+  border: 3px solid var(--gold-accent);
+  background: #1a110a;
+  color: var(--gold-accent);
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 26px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(229, 152, 102, 0.3);
 }
 
 .testimonial-card {
-  background: #140d09;
+  background: rgba(20, 13, 9, 0.95);
   color: #fff;
   border-radius: var(--radius-sm);
+  border: 1px solid rgba(229, 152, 102, 0.22);
   padding: 56px 44px 34px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 20px rgba(229, 152, 102, 0.06);
   position: relative;
   height: 380px;
   display: flex;
@@ -1505,6 +1526,7 @@ img {
   justify-content: space-between;
   transition: opacity 0.25s ease;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .testimonial-quote {
@@ -1554,12 +1576,12 @@ img {
 }
 
 .btn-arrow {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 4px;
-  background: rgba(27, 19, 14, 0.15);
-  border: 1px solid rgba(27, 19, 14, 0.3);
-  color: var(--text-dark);
+  background: rgba(229, 152, 102, 0.12);
+  border: 1px solid rgba(229, 152, 102, 0.3);
+  color: #fff;
   font-size: 18px;
   cursor: pointer;
   display: flex;
@@ -1569,84 +1591,10 @@ img {
 }
 
 .btn-arrow:hover {
-  background: var(--text-dark);
-  color: #fff;
-}
-
-/* ============================================================
-   NEWSLETTER BAND
-   ============================================================ */
-.newsletter-band {
-  position: relative;
-  z-index: 20;
-  background-color: var(--bg-caramel);
-  color: var(--text-dark);
-  padding: 60px 48px;
-}
-
-.newsletter-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-
-.newsletter-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  max-width: 480px;
-}
-
-.newsletter-form-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 320px;
-  max-width: 460px;
-  flex: 1;
-}
-
-.newsletter-form-col p {
-  font-size: 0.85rem;
-  color: rgba(27, 19, 14, 0.8);
-}
-
-.newsletter-input-box {
-  display: flex;
-  width: 100%;
-  background: #fff;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.newsletter-input-box input {
-  flex: 1;
-  border: none;
-  padding: 14px 16px;
-  font-size: 0.92rem;
-  font-family: var(--font-sans);
-  outline: none;
-  color: #000;
-}
-
-.newsletter-input-box button {
-  background: var(--text-dark);
-  color: #fff;
-  border: none;
-  padding: 0 24px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.newsletter-input-box button:hover {
-  background: #3d2c20;
+  background: var(--gold-accent);
+  border-color: var(--gold-accent);
+  color: #0e0a07;
+  transform: scale(1.06);
 }
 
 /* ============================================================
@@ -2565,45 +2513,19 @@ img {
     overflow: hidden;
   }
 
-  /* ---- NEWSLETTER BAND ---- */
-  .newsletter-band {
-    padding: 36px 16px;
+  /* ---- LIVE ATELIER SECTION ---- */
+  .live-atelier-section {
+    padding: 50px 16px 40px;
   }
-  .newsletter-container {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-    align-items: center;
+  .atelier-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
-  .newsletter-headline {
-    font-size: 1.7rem;
-    max-width: 100%;
+  .atelier-card {
+    padding: 22px 18px;
   }
-  .newsletter-form-col {
-    min-width: 100%;
-    max-width: 100%;
-  }
-  .newsletter-input-box {
-    flex-direction: column;
-    border-radius: 6px;
-    overflow: visible;
-    gap: 8px;
-    background: transparent;
-    box-shadow: none;
-  }
-  .newsletter-input-box input {
-    border-radius: 6px;
-    padding: 13px 14px;
-    border: none;
-    width: 100%;
-  }
-  .newsletter-input-box button {
-    border-radius: 6px;
-    padding: 13px;
-    font-size: 0.92rem;
-    font-weight: 700;
-    font-family: var(--font-sans);
-    background: var(--text-dark);
+  .atelier-clock-digits {
+    font-size: 1.4rem;
   }
 
   /* ---- VISIT & CAFE EXPERIENCE SECTION ---- */
@@ -3542,90 +3464,6 @@ img {
   line-height: 1;
 }
 
-/* ============================================================
-   WHY CAFFYO / WHAT SETS US APART (Bean & Brew Reference Section)
-   ============================================================ */
-.why-caffyo-section {
-  position: relative;
-  z-index: 20;
-  background: #0f0a07;
-  padding: 85px 32px;
-  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
-}
-
-.why-caffyo-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-}
-
-.feature-item {
-  position: relative;
-  background: rgba(22, 15, 10, 0.75);
-  border: 1px solid rgba(229, 152, 102, 0.18);
-  border-radius: 12px;
-  padding: 32px 24px 28px;
-  text-align: center;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  backdrop-filter: blur(8px);
-}
-
-.feature-item:hover {
-  transform: translateY(-6px);
-  border-color: rgba(229, 152, 102, 0.5);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(229, 152, 102, 0.1);
-}
-
-.feature-num {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-family: var(--font-serif);
-  font-size: 0.88rem;
-  color: rgba(229, 152, 102, 0.4);
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.feature-icon {
-  width: 58px;
-  height: 58px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: rgba(229, 152, 102, 0.1);
-  border: 1px solid rgba(229, 152, 102, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  color: var(--gold-accent);
-  transition: transform 0.3s ease;
-}
-
-.feature-item:hover .feature-icon {
-  transform: scale(1.08) rotate(4deg);
-  border-color: var(--gold-accent);
-}
-
-.feature-item h4 {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.feature-item p {
-  font-size: 0.86rem;
-  color: var(--text-muted-dark);
-  line-height: 1.55;
-}
 
 /* ============================================================
    ROASTING SPECTRUM & HIGHLAND TERROIRS (Bean & Brew Origins + Nuvo)
@@ -3787,204 +3625,350 @@ img {
   gap: 10px;
 }
 
-/* ============================================================
-   INTERACTIVE BARISTA BREW GUIDE (Bean & Brew Reference)
-   ============================================================ */
-.brew-guide-section {
-  position: relative;
-  z-index: 20;
-  background: #0d0805;
-  padding: 100px 32px;
-  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
-}
-
-.brew-guide-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.brew-tabs {
+/* Barista brew specs on roasting cards */
+.roast-brew-spec {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 40px auto 48px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(229, 152, 102, 0.08);
+  border: 1px solid rgba(229, 152, 102, 0.18);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
 }
 
-.brew-tab-btn {
-  padding: 10px 24px;
-  border-radius: 30px;
-  border: 1px solid rgba(229, 152, 102, 0.25);
-  background: rgba(22, 15, 10, 0.6);
-  color: var(--text-light);
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.brew-tab-btn:hover {
-  background: rgba(229, 152, 102, 0.15);
-  border-color: var(--gold-accent);
-  color: #fff;
-}
-
-.brew-tab-btn.active {
-  background: var(--gold-accent);
-  color: #0e0a07;
-  border-color: var(--gold-accent);
-  box-shadow: 0 4px 18px rgba(229, 152, 102, 0.35);
+.spec-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold-accent);
   font-weight: 700;
 }
 
-.brew-tab-pane {
-  display: none;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 48px;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+.spec-value {
+  font-size: 0.78rem;
+  color: #f7f1eb;
+  font-family: var(--font-sans);
+  font-weight: 500;
 }
 
-.brew-tab-pane.active {
+/* ============================================================
+   LIVE AT CAFFYO • THE SADAR DAILY BOARD
+   Real-Time Atelier, Local Clock, Roaster's Cut, Ambiance & Concierge
+   ============================================================ */
+.live-atelier-section {
+  position: relative;
+  z-index: 20;
+  background: linear-gradient(180deg, #0e0a07 0%, #150e09 50%, #0e0a07 100%);
+  padding: 95px 32px;
+  border-top: 1px solid rgba(229, 152, 102, 0.12);
+  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
+}
+
+.live-atelier-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.atelier-grid {
   display: grid;
-  opacity: 1;
-  transform: translateY(0);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
 }
 
-.brew-steps-list {
+.atelier-card {
+  position: relative;
+  background: rgba(22, 15, 10, 0.85);
+  border: 1px solid rgba(229, 152, 102, 0.2);
+  border-radius: 14px;
+  padding: 30px 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.brew-step-item {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  background: rgba(22, 15, 10, 0.5);
-  border: 1px solid rgba(229, 152, 102, 0.12);
-  border-radius: 12px;
-  padding: 18px 20px;
-  transition: border-color 0.3s ease, background 0.3s ease;
+.atelier-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(229, 152, 102, 0.5);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(229, 152, 102, 0.1);
 }
 
-.brew-step-item:hover {
-  border-color: rgba(229, 152, 102, 0.35);
-  background: rgba(22, 15, 10, 0.8);
-}
-
-.brew-step-index {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(229, 152, 102, 0.15);
-  border: 1px solid var(--gold-accent);
-  color: var(--gold-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  flex-shrink: 0;
-}
-
-.brew-step-info strong {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 1.12rem;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.brew-step-info p {
-  font-size: 0.86rem;
-  color: var(--text-muted-dark);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.brew-visual-box {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(229, 152, 102, 0.25);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55);
-}
-
-.brew-visual-box img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease;
-}
-
-.brew-visual-box:hover img {
-  transform: scale(1.04);
-}
-
-.brew-visual-badge {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  padding: 12px 18px;
-  background: rgba(14, 10, 7, 0.85);
-  border: 1px solid rgba(229, 152, 102, 0.25);
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
-  color: #fff;
+.atelier-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(229, 152, 102, 0.12);
+  padding-bottom: 14px;
 }
 
-.brew-visual-badge span {
-  font-size: 0.84rem;
-  color: var(--gold-accent);
-  font-weight: 600;
+.status-indicator-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.atelier-badge-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: 1px;
+  color: #22c55e;
 }
 
-.brew-visual-badge strong {
-  font-size: 0.95rem;
+.atelier-badge-text.closed {
+  color: #f59e0b;
+}
+
+.atelier-tag {
+  font-size: 0.72rem;
+  color: var(--text-muted-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.atelier-badge-gold {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.atelier-tag-accent {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.atelier-clock-wrap {
+  text-align: center;
+  padding: 16px 0;
+  background: rgba(14, 10, 7, 0.6);
+  border-radius: 10px;
+  border: 1px solid rgba(229, 152, 102, 0.15);
+  margin-bottom: 20px;
+}
+
+.atelier-clock-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-accent);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.atelier-clock-digits {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(229, 152, 102, 0.35);
+}
+
+.atelier-status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.atelier-countdown-text {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.atelier-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.amenity-chip {
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  background: rgba(229, 152, 102, 0.1);
+  border: 1px solid rgba(229, 152, 102, 0.22);
+  border-radius: 14px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.pairing-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.pairing-item h4 {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  color: #fff;
+  margin: 4px 0 6px;
+  font-weight: 700;
+}
+
+.pairing-item p {
+  font-size: 0.82rem;
+  color: var(--text-muted-dark);
+  line-height: 1.45;
+}
+
+.pairing-role {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold-accent);
+  font-weight: 700;
+}
+
+.pairing-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pairing-divider::before,
+.pairing-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(229, 152, 102, 0.2);
+}
+
+.pairing-divider span {
+  padding: 0 12px;
+  font-size: 0.72rem;
+  font-style: italic;
+  font-family: var(--font-serif);
+  color: var(--gold-accent);
+}
+
+.btn-atelier-pairing {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 11px;
+  background: rgba(229, 152, 102, 0.12);
+  border: 1px solid var(--gold-accent);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-atelier-pairing:hover {
+  background: var(--gold-accent);
+  color: #0e0a07;
+  box-shadow: 0 4px 16px rgba(229, 152, 102, 0.35);
+}
+
+.vibe-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.vibe-item .vibe-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold-accent);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.vibe-item .vibe-value {
+  font-size: 0.86rem;
+  color: #fff;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.vibe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-whatsapp-concierge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.25);
+  transition: var(--transition);
+}
+
+.btn-whatsapp-concierge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-atelier-map {
+  display: block;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--gold-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  padding: 4px;
+}
+
+.btn-atelier-map:hover {
   color: #fff;
 }
 
-/* Responsive adjustments for Brew Guide & Features */
+/* Responsive adjustments for Atelier & Roastery */
 @media (max-width: 992px) {
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .roasting-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .brew-tab-pane {
+  .atelier-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .brew-visual-box img {
-    height: 320px;
+    gap: 20px;
   }
 }
 
 @media (max-width: 600px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
   .roasting-cards-grid {
     grid-template-columns: 1fr;
   }
-  .brew-tabs {
-    gap: 8px;
+  .atelier-grid {
+    grid-template-columns: 1fr;
   }
-  .brew-tab-btn {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+  .atelier-card {
+    padding: 22px 18px;
+  }
+  .atelier-clock-digits {
+    font-size: 1.4rem;
   }
 }
 
