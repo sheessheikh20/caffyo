@@ -313,6 +313,72 @@ class CaffyoAudioEngine {
     gain.connect(this.ctx.destination);
     noise.start(now);
   }
+
+  /* Authentic Barista Liquid Pour Sound Effect */
+  playPourSound() {
+    if (this.isMuted || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    const dur = 1.6;
+    const bufferSize = Math.floor(this.ctx.sampleRate * dur);
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.10;
+    }
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(380, now);
+    filter.frequency.exponentialRampToValueAtTime(720, now + dur);
+    filter.Q.value = 2.2;
+
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.14, now + 0.25);
+    gain.gain.setValueAtTime(0.14, now + dur - 0.35);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    noise.start(now);
+    noise.stop(now + dur);
+  }
+
+  /* Silky Steamed Milk Microfoam Pour Sound */
+  playMilkPourSound() {
+    if (this.isMuted || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    const dur = 1.8;
+    const bufferSize = Math.floor(this.ctx.sampleRate * dur);
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.08;
+    }
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(620, now);
+    filter.frequency.exponentialRampToValueAtTime(1050, now + dur);
+    filter.Q.value = 1.8;
+
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.11, now + 0.3);
+    gain.gain.setValueAtTime(0.11, now + dur - 0.4);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    noise.start(now);
+    noise.stop(now + dur);
+  }
 }
 
 window.caffyoAudio = new CaffyoAudioEngine();

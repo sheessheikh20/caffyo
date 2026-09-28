@@ -24,18 +24,37 @@ class Caffyo3DExperience {
 
     // 3D Objects
     this.cupGroup = null;
+    this.saucerGroup = null;
+    this.cupBodyGroup = null;
+    this.liquidGroup = null;
     this.liquidMesh = null;
+    this.latteArtMesh = null;
+    this.espressoMesh = null;
+    this.pourStreamGroup = null;
+    this.pourStreamMesh = null;
+    this.pourDroplets = [];
     this.beans = [];
     this.steamParticles = null;
     this.sparkParticles = [];
     this.shockwaves = [];
     this.pointLight = null;
 
-    // Cinematic Entry Animation (triggered AFTER preloader hides)
+    // Cinematic Barista Animation Sequence:
+    // Stage 1: Saucer drops & settles on table
+    // Stage 2: Cup body drops & clinks onto saucer
+    // Stage 3: Rich brown coffee (espresso) pours & fills base of cup
+    // Stage 4: Silky white steamed milk pours into espresso, organically forming the latte art design!
+    // Stage 5: Settle & warm steam rises
     this.entryProgress = 0;
-    this.entryDuration = 1.8;      // Total animation length in seconds
+    this.entryDuration = 5.8;      // Relaxed, natural, authentic barista sequence length in seconds
     this.hasCompletedEntry = false;
     this.entryStarted = false;     // Frozen until triggerCupEntry() is called
+    this.hasPlayedCupLand = false;
+    this.hasPlayedPourStart = false;
+    this.hasPlayedMilkStart = false;
+    this.hasPlayedLatteBloom = false;
+    this.hasCutoffJiggled = false;
+    this.hasCutoffJiggledCoffee = false;
 
     // Fluid Slosh Physics & Interactive Surface Simulator
     this.fluid = {
@@ -43,6 +62,8 @@ class Caffyo3DExperience {
       sloshZ: 0,
       velX: 0,
       velZ: 0,
+      jiggleY: 0,
+      jiggleVelY: 0,
       waveEnergy: 0,
       wavePhase: 0,
       angularVel: 0,
@@ -301,17 +322,23 @@ class Caffyo3DExperience {
     ];
     const saucerGeo = new THREE.LatheGeometry(saucerPoints, 96);
     const saucer = new THREE.Mesh(saucerGeo, porcelainMat);
+    saucer.castShadow = true;
     saucer.receiveShadow = true;
-    this.cupGroup.add(saucer);
+    this.saucerGroup = new THREE.Group();
+    this.cupGroup.add(this.saucerGroup);
+    this.saucerGroup.add(saucer);
 
     // Saucer Gold Rim
     const saucerRimGeo = new THREE.TorusGeometry(2.12, 0.02, 16, 96);
     saucerRimGeo.rotateX(Math.PI / 2);
     saucerRimGeo.translate(0, 0.19, 0);
     const saucerRim = new THREE.Mesh(saucerRimGeo, goldTrimMat);
-    this.cupGroup.add(saucerRim);
+    this.saucerGroup.add(saucerRim);
 
-    // 2. Cup Body (Artisanal curved latte cup with 96 segments)
+    // 2. Cup Body Group (Artisanal curved latte cup with 96 segments)
+    this.cupBodyGroup = new THREE.Group();
+    this.cupGroup.add(this.cupBodyGroup);
+
     // Profile carefully calculated so wall has realistic ~0.10 thickness
     // and inner wall is completely smooth
     const cupPoints = [
@@ -333,19 +360,16 @@ class Caffyo3DExperience {
     const cup = new THREE.Mesh(cupGeo, porcelainMat);
     cup.castShadow = true;
     cup.receiveShadow = true;
-    this.cupGroup.add(cup);
+    this.cupBodyGroup.add(cup);
 
     // Cup Lip Gold Ring
     const cupLipGeo = new THREE.TorusGeometry(1.41, 0.018, 16, 96);
     cupLipGeo.rotateX(Math.PI / 2);
     cupLipGeo.translate(0, 1.43, 0);
     const cupLip = new THREE.Mesh(cupLipGeo, goldTrimMat);
-    this.cupGroup.add(cupLip);
+    this.cupBodyGroup.add(cupLip);
 
     // 3. Ergonomic Handle: STRICTLY EXTERIOR, zero penetration into cup interior!
-    // Top anchor starts on outer wall at (1.41, 1.20, 0)
-    // Outer apex arches outward to (2.05, 0.98, 0)
-    // Bottom anchor attaches to outer wall at (1.15, 0.48, 0)
     const handleCurve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(1.41, 1.20, 0),
       new THREE.Vector3(1.72, 1.28, 0),
@@ -358,70 +382,408 @@ class Caffyo3DExperience {
     const handle = new THREE.Mesh(handleGeo, porcelainMat);
     handle.castShadow = true;
     handle.receiveShadow = true;
-    this.cupGroup.add(handle);
+    this.cupBodyGroup.add(handle);
 
     // 4. Realistic Liquid Coffee Surface
-    // Inside cup at y = 1.205 (cup inner radius is ~1.278, matches 96 lathe segments)
+    // Inside cup: starts with rich dark coffee already present at y = 0.82 (~60% cup fill)
     this.liquidGroup = new THREE.Group();
-    this.liquidGroup.position.set(0, 1.205, 0);
+    this.liquidGroup.position.set(0, 0.82, 0);
+    this.liquidGroup.scale.set(0.85, 1.0, 0.85);
 
-    // Liquid surface disk with 96 radial segments matching cup lathe geometry perfectly
-    const liquidGeo = new THREE.CircleGeometry(1.265, 96);
-    liquidGeo.rotateX(-Math.PI / 2);
+    // Liquid surface disk with 64 radial sectors and 28 concentric rings for silky-smooth wave physics
+    const liquidGeo = this.createPolarDiskGeometry(1.265, 64, 28);
 
     const pos = liquidGeo.attributes.position;
     this.liquidOrigPos = new Float32Array(pos.array.length);
     this.liquidOrigPos.set(pos.array);
 
-    // Authentic Barista Rosetta Latte Art Texture (from user reference)
+    // Authentic Barista Heart Latte Art Texture (photorealistic from user reference)
     const textureLoader = new THREE.TextureLoader();
-    const rosettaTexture = textureLoader.load('assets/images/latte_art_rosetta.png');
-    rosettaTexture.generateMipmaps = true;
-    rosettaTexture.minFilter = THREE.LinearMipmapLinearFilter;
-    rosettaTexture.magFilter = THREE.LinearFilter;
-    rosettaTexture.encoding = THREE.sRGBEncoding;
+    const heartTexture = textureLoader.load('assets/images/latte_art_heart.png');
+    heartTexture.generateMipmaps = true;
+    heartTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    heartTexture.magFilter = THREE.LinearFilter;
+    heartTexture.encoding = THREE.sRGBEncoding;
     // Center the art exactly on the circular disk surface
-    rosettaTexture.center.set(0.5, 0.5);   // rotation pivot = UV center
-    rosettaTexture.offset.set(0.0, 0.0);   // no offset — dead center
-    rosettaTexture.repeat.set(1.0, 1.0);   // fill the full disk, no tiling
-    rosettaTexture.rotation = 0;           // heart crown facing up (natural barista pour)
+    heartTexture.center.set(0.5, 0.5);   // rotation pivot = UV center
+    heartTexture.offset.set(0.0, 0.0);   // no offset — dead center
+    heartTexture.repeat.set(1.0, 1.0);   // fill the full disk, no tiling
+    heartTexture.rotation = 0;           // Heart cleft faces top/back of cup
     if (this.renderer && this.renderer.capabilities && this.renderer.capabilities.getMaxAnisotropy) {
-      rosettaTexture.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
+      heartTexture.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy());
     }
 
-    // Microfoam depth normal / bump map for tactile realism
-    const rosettaNormal = textureLoader.load('assets/images/latte_art_rosetta_normal.png');
-    rosettaNormal.minFilter = THREE.LinearMipmapLinearFilter;
+    const normalTexture = textureLoader.load('assets/images/latte_art_heart_normal.png');
+    normalTexture.generateMipmaps = true;
+    normalTexture.minFilter = THREE.LinearMipmapLinearFilter;
 
     // Photorealistic velvety microfoam physical material
-    const liquidMat = new THREE.MeshPhysicalMaterial({
-      map: rosettaTexture,
-      bumpMap: rosettaTexture,
+    // A. Base Dark Espresso Liquid Surface (pre-existing inside cup)
+    const espressoMat = new THREE.MeshPhysicalMaterial({
+      color: 0x1f0e05,        // Deep dark roasted espresso coffee
+      roughness: 0.10,
+      metalness: 0.02,
+      clearcoat: 0.95,
+      clearcoatRoughness: 0.04,
+      reflectivity: 0.90,
+      side: THREE.DoubleSide
+    });
+    this.espressoMesh = new THREE.Mesh(liquidGeo, espressoMat);
+    this.espressoMesh.position.set(0, 0, 0);
+    this.espressoMesh.renderOrder = 1;
+    this.espressoMesh.frustumCulled = false;
+    this.liquidGroup.add(this.espressoMesh);
+
+    // Latte art custom shader uniforms for organic outward milk expansion
+    this.latteUniforms = {
+      uBloomRadius: { value: 0.0 },
+      uCenter: { value: new THREE.Vector2(0.5, 0.5) },
+      uTime: { value: 0.0 }
+    };
+
+    // B. Blooming Heart Latte Art Surface (layered directly on top, blooms from poured milk)
+    const latteArtMat = new THREE.MeshPhysicalMaterial({
+      map: heartTexture,
+      bumpMap: heartTexture,
       bumpScale: 0.003,
+      normalMap: normalTexture,
+      normalScale: new THREE.Vector2(0.18, 0.18),
       color: 0xffffff,
-      roughness: 0.35,        // Soft microfoam scattering (not shiny plastic mirror)
+      roughness: 0.30,        // Soft microfoam scattering
       metalness: 0.0,
-      clearcoat: 0.35,        // Subtle wet liquid sheen of freshly poured espresso
-      clearcoatRoughness: 0.20,
-      reflectivity: 0.70,
-      polygonOffset: true,
-      polygonOffsetFactor: -1.0,
-      polygonOffsetUnits: -1.0
+      clearcoat: 0.45,        // Creamy liquid sheen
+      clearcoatRoughness: 0.10,
+      reflectivity: 0.75,
+      transparent: true,
+      opacity: 1.0,           // Constant full opacity; expansion is handled by dynamic surface bloom!
+      depthWrite: false,
+      side: THREE.DoubleSide
     });
 
-    this.liquidMesh = new THREE.Mesh(liquidGeo, liquidMat);
-    this.liquidGroup.add(this.liquidMesh);
-    this.cupGroup.add(this.liquidGroup);
+    const latteUniformsRef = this.latteUniforms;
+    latteArtMat.onBeforeCompile = (shader) => {
+      shader.uniforms.uBloomRadius = latteUniformsRef.uBloomRadius;
+      shader.uniforms.uCenter = latteUniformsRef.uCenter;
+      shader.uniforms.uTime = latteUniformsRef.uTime;
 
-    // Start cup completely hidden above screen — entry fires after preloader
+      shader.fragmentShader = `
+        uniform float uBloomRadius;
+        uniform vec2 uCenter;
+        uniform float uTime;
+      ` + shader.fragmentShader;
+
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <dithering_fragment>',
+        `
+        #include <dithering_fragment>
+
+        // Barista Milk Foam Radial Spreading: starts from 1 dot at impact point and expands organically
+        float dist = length(vUv - uCenter);
+        float angle = atan(vUv.y - uCenter.y, vUv.x - uCenter.x);
+        // Organic fluid ripples along expanding perimeter
+        float ripple = sin(angle * 7.0 + uTime * 3.5) * 0.012 + cos(angle * 13.0 - uTime * 2.2) * 0.008;
+        float effDist = dist + ripple;
+
+        if (uBloomRadius <= 0.002) {
+          gl_FragColor.a = 0.0;
+        } else if (effDist > uBloomRadius) {
+          gl_FragColor.a = 0.0;
+        } else {
+          // Soft fluid feathering at the expanding boundary
+          float feather = smoothstep(uBloomRadius, max(0.001, uBloomRadius - 0.035), effDist);
+          
+          // Steamed milk leading froth edge (bright white microfoam ripple at perimeter)
+          float edgeFroth = smoothstep(max(0.0, uBloomRadius - 0.045), max(0.001, uBloomRadius - 0.012), effDist) * 
+                            (1.0 - smoothstep(max(0.001, uBloomRadius - 0.012), uBloomRadius, effDist));
+          gl_FragColor.rgb += vec3(edgeFroth * 0.28);
+          
+          // During early dot/bulb expansion stage, blend pure silky white steamed milk
+          float dotPhase = clamp(1.0 - uBloomRadius / 0.20, 0.0, 1.0);
+          if (dotPhase > 0.0) {
+            gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.98, 0.97, 0.94), dotPhase * 0.70);
+          }
+          
+          gl_FragColor.a *= feather;
+        }
+        `
+      );
+    };
+
+    this.latteArtMesh = new THREE.Mesh(liquidGeo, latteArtMat);
+    this.latteArtMesh.position.set(0, 0.003, 0);
+    this.latteArtMesh.renderOrder = 2;
+    this.latteArtMesh.frustumCulled = false;
+    this.latteArtMesh.visible = false;
+    this.liquidMesh = this.latteArtMesh; // ripple engine targets this shared geometry
+    this.liquidGroup.add(this.latteArtMesh);
+
+    // Steamed milk touchdown microfoam pool disk (physical white foam dot at pour center)
+    const foamSpotGeo = new THREE.CircleGeometry(0.12, 32);
+    foamSpotGeo.rotateX(-Math.PI / 2);
+    const foamSpotMat = new THREE.MeshBasicMaterial({
+      color: 0xfffef8,
+      transparent: true,
+      opacity: 0.95,
+      depthWrite: false
+    });
+    this.pourFoamSpot = new THREE.Mesh(foamSpotGeo, foamSpotMat);
+    this.pourFoamSpot.position.set(0, 0.005, 0);
+    this.pourFoamSpot.renderOrder = 3;
+    this.pourFoamSpot.visible = false;
+    this.liquidGroup.add(this.pourFoamSpot);
+
+    this.cupBodyGroup.add(this.liquidGroup);
+
+    // 5. Authentic Barista Steamed Milk Pouring Stream System
+    this.pourStreamGroup = new THREE.Group();
+    const streamGeo = this.createLaminarStreamGeometry(96, 64);
+    const streamMat = new THREE.MeshStandardMaterial({
+      color: 0xfffef9,         // Pure creamy white steamed microfoam milk
+      roughness: 0.20,         // Soft velvety microfoam
+      metalness: 0.01,
+      side: THREE.DoubleSide
+    });
+    this.pourStreamMesh = new THREE.Mesh(streamGeo, streamMat);
+    this.pourStreamMesh.frustumCulled = false;
+    this.pourStreamGroup.add(this.pourStreamMesh);
+    this.pourStreamGroup.visible = false;
+    this.cupGroup.add(this.pourStreamGroup);
+
+    this.pourDroplets = [];
+
+    // Overall cupGroup positioned at resting layout
     const isMobile = window.innerWidth <= 768;
     const initX = this.targetRestX !== undefined ? this.targetRestX : (isMobile ? 0 : 2.25);
-    const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.22 : -0.28);
-    // Park far above and scaled to zero — invisible until triggerCupEntry() is called
-    this.cupGroup.position.set(initX, initY + 9.0, 0);
-    this.cupGroup.scale.setScalar(0.001);
-    this.cupGroup.rotation.set(-0.4, 1.2, 0.15);
+    const initY = this.targetRestY !== undefined ? this.targetRestY : (isMobile ? 0.80 : -0.28);
+    const initScale = this.targetScale !== undefined ? this.targetScale : (isMobile ? 0.52 : 0.86);
+
+    this.cupGroup.position.set(initX, initY, 0);
+    this.cupGroup.scale.setScalar(initScale);
+    this.cupGroup.rotation.set(0.28, 0.30, 0);
+
+    // Subgroups parked gently above until triggerCupEntry()
+    this.saucerGroup.position.set(0, 4.5, 0);
+    this.saucerGroup.scale.setScalar(0.70);
+
+    this.cupBodyGroup.position.set(0, 5.0, 0);
+    this.cupBodyGroup.scale.setScalar(0.70);
+
+    // Coffee is ALREADY present inside the cup!
+    this.liquidGroup.position.set(0, 0.82, 0);
+    this.liquidGroup.scale.set(0.85, 1.0, 0.85);
+
     this.scene.add(this.cupGroup);
+  }
+
+  /* Concentric Polar Disk Geometry for Silky-Smooth Organic Liquid Capillary Ripples */
+  createPolarDiskGeometry(radius, thetaSegments = 64, ringSegments = 28) {
+    const geometry = new THREE.BufferGeometry();
+    const positions = [];
+    const uvs = [];
+    const indices = [];
+
+    // Center vertex at (0, 0, 0)
+    positions.push(0, 0, 0);
+    uvs.push(0.5, 0.5);
+
+    // Concentric rings in X-Z horizontal plane
+    for (let r = 1; r <= ringSegments; r++) {
+      const ringRadius = (r / ringSegments) * radius;
+      for (let s = 0; s < thetaSegments; s++) {
+        const theta = (s / thetaSegments) * Math.PI * 2;
+        const x = Math.cos(theta) * ringRadius;
+        const z = Math.sin(theta) * ringRadius;
+        positions.push(x, 0, z);
+        uvs.push(0.5 + (x / (2 * radius)), 0.5 - (z / (2 * radius)));
+      }
+    }
+
+    // Center fan triangles (wound so normal points upward +Y)
+    for (let s = 0; s < thetaSegments; s++) {
+      const nextS = (s + 1) % thetaSegments;
+      indices.push(0, 1 + nextS, 1 + s);
+    }
+
+    // Quad strips between concentric rings (wound so normal points upward +Y)
+    for (let r = 1; r < ringSegments; r++) {
+      const curRing = 1 + (r - 1) * thetaSegments;
+      const nextRing = 1 + r * thetaSegments;
+      for (let s = 0; s < thetaSegments; s++) {
+        const nextS = (s + 1) % thetaSegments;
+        const v0 = curRing + s;
+        const v1 = curRing + nextS;
+        const v2 = nextRing + s;
+        const v3 = nextRing + nextS;
+
+        indices.push(v0, v3, v2);
+        indices.push(v0, v1, v3);
+      }
+    }
+
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geometry.setIndex(indices);
+    geometry.computeVertexNormals();
+
+    return geometry;
+  }
+
+  /* Ultra-Refined Curvy Fluid Ribbon Stream with Dynamic Helical Twist & Meniscus Flare */
+  createLaminarStreamGeometry(rings = 96, radialSegments = 64) {
+    const geometry = new THREE.BufferGeometry();
+    const count = (rings + 1) * radialSegments;
+    const positions = new Float32Array(count * 3);
+    const normals = new Float32Array(count * 3);
+    const uvs = new Float32Array(count * 2);
+    const indices = [];
+
+    for (let i = 0; i < rings; i++) {
+      for (let j = 0; j < radialSegments; j++) {
+        const nextJ = (j + 1) % radialSegments;
+        const v0 = i * radialSegments + j;
+        const v1 = i * radialSegments + nextJ;
+        const v2 = (i + 1) * radialSegments + j;
+        const v3 = (i + 1) * radialSegments + nextJ;
+
+        indices.push(v0, v2, v1);
+        indices.push(v1, v2, v3);
+      }
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
+    geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+    geometry.setIndex(indices);
+
+    return geometry;
+  }
+
+  updateLaminarStream(currentLiquidY, uStart = 0.0, uEnd = 1.0, elapsedTime = 0.0) {
+    if (!this.pourStreamMesh || !this.pourStreamMesh.geometry) return;
+
+    const geo = this.pourStreamMesh.geometry;
+    const pos = geo.attributes.position;
+    const rings = 96;
+    const radialSegments = 64;
+
+    // Spout position in cup coordinates (origin of barista milk pitcher pour directly above rim)
+    const spout = new THREE.Vector3(0.15, 3.4, -0.75);
+    const pool = new THREE.Vector3(0, currentLiquidY, 0);
+
+    // Natural curvy flow trajectory with organic fluid arc:
+    const getStreamCenter = (u) => {
+      // Fluid descent accelerates naturally under gravity
+      const uGrav = THREE.MathUtils.lerp(Math.pow(u, 1.35), u, 0.15);
+      const cy = THREE.MathUtils.lerp(spout.y, pool.y, uGrav);
+
+      // Curvy arc factor (vanishes smoothly at spout u=0 and pool u=1, peaking gracefully in mid-flow)
+      const arcFactor = Math.sin(Math.PI * Math.pow(u, 0.85));
+
+      // Organic gentle lateral sway & forward pitcher trajectory arc
+      const swayX = 0.045 * arcFactor;
+      const swayZ = 0.055 * arcFactor;
+
+      const cx = THREE.MathUtils.lerp(spout.x, pool.x, u) + swayX;
+      const cz = THREE.MathUtils.lerp(spout.z, pool.z, Math.pow(u, 1.15)) + swayZ;
+
+      return new THREE.Vector3(cx, cy, cz);
+    };
+
+    let idx = 0;
+    for (let i = 0; i <= rings; i++) {
+      const frac = i / rings;
+      // Active parameter along pouring trajectory
+      const u = uStart + (uEnd - uStart) * frac;
+
+      // Centerline position
+      const center = getStreamCenter(u);
+
+      // Tangent vector along curvy trajectory
+      const uPrev = Math.max(0.0, u - 0.012);
+      const uNext = Math.min(1.0, u + 0.012);
+      const pPrev = getStreamCenter(uPrev);
+      const pNext = getStreamCenter(uNext);
+      const tangent = new THREE.Vector3().subVectors(pNext, pPrev).normalize();
+
+      // Orthonormal frame perpendicular to tangent
+      let ref = new THREE.Vector3(0, 0, 1);
+      if (Math.abs(tangent.dot(ref)) > 0.88) {
+        ref = new THREE.Vector3(1, 0, 0);
+      }
+      const norm = new THREE.Vector3().crossVectors(tangent, ref).normalize();
+      const binorm = new THREE.Vector3().crossVectors(tangent, norm).normalize();
+
+      // --- DYNAMIC HELICAL FLUID ROPE TWIST (Silky, Smooth Spiral Mechanics) ---
+      // 1.2 full, graceful spiral turns down the stream length
+      const twistTurns = 1.2;
+      // Smooth natural flow downward with fluid velocity
+      const twistAngle = u * (Math.PI * 2.0 * twistTurns) - elapsedTime * 2.0;
+
+      const cosTwist = Math.cos(twistAngle);
+      const sinTwist = Math.sin(twistAngle);
+
+      // Rotated principal axes for elliptical twisted fluid ribbon
+      const uMajor = new THREE.Vector3()
+        .copy(norm).multiplyScalar(cosTwist)
+        .addScaledVector(binorm, sinTwist);
+
+      const uMinor = new THREE.Vector3()
+        .copy(norm).multiplyScalar(-sinTwist)
+        .addScaledVector(binorm, cosTwist);
+
+      // --- SUBSTANTIAL THICK FLUID RIBBON RADIUS & ECCENTRICITY PROFILE ---
+      // Generous, thick barista stream profile (freefall waist ~0.060, lip ~0.105, flare ~0.110)
+      const neckFrac = Math.pow(1.0 - u, 2.0);
+      const flareFrac = Math.pow(Math.max(0, (u - 0.70) / 0.30), 2.2);
+      const baseR = 0.058 + 0.042 * neckFrac + 0.046 * flareFrac;
+
+      // Soft, silky fluid ribbon flattening:
+      // Spout lip pours as a wide flat sheet, contracts into twisted fluid column, flares circular at pool
+      const topSheet = Math.pow(Math.max(0, 1.0 - u / 0.28), 1.6);
+      const poolRound = Math.pow(Math.max(0, (u - 0.74) / 0.26), 1.8);
+      const eccentricity = THREE.MathUtils.lerp(0.26 + 0.18 * topSheet, 0.0, poolRound);
+
+      // Unbroken continuous fluid ribbon without high-frequency ring oscillations (100% line-free & silky smooth)
+      const flowRipple = 1.0;
+
+      const rMajor = baseR * (1.0 + eccentricity * 1.10) * flowRipple;
+      const rMinor = baseR * (1.0 - eccentricity * 0.65) * flowRipple;
+
+      // Smooth horizontal planar blend at the pool surface (u > 0.72)
+      // Eliminates diagonal slicing and ensures 100% flush co-planar contact with the coffee surface
+      const hBlend = Math.pow(Math.max(0, (u - 0.72) / 0.28), 2.0);
+
+      for (let j = 0; j < radialSegments; j++) {
+        const theta = (j / radialSegments) * Math.PI * 2;
+        const cosT = Math.cos(theta);
+        const sinT = Math.sin(theta);
+
+        // Elliptical twisted cross-section offset
+        const offX = rMajor * cosT * uMajor.x + rMinor * sinT * uMinor.x;
+        const offY = rMajor * cosT * uMajor.y + rMinor * sinT * uMinor.y;
+        const offZ = rMajor * cosT * uMajor.z + rMinor * sinT * uMinor.z;
+
+        const pxTwist = center.x + offX;
+        const pyTwist = center.y + offY;
+        const pzTwist = center.z + offZ;
+
+        // Horizontally flat cross section at pool impact (u -> 1)
+        const pxHoriz = center.x + baseR * cosT;
+        const pyHoriz = center.y;
+        const pzHoriz = center.z + baseR * sinT;
+
+        const px = THREE.MathUtils.lerp(pxTwist, pxHoriz, hBlend);
+        const py = THREE.MathUtils.lerp(pyTwist, pyHoriz, hBlend);
+        const pz = THREE.MathUtils.lerp(pzTwist, pzHoriz, hBlend);
+
+        pos.setXYZ(idx, px, py, pz);
+        idx++;
+      }
+    }
+
+    pos.needsUpdate = true;
+    geo.computeVertexNormals();
+    geo.computeBoundingSphere();
   }
 
   /* Procedural 3D Coffee Bean Geometry */
@@ -584,6 +946,7 @@ class Caffyo3DExperience {
     });
 
     this.steamParticles = new THREE.Points(geometry, material);
+    this.steamParticles.visible = false;
     this.scene.add(this.steamParticles);
   }
 
@@ -592,6 +955,10 @@ class Caffyo3DExperience {
     if (this.explosionCooldown > 0) return;
     this.explosionCooldown = 0.7;
     this.isExploding = true;
+
+    // Direct physical detonation impulse on fluid: compress and bounce
+    this.fluid.jiggleVelY = -0.09;
+    this.fluid.waveEnergy = Math.max(this.fluid.waveEnergy, 2.8);
 
     if (window.caffyoAudio) {
       window.caffyoAudio.playExplosionSound();
@@ -728,17 +1095,48 @@ class Caffyo3DExperience {
   triggerLiquidRipple() {
     this.rippleTime = 0;
     this.rippleStrength = 1.0;
+    this.fluid.waveEnergy = Math.max(this.fluid.waveEnergy, 2.2);
+    this.fluid.jiggleVelY = -0.055; // sharp little downward tap, then buoyant rebound jiggle!
     if (window.caffyoAudio && window.caffyoAudio.playCupStir) {
       window.caffyoAudio.playCupStir();
     }
   }
 
-  /* Called by app.js once the preloader fades out — starts cinematic drop */
+  /* Called by app.js once the preloader fades out — starts cinematic barista entry sequence */
   triggerCupEntry() {
     if (this.entryStarted) return; // prevent double-fire
     this.entryStarted = true;
     this.entryProgress = 0;
     this.hasCompletedEntry = false;
+    this.hasPlayedCupLand = false;
+    this.hasPlayedPourStart = false;
+    this.hasPlayedMilkStart = false;
+    this.hasPlayedLatteBloom = false;
+    this.hasCutoffJiggled = false;
+    this.hasCutoffJiggledCoffee = false;
+    if (this.steamParticles) {
+      this.steamParticles.visible = false;
+    }
+    if (this.latteArtMesh) {
+      this.latteArtMesh.visible = false;
+      this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+    }
+    if (this.latteUniforms) {
+      this.latteUniforms.uBloomRadius.value = 0.0;
+    }
+    if (this.pourFoamSpot) {
+      this.pourFoamSpot.visible = false;
+    }
+    if (this.liquidGroup) {
+      this.liquidGroup.position.set(0, 0.82, 0);
+      this.liquidGroup.scale.set(0.85, 1.0, 0.85);
+    }
+    if (this.pourStreamGroup) {
+      this.pourStreamGroup.visible = false;
+    }
+    if (this.pourDroplets) {
+      this.pourDroplets.forEach(d => { d.mesh.visible = false; });
+    }
     this.clock.getDelta(); // flush accumulated delta so dt starts fresh
   }
 
@@ -766,6 +1164,7 @@ class Caffyo3DExperience {
         const dragDist = Math.hypot(deltaX, deltaY);
         this.fluid.waveEnergy = Math.min(2.5, this.fluid.waveEnergy + dragDist * 0.05);
         this.fluid.angularVel += deltaX * 0.012;
+        this.fluid.jiggleVelY += dragDist * 0.0016; // Vertical inertial fluid jiggle
 
         const now = performance.now();
         if (dragDist > 10 && now - this.fluid.lastSloshSoundTime > 300) {
@@ -787,6 +1186,10 @@ class Caffyo3DExperience {
         this.previousPos = { x: e.clientX, y: e.clientY };
       });
       window.addEventListener('mouseup', () => {
+        if (this.isInteracting) {
+          const sloshEnergy = Math.hypot(this.fluid.velX, this.fluid.velZ);
+          this.fluid.jiggleVelY += Math.min(0.045, sloshEnergy * 0.035);
+        }
         this.isInteracting = false;
       });
       canvas.addEventListener('mouseleave', () => {
@@ -819,6 +1222,7 @@ class Caffyo3DExperience {
           const dragDist = Math.hypot(deltaX, deltaY);
           this.fluid.waveEnergy = Math.min(2.5, this.fluid.waveEnergy + dragDist * 0.06);
           this.fluid.angularVel += deltaX * 0.015;
+          this.fluid.jiggleVelY += dragDist * 0.0020; // Mobile touch jiggle
 
           const now = performance.now();
           if (dragDist > 12 && now - this.fluid.lastSloshSoundTime > 300) {
@@ -833,6 +1237,10 @@ class Caffyo3DExperience {
       }, { passive: true });
 
       canvas.addEventListener('touchend', () => {
+        if (this.isInteracting) {
+          const sloshEnergy = Math.hypot(this.fluid.velX, this.fluid.velZ);
+          this.fluid.jiggleVelY += Math.min(0.045, sloshEnergy * 0.035);
+        }
         this.isInteracting = false;
       }, { passive: true });
       canvas.addEventListener('touchcancel', () => {
@@ -878,65 +1286,376 @@ class Caffyo3DExperience {
         const restRotZ = 0;
 
         if (!this.entryStarted) {
-          // Cup frozen off-screen — waiting for triggerCupEntry() call
-          // Keep it parked high above, invisible
-          this.cupGroup.scale.setScalar(0.001);
+          // All parts parked gently above until triggerCupEntry() is called
+          if (this.saucerGroup) {
+            this.saucerGroup.position.set(0, 4.5, 0);
+            this.saucerGroup.scale.setScalar(0.70);
+          }
+          if (this.cupBodyGroup) {
+            this.cupBodyGroup.position.set(0, 5.0, 0);
+            this.cupBodyGroup.scale.setScalar(0.70);
+          }
+          if (this.liquidGroup) {
+            this.liquidGroup.position.set(0, 0.82, 0);
+            this.liquidGroup.scale.set(0.85, 1.0, 0.85);
+          }
+          if (this.pourStreamGroup) {
+            this.pourStreamGroup.visible = false;
+          }
+          if (this.pourDroplets) {
+            this.pourDroplets.forEach(d => { d.mesh.visible = false; });
+          }
+          if (this.latteArtMesh) {
+            this.latteArtMesh.visible = false;
+            this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+          }
+          if (this.latteUniforms) {
+            this.latteUniforms.uBloomRadius.value = 0.0;
+          }
+          if (this.pourFoamSpot) {
+            this.pourFoamSpot.visible = false;
+          }
+          if (this.steamParticles) {
+            this.steamParticles.visible = false;
+          }
         } else if (!this.hasCompletedEntry) {
-          // ─────────────────────────────────────────────────────────
-          // CINEMATIC DROP-IN  (3 phases driven by entryProgress 0→1)
-          //  Phase 1 [0.0 → 0.55]: Cup drops from sky, spins & grows
-          //  Phase 2 [0.55 → 0.78]: Overshoot — slight over-drop
-          //  Phase 3 [0.78 → 1.0]:  Spring back to rest with bounce
-          // ─────────────────────────────────────────────────────────
           this.entryProgress += dt / this.entryDuration;
           if (this.entryProgress >= 1.0) {
             this.entryProgress = 1.0;
             this.hasCompletedEntry = true;
-            this.fluid.waveEnergy = 1.2; // big ripple on landing!
           }
 
           const t = this.entryProgress;
 
-          // --- Position Y: custom spring-bounce curve ---
-          let posY;
-          const dropFrom = targetY + 8.5;   // Start high above
-          if (t < 0.60) {
-            // Fast drop — ease-in-quad for gravity feel
-            const p = t / 0.60;
-            const gravity = p * p;
-            posY = THREE.MathUtils.lerp(dropFrom, targetY - 0.38, gravity);
-          } else if (t < 0.80) {
-            // Overshoot bounce back up
-            const p = (t - 0.60) / 0.20;
-            const bounce = Math.sin(p * Math.PI);
-            posY = (targetY - 0.38) + bounce * 0.52;
+          // ─────────────────────────────────────────────────────────
+          // 4-STAGE BARISTA CHOREOGRAPHY (Soft, Fluid, Natural Physics):
+          //  Stage 1 [t: 0.00 → 0.24]: Saucer gently glides down with cushioned air resistance & rim wobble
+          //  Stage 2 [t: 0.18 → 0.42]: Cup body drops gracefully into saucer with ceramic ping & coupled recoil
+          //  Stage 3 [t: 0.38 → 0.74]: Espresso pours from high above into cup with fluid dynamics, trumpet flare & capillary ripples
+          //  Stage 4 [t: 0.72 → 0.98]: Rosetta Latte Art blooms radially outward across crema + warm steam rises
+          // ─────────────────────────────────────────────────────────
+
+          // --- STAGE 1: SAUCER / PLATE DROP ---
+          const s1Start = 0.00;
+          const s1End = 0.24;
+          if (t < s1Start) {
+            this.saucerGroup.position.set(0, 4.5, 0);
+            this.saucerGroup.scale.setScalar(0.70);
+          } else if (t < s1End) {
+            const p = (t - s1Start) / (s1End - s1Start);
+            if (p < 0.65) {
+              const f = p / 0.65;
+              // Smooth cubic ease-out: cushions softly into table contact
+              const ease = 1 - Math.pow(1 - f, 2.8);
+              this.saucerGroup.position.y = THREE.MathUtils.lerp(4.5, 0.0, ease);
+              this.saucerGroup.scale.setScalar(THREE.MathUtils.lerp(0.70, 1.0, f));
+              this.saucerGroup.rotation.x = THREE.MathUtils.lerp(-0.25, 0, f);
+              this.saucerGroup.rotation.z = THREE.MathUtils.lerp(0.12, 0, f);
+            } else {
+              // Delicate, organic ceramic rim settling wobble
+              const tRel = (p - 0.65) / 0.35;
+              const bounce = Math.max(0, Math.sin(tRel * Math.PI * 2.0) * Math.exp(-tRel * 4.5) * 0.18);
+              const wobbleZ = Math.sin(tRel * Math.PI * 3.0) * Math.exp(-tRel * 4.8) * 0.035;
+              const wobbleX = Math.cos(tRel * Math.PI * 2.5) * Math.exp(-tRel * 4.8) * 0.022;
+              this.saucerGroup.position.y = bounce;
+              this.saucerGroup.rotation.x = wobbleX;
+              this.saucerGroup.rotation.z = wobbleZ;
+              this.saucerGroup.scale.setScalar(1.0);
+            }
           } else {
-            // Settle to rest with damped wobble
-            const p = (t - 0.80) / 0.20;
-            const settle = 1 - Math.pow(1 - p, 3);
-            const wobble = Math.sin(p * Math.PI * 2.5) * (1 - p) * 0.12;
-            posY = THREE.MathUtils.lerp(targetY - 0.38, targetY, settle) + wobble;
+            this.saucerGroup.position.set(0, 0, 0);
+            this.saucerGroup.scale.setScalar(1.0);
+            this.saucerGroup.rotation.set(0, 0, 0);
           }
 
-          // --- Position X: drift in from slight offset ---
-          const startX = targetX + (isMobile ? 0 : 1.2);
-          const xEase = 1 - Math.pow(1 - Math.min(t / 0.75, 1.0), 3);
-          this.cupGroup.position.x = THREE.MathUtils.lerp(startX, targetX, xEase);
-          this.cupGroup.position.y = posY;
-          this.cupGroup.position.z = THREE.MathUtils.lerp(1.5, restZ, 1 - Math.pow(1 - Math.min(t, 1), 2));
+          // --- STAGE 2: CUP BODY DROP ONTO SAUCER ---
+          const s2Start = 0.18;
+          const s2End = 0.42;
+          if (t < s2Start) {
+            this.cupBodyGroup.position.set(0, 5.0, 0);
+            this.cupBodyGroup.scale.setScalar(0.70);
+          } else if (t < s2End) {
+            const p = (t - s2Start) / (s2End - s2Start);
+            if (p < 0.65) {
+              const f = p / 0.65;
+              const ease = 1 - Math.pow(1 - f, 2.8);
+              this.cupBodyGroup.position.y = THREE.MathUtils.lerp(5.0, 0.0, ease);
+              this.cupBodyGroup.scale.setScalar(THREE.MathUtils.lerp(0.70, 1.0, f));
+              this.cupBodyGroup.rotation.x = THREE.MathUtils.lerp(-0.20, 0, f);
+              this.cupBodyGroup.rotation.y = THREE.MathUtils.lerp(0.60, 0, f);
+            } else {
+              if (!this.hasPlayedCupLand) {
+                this.hasPlayedCupLand = true;
+                if (window.caffyoAudio && window.caffyoAudio.playCupStir) {
+                  window.caffyoAudio.playCupStir();
+                }
+                // When cup clinks into saucer, the pre-existing coffee inside sloshes and jiggles!
+                this.fluid.jiggleVelY = -0.065;
+                this.fluid.waveEnergy = 2.4;
+              }
+              const tRel = (p - 0.65) / 0.35;
+              const bounce = Math.max(0, Math.sin(tRel * Math.PI * 2.2) * Math.exp(-tRel * 4.6) * 0.14);
+              this.cupBodyGroup.position.y = bounce;
+              this.cupBodyGroup.scale.setScalar(1.0);
+              this.cupBodyGroup.rotation.x = 0;
+              this.cupBodyGroup.rotation.y = 0;
+              this.cupBodyGroup.rotation.z = Math.sin(tRel * Math.PI * 1.8) * Math.exp(-tRel * 4.2) * 0.018;
 
-          // --- Scale: grow from 0 → full in first 65% ---
-          const scaleT = Math.min(t / 0.65, 1.0);
-          const scalePow = 1 - Math.pow(1 - scaleT, 2.8);
-          this.cupGroup.scale.setScalar(THREE.MathUtils.lerp(0.05, targetScale, scalePow));
+              // Coupled Newton's 3rd Law reaction on saucer beneath
+              const saucerDip = -0.028 * Math.sin(tRel * Math.PI) * Math.exp(-tRel * 4.0);
+              this.saucerGroup.position.y = saucerDip;
+            }
+          } else {
+            this.cupBodyGroup.position.set(0, 0, 0);
+            this.cupBodyGroup.scale.setScalar(1.0);
+            this.cupBodyGroup.rotation.set(0, 0, 0);
+          }
 
-          // --- Rotation: spin down and settle ---
-          const rotEase = 1 - Math.pow(1 - Math.min(t / 0.85, 1), 3);
-          this.cupGroup.rotation.x = THREE.MathUtils.lerp(-0.4, restRotX, rotEase);
-          this.cupGroup.rotation.y = THREE.MathUtils.lerp(1.2 + t * 1.8, restRotY, rotEase);
-          this.cupGroup.rotation.z = THREE.MathUtils.lerp(0.15, restRotZ, rotEase);
+          // --- STAGE 3: STEAMED MILK POUR & NATURAL BARISTA LATTE ART CREATION ---
+          // Dark coffee (espresso) is ALREADY PRESENT in cup at yMid = 0.82 (~60% cup fill).
+          // Steamed microfoam milk pours from pitcher, filling cup to yTop = 1.205.
+          // Right where milk pours in, the microfoam blooms organically into the barista heart latte art!
+          const s3Start = 0.34;
+          const s3End = 0.82;
+          const yMid = 0.82;    // pre-existing espresso base fill level (~60% cup volume)
+          const yTop = 1.205;   // full liquid capacity level inside porcelain cup
+
+          if (t < s3Start) {
+            // Coffee is visibly present inside the cup, sloshing and jiggling with cup landing impact
+            const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+            const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+            this.liquidGroup.position.set(0, yMid + this.fluid.jiggleY, 0);
+            this.liquidGroup.scale.set(0.85 * jiggleSquashXZ, jiggleStretchY, 0.85 * jiggleSquashXZ);
+            if (this.pourStreamGroup) this.pourStreamGroup.visible = false;
+            if (this.pourDroplets) {
+              this.pourDroplets.forEach(d => { d.active = false; d.mesh.visible = false; });
+            }
+            if (this.latteArtMesh) this.latteArtMesh.visible = false;
+            if (this.latteUniforms) this.latteUniforms.uBloomRadius.value = 0.0;
+            if (this.pourFoamSpot) this.pourFoamSpot.visible = false;
+          } else if (t < s3End) {
+            const milkP = (t - s3Start) / (s3End - s3Start);
+
+            // Configure stream appearance for silky white steamed microfoam milk
+            if (this.pourStreamMesh && this.pourStreamMesh.material) {
+              this.pourStreamMesh.material.color.setHex(0xfffef9);
+              this.pourStreamMesh.material.roughness = 0.20;
+            }
+
+            if (!this.hasPlayedMilkStart) {
+              this.hasPlayedMilkStart = true;
+              if (window.caffyoAudio && window.caffyoAudio.playMilkPourSound) {
+                window.caffyoAudio.playMilkPourSound();
+              }
+            }
+
+            if (milkP < 0.10) {
+              // Steamed milk stream shoots down to the dark coffee surface
+              const shootP = Math.max(0.04, milkP / 0.10);
+              if (this.pourStreamGroup) {
+                this.pourStreamGroup.visible = true;
+                this.updateLaminarStream(yMid, 0.0, shootP, elapsedTime);
+              }
+              const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+              const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+              this.liquidGroup.position.set(0, yMid + this.fluid.jiggleY, 0);
+              this.liquidGroup.scale.set(0.85 * jiggleSquashXZ, jiggleStretchY, 0.85 * jiggleSquashXZ);
+              if (this.latteArtMesh) this.latteArtMesh.visible = false;
+              if (this.latteUniforms) this.latteUniforms.uBloomRadius.value = 0.0;
+              if (this.pourFoamSpot) this.pourFoamSpot.visible = false;
+            } else if (milkP < 0.86) {
+              // Steamed milk pours into dark espresso, filling cup from yMid (0.82) to yTop (1.205)
+              const fillVolume = (milkP - 0.10) / 0.76;
+              const fillH = Math.pow(Math.max(0, fillVolume), 0.88);
+              const currentLiquidY = THREE.MathUtils.lerp(yMid, yTop, fillH);
+              const currentLiquidScale = THREE.MathUtils.lerp(0.85, 1.0, fillH);
+
+              // DYNAMIC BARISTA MILK FOAM SPREADING (DOT -> EXPANDING BULB -> HEART ART):
+              // No whole-image opacity fade! Milk lands as a single white dot at impact and expands organically outward.
+              let currentRadius = 0.0;
+              if (fillVolume < 0.18) {
+                // 1 dot emergence & initial circular puddle expansion: 0.003 -> 0.085
+                const f = fillVolume / 0.18;
+                currentRadius = THREE.MathUtils.lerp(0.003, 0.085, Math.pow(f, 1.35));
+              } else if (fillVolume < 0.62) {
+                // Microfoam spreads into heart lobes & pattern: 0.085 -> 0.35
+                const f = (fillVolume - 0.18) / 0.44;
+                currentRadius = THREE.MathUtils.lerp(0.085, 0.35, 1.0 - Math.pow(1.0 - f, 1.5));
+              } else {
+                // Crema pushed outward to porcelain cup rim: 0.35 -> 0.62
+                const f = (fillVolume - 0.62) / 0.38;
+                currentRadius = THREE.MathUtils.lerp(0.35, 0.62, 1.0 - Math.pow(1.0 - f, 1.7));
+              }
+
+              if (this.latteUniforms) {
+                this.latteUniforms.uBloomRadius.value = currentRadius;
+                this.latteUniforms.uTime.value = elapsedTime;
+              }
+              if (this.latteArtMesh) {
+                this.latteArtMesh.visible = true;
+                this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+              }
+
+              // Touchdown foam spot provides instant bright white milk splash at contact point during early pour
+              if (this.pourFoamSpot) {
+                if (fillVolume < 0.25) {
+                  this.pourFoamSpot.visible = true;
+                  const spotScale = Math.min(1.0, Math.max(0.05, currentRadius / 0.085));
+                  this.pourFoamSpot.scale.set(spotScale, 1.0, spotScale);
+                  this.pourFoamSpot.material.opacity = Math.max(0.0, 1.0 - (fillVolume / 0.25));
+                } else {
+                  this.pourFoamSpot.visible = false;
+                }
+              }
+
+              // Liquid pour jiggle & wave turbulence from pouring milk
+              this.fluid.jiggleVelY += (Math.sin(milkP * 34.0) * 0.010 + (Math.random() - 0.5) * 0.005) * (dt * 60);
+
+              const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+              const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+
+              this.liquidGroup.position.set(0, currentLiquidY + this.fluid.jiggleY, 0);
+              this.liquidGroup.scale.set(
+                currentLiquidScale * jiggleSquashXZ,
+                jiggleStretchY,
+                currentLiquidScale * jiggleSquashXZ
+              );
+
+              if (this.pourStreamGroup) {
+                this.pourStreamGroup.visible = true;
+                this.updateLaminarStream(currentLiquidY + this.fluid.jiggleY, 0.0, 1.0, elapsedTime);
+              }
+
+              this.fluid.waveEnergy = Math.max(this.fluid.waveEnergy, 1.8);
+              const massCompression = -0.020 * fillH;
+              this.cupBodyGroup.position.y = massCompression;
+              this.saucerGroup.position.y = massCompression * 0.5;
+
+            } else {
+              // Milk stream gracefully finishes and cuts off from the top
+              const cutP = (milkP - 0.86) / 0.14;
+
+              if (!this.hasCutoffJiggled) {
+                this.hasCutoffJiggled = true;
+                // Impact cessation rebound jiggle
+                this.fluid.jiggleVelY = -0.065;
+                this.fluid.waveEnergy = Math.max(this.fluid.waveEnergy, 2.4);
+              }
+
+              const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+              const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+
+              this.liquidGroup.position.set(0, yTop + this.fluid.jiggleY, 0);
+              this.liquidGroup.scale.set(jiggleSquashXZ, jiggleStretchY, jiggleSquashXZ);
+
+              if (this.latteUniforms) {
+                this.latteUniforms.uBloomRadius.value = 0.62;
+                this.latteUniforms.uTime.value = elapsedTime;
+              }
+              if (this.latteArtMesh) {
+                this.latteArtMesh.visible = true;
+                this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+              }
+              if (this.pourFoamSpot) {
+                this.pourFoamSpot.visible = false;
+              }
+
+              if (cutP < 1.0 && this.pourStreamGroup) {
+                this.pourStreamGroup.visible = true;
+                this.updateLaminarStream(yTop + this.fluid.jiggleY, cutP, 1.0, elapsedTime);
+              } else if (this.pourStreamGroup) {
+                this.pourStreamGroup.visible = false;
+              }
+
+              this.fluid.waveEnergy = Math.max(this.fluid.waveEnergy, 1.4 * (1.0 - cutP));
+            }
+
+          } else {
+            // --- STAGE 4: SETTLE, WARM STEAM RISE & SUCCESS CHIME ---
+            if (this.pourStreamGroup) this.pourStreamGroup.visible = false;
+            const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+            const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+            this.liquidGroup.position.set(0, yTop + this.fluid.jiggleY, 0);
+            this.liquidGroup.scale.set(jiggleSquashXZ, jiggleStretchY, jiggleSquashXZ);
+
+            if (this.latteUniforms) {
+              this.latteUniforms.uBloomRadius.value = 0.62;
+              this.latteUniforms.uTime.value = elapsedTime;
+            }
+            if (this.latteArtMesh) {
+              this.latteArtMesh.visible = true;
+              this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+            }
+            if (this.pourFoamSpot) {
+              this.pourFoamSpot.visible = false;
+            }
+
+            this.cupBodyGroup.position.set(0, 0, 0);
+            this.saucerGroup.position.set(0, 0, 0);
+
+            // Fresh warm steam smoothly appears and rises
+            const steamP = Math.min(1.0, (t - s3End) / (1.0 - s3End));
+            if (this.steamParticles) {
+              this.steamParticles.visible = true;
+              if (this.steamParticles.material) {
+                this.steamParticles.material.opacity = THREE.MathUtils.lerp(0.0, 0.16, steamP);
+              }
+            }
+
+            if (!this.hasPlayedLatteBloom) {
+              this.hasPlayedLatteBloom = true;
+              if (window.caffyoAudio && window.caffyoAudio.playChime) {
+                window.caffyoAudio.playChime(784, 0.08); // gentle crystalline chime
+              }
+            }
+
+            this.fluid.waveEnergy *= Math.exp(-2.8 * dt);
+          }
+
+          // Gentle positioning of overall cupGroup during entry
+          this.cupGroup.position.x = targetX;
+          this.cupGroup.position.y = targetY;
+          this.cupGroup.position.z = restZ;
+          this.cupGroup.scale.setScalar(targetScale);
+          this.cupGroup.rotation.x = restRotX;
+          this.cupGroup.rotation.y = restRotY;
+          this.cupGroup.rotation.z = restRotZ;
 
         } else {
+          // After entry completes: ensure subgroups are locked at rest positions
+          if (this.saucerGroup) {
+            this.saucerGroup.position.set(0, 0, 0);
+            this.saucerGroup.scale.setScalar(1.0);
+          }
+          if (this.cupBodyGroup) {
+            this.cupBodyGroup.position.set(0, 0, 0);
+            this.cupBodyGroup.scale.setScalar(1.0);
+          }
+          if (this.liquidGroup && !this.hasCompletedEntry) {
+            this.liquidGroup.position.set(0, 1.205, 0);
+            this.liquidGroup.scale.set(1.0, 1.0, 1.0);
+          }
+          if (this.latteArtMesh) {
+            this.latteArtMesh.visible = true;
+            this.latteArtMesh.scale.set(1.0, 1.0, 1.0);
+          }
+          if (this.latteUniforms) {
+            this.latteUniforms.uBloomRadius.value = 0.62;
+            this.latteUniforms.uTime.value = elapsedTime;
+          }
+          if (this.pourFoamSpot) {
+            this.pourFoamSpot.visible = false;
+          }
+          if (this.pourStreamGroup) {
+            this.pourStreamGroup.visible = false;
+          }
+          if (this.pourDroplets) {
+            this.pourDroplets.forEach(d => { d.mesh.visible = false; });
+          }
+          if (this.steamParticles) {
+            this.steamParticles.visible = true;
+          }
+
           const returnSpeed = 0.055; // Silky smooth damped spring back
           this.cupGroup.position.x += (targetX - this.cupGroup.position.x) * returnSpeed;
           this.cupGroup.position.y += (targetY - this.cupGroup.position.y) * returnSpeed;
@@ -957,7 +1676,7 @@ class Caffyo3DExperience {
     }
 
     // ============================================================
-    // Real-Time Fluid Dynamics Simulator (Damped 2D Harmonic Oscillator)
+    // Real-Time Fluid Dynamics Simulator (Damped 2D Slosh + 3D Harmonic Jiggle)
     // ============================================================
     const spring = 26.0;   // Restoring buoyancy force
     const damping = 4.2;  // Viscous fluid resistance
@@ -986,30 +1705,56 @@ class Caffyo3DExperience {
       this.fluid.velZ *= 0.5;
     }
 
-    // 1. Rigid Continuous Fluid Plane Tilt (100% Smooth, Zero Tearing, Zero Jagged Polygons)
+    // Vertical Fluid Jiggle Oscillator (Restoring Surface Tension & Volume Elasticity)
+    const jiggleOmega = 24.0;   // ~3.8 Hz natural fluid bounce
+    const jiggleDamp = 6.8;     // Viscous damping for soft, organic jiggle
+    const accelJiggleY = -jiggleOmega * jiggleOmega * this.fluid.jiggleY - 2.0 * jiggleDamp * this.fluid.jiggleVelY;
+
+    this.fluid.jiggleVelY += accelJiggleY * dt;
+    this.fluid.jiggleY += this.fluid.jiggleVelY * dt;
+
+    // Ambient micro-jiggle (delicate living fluid tremor)
+    const ambientJiggle = (Math.sin(elapsedTime * 5.4) * 0.0006 + Math.cos(elapsedTime * 9.8) * 0.0003);
+    this.fluid.jiggleY += ambientJiggle * dt * 25.0;
+
+    // Physical limit so liquid stays securely within the porcelain cup rim
+    this.fluid.jiggleY = Math.max(-0.048, Math.min(0.048, this.fluid.jiggleY));
+
+    // 1. Continuous Fluid Plane Tilt & Dynamic Volume Jiggle (100% Smooth, Zero Tearing)
     if (this.liquidGroup) {
       this.liquidGroup.rotation.z = -this.fluid.sloshX;
       this.liquidGroup.rotation.x = this.fluid.sloshZ;
+
+      const jiggleStretchY = 1.0 + this.fluid.jiggleY * 1.2;
+      const jiggleSquashXZ = 1.0 - this.fluid.jiggleY * 0.45;
+
+      // When entry has finished (idle or interactive drag), jiggle updates position & scale dynamically!
+      if (this.hasCompletedEntry) {
+        this.liquidGroup.position.set(0, 1.205 + this.fluid.jiggleY, 0);
+        this.liquidGroup.scale.set(jiggleSquashXZ, jiggleStretchY, jiggleSquashXZ);
+      }
     }
 
-    // 2. Continuous Organic Surface Capillary Ripples (Zero-Derivative Center & Boundary)
+    // 2. Continuous Organic Surface Capillary Ripples + Harmonic Bessel J0 Dome Jiggle
     if (this.liquidMesh && this.liquidOrigPos) {
       const pos = this.liquidMesh.geometry.attributes.position;
       const count = pos.count;
-      const R = 1.245;
+      const R = 1.255;
 
       for (let i = 0; i < count; i++) {
         const ox = this.liquidOrigPos[i * 3 + 0];
-        const oy = this.liquidOrigPos[i * 3 + 1];
-        const r = Math.hypot(ox, oy);
+        const oz = this.liquidOrigPos[i * 3 + 2];
+        const r = Math.hypot(ox, oz);
 
         if (r <= R) {
           // Quadratic hermite falloff: exactly 0 at rim with zero slope (NO EDGE TEARING)
           const w = Math.pow(Math.max(0, 1.0 - (r * r) / (R * R)), 2);
-          // Cosine wave: smooth rounded peak at center (NO CONE SPIKE)
-          const ripple = Math.cos(r * 9.0 - this.fluid.wavePhase) * (this.fluid.waveEnergy * 0.016) * w;
-          const ambient = Math.cos(r * 4.5 - elapsedTime * 2.0) * 0.0015 * w;
-          pos.setZ(i, this.liquidOrigPos[i * 3 + 2] + ripple + ambient);
+          // Silky capillary ripple: calm, organic wave
+          const ripple = Math.cos(r * 7.5 - this.fluid.wavePhase) * (this.fluid.waveEnergy * 0.009) * w;
+          const ambient = Math.cos(r * 3.5 - elapsedTime * 1.8) * 0.0012 * w;
+          // Organic fluid center bounce jiggle (Bessel J0-like dome mode)
+          const jiggleBulge = this.fluid.jiggleY * 0.50 * Math.cos(r * 2.2) * w;
+          pos.setY(i, this.liquidOrigPos[i * 3 + 1] + ripple + ambient + jiggleBulge);
         }
       }
       pos.needsUpdate = true;

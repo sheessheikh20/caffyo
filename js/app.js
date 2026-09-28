@@ -573,6 +573,9 @@ function initPreloader() {
   setTimeout(() => {
     if (!preloader.classList.contains('loaded')) {
       preloader.classList.add('loaded');
+      if (window.caffyo3D && window.caffyo3D.triggerCupEntry) {
+        window.caffyo3D.triggerCupEntry();
+      }
     }
   }, 2500);
 }
